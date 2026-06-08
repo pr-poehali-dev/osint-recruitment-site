@@ -281,7 +281,7 @@ export default function Index() {
             <LogoS size={34} animated />
             <div>
               <div className="font-orb text-[12px] tracking-[0.18em] text-white leading-none">OSINT-РЭР</div>
-              <div className="font-stm text-[8px] tracking-[0.2em] text-green-400/40 uppercase leading-none mt-0.5">Служба · Аналитика</div>
+              <div className="font-stm text-[8px] tracking-[0.2em] text-green-400/40 uppercase leading-none mt-0.5">Радиоэлектронная разведка</div>
             </div>
           </a>
 
@@ -1225,7 +1225,7 @@ export default function Index() {
             <LogoS size={28} animated />
             <div>
               <div className="font-orb text-white text-xs tracking-widest">OSINT-РЭР</div>
-              <div className="font-stm text-[8px] tracking-[0.2em]" style={{ color: "rgba(0,255,136,0.3)" }}>СЛУЖБА · АНАЛИТИКА</div>
+              <div className="font-stm text-[8px] tracking-[0.2em]" style={{ color: "rgba(0,255,136,0.3)" }}>РАДИОЭЛЕКТРОННАЯ РАЗВЕДКА</div>
             </div>
           </div>
           <div className="font-stm text-[9px] text-center tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>© 2026 OSINT-РЭР — Все права защищены</div>
