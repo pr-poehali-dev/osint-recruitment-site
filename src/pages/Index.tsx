@@ -10,6 +10,8 @@ import ExitPopup from "@/components/ExitPopup";
 import Quiz from "@/components/Quiz";
 import Comparison from "@/components/Comparison";
 import AccessibilityBar from "@/components/AccessibilityBar";
+import CyberMap from "@/components/CyberMap";
+import CyberBackground from "@/components/CyberBackground";
 
 /* ── SOUND ENGINE ────────────────────────────────────────── */
 function useSound() {
@@ -342,7 +344,9 @@ export default function Index() {
   const contactsRef = useReveal();
 
   return (
-    <div className="min-h-screen font-exo" style={{ background: "var(--bg)" }}>
+    <div className="min-h-screen font-exo relative" style={{ background: "var(--bg)" }}>
+      <CyberBackground />
+      <div className="relative" style={{ zIndex: 1 }}>
       <ScrollProgress />
       <ExitPopup />
       <AccessibilityBar />
@@ -1245,6 +1249,9 @@ export default function Index() {
       {/* ══ ГЕОГРАФИЯ ═══════════════════════════════════ */}
       <LocationsBlock />
 
+      {/* ══ КИБЕР-КАРТА ═════════════════════════════════ */}
+      <CyberMap />
+
       {/* ══ CONTACTS ════════════════════════════════════ */}
       <section id="contacts" className="py-28 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
@@ -1542,6 +1549,7 @@ export default function Index() {
           </div>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
