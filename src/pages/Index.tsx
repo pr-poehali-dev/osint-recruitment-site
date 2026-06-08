@@ -1346,12 +1346,17 @@ export default function Index() {
                     <div className="animate-fade-blur" style={{ animationDelay: "0.4s", opacity: 0 }}>
                       <label className="font-stm text-[10px] block mb-2.5 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>ТЕЛЕФОН ДЛЯ СВЯЗИ *</label>
                       <div className="relative group">
-                        <Icon name="Phone" size={17} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "rgba(255,255,255,0.35)" }} />
+                        <Icon name="Phone" size={17} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: formState === "error" && form.phone.replace(/\D/g, "").length !== 11 ? "rgba(239,68,68,0.7)" : "rgba(255,255,255,0.35)" }} />
                         <input
                           type="tel"
                           placeholder="+7 (___) ___-__-__"
                           className="form-input"
-                          style={{ paddingLeft: "2.9rem" }}
+                          style={{
+                            paddingLeft: "2.9rem",
+                            ...(formState === "error" && form.phone.replace(/\D/g, "").length !== 11
+                              ? { borderColor: "rgba(239,68,68,0.6)", boxShadow: "0 0 0 3px rgba(239,68,68,0.1), inset 0 2px 4px rgba(0,0,0,0.3)" }
+                              : {}),
+                          }}
                           required
                           value={form.phone}
                           onChange={e => setForm(p => ({ ...p, phone: formatPhone(e.target.value) }))}
