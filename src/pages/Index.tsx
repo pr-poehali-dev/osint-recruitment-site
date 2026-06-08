@@ -1270,82 +1270,107 @@ export default function Index() {
               </div>
 
               {/* ── Форма ── */}
-              <div className="vol-card p-8 cyber-frame animate-fade-right" style={{ opacity: 0, animationDelay: "0.2s" }}>
-                <div className="flex items-center gap-3 mb-2">
-                  <LogoS size={26} animated />
-                  <div>
-                    <div className="font-orb text-white text-sm tracking-wide">ФОРМА ЗАЯВКИ</div>
-                    <div className="font-stm text-[9px] tracking-widest text-scan-green">ЗАЩИЩЁННЫЙ КАНАЛ</div>
+              <div className="vol-card cyber-frame animate-fade-right relative overflow-hidden" style={{ opacity: 0, animationDelay: "0.2s", borderRadius: 16 }}>
+                {/* верхняя подсветка */}
+                <div className="absolute top-0 inset-x-0 h-32 pointer-events-none" style={{ background: "radial-gradient(ellipse at top, rgba(255,255,255,0.07), transparent 70%)" }} />
+
+                {/* Шапка */}
+                <div className="relative px-8 pt-8 pb-6">
+                  <div className="flex items-center gap-3.5">
+                    <LogoS size={30} animated />
+                    <div>
+                      <div className="font-orb text-white" style={{ fontSize: "1.15rem" }}>Форма заявки</div>
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff" }} />
+                        <span className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>ЗАЩИЩЁННЫЙ КАНАЛ · SSL</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="h-px mb-7 mt-4" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.4), rgba(204,34,0,0.3), transparent)" }} />
+                <div className="h-px mx-8" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.25), rgba(220,38,38,0.25), transparent)" }} />
 
+                <div className="px-8 pt-7 pb-8">
                 {formState === "success" ? (
-                  <div className="flex flex-col items-center justify-center py-12 gap-4 animate-scale-in">
-                    <div className="w-20 h-20 flex items-center justify-center"
-                      style={{ background: "rgba(255,255,255,0.1)", border: "2px solid rgba(255,255,255,0.4)", borderRadius: "50%", boxShadow: "0 0 40px rgba(255,255,255,0.2)" }}>
-                      <Icon name="CheckCheck" size={36} style={{ color: "#ffffff" }} />
+                  <div className="flex flex-col items-center justify-center py-14 gap-5 animate-scale-reveal">
+                    <div className="relative flex items-center justify-center" style={{ width: 88, height: 88 }}>
+                      <div className="absolute inset-0 rounded-full animate-breathe" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)" }} />
+                      <div className="w-20 h-20 flex items-center justify-center"
+                        style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04))", border: "2px solid rgba(255,255,255,0.4)", borderRadius: "50%", boxShadow: "0 0 50px rgba(255,255,255,0.15)" }}>
+                        <Icon name="Check" size={40} style={{ color: "#ffffff" }} />
+                      </div>
                     </div>
-                    <div className="font-orb text-white text-lg uppercase tracking-wide text-center">Заявка отправлена!</div>
-                    <div className="font-exo text-white/50 text-sm text-center">Свяжемся с вами в течение 24 часов</div>
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="font-orb text-white text-center" style={{ fontSize: "1.4rem" }}>Заявка отправлена!</div>
+                    <div className="font-exo text-white/55 text-center leading-relaxed max-w-[260px]">Спасибо! Свяжемся с вами в течение 24 часов</div>
+                    <div className="flex items-center gap-2 mt-1 px-4 py-2" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8 }}>
                       <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#ffffff" }} />
-                      <span className="font-stm text-[10px] tracking-widest text-scan-green">ПОЛУЧЕНО · ОБРАБАТЫВАЕТСЯ</span>
+                      <span className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(255,255,255,0.6)" }}>ПОЛУЧЕНО · ОБРАБАТЫВАЕТСЯ</span>
                     </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <div>
-                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>ВАШ ПОЗЫВНОЙ / ИМЯ *</label>
-                      <input
-                        type="text"
-                        placeholder="Иванов Иван Иванович"
-                        className="form-input"
-                        required
-                        value={form.name}
-                        onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                      />
+                    <div className="animate-fade-blur" style={{ animationDelay: "0.3s", opacity: 0 }}>
+                      <label className="font-stm text-[10px] block mb-2.5 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>ВАШ ПОЗЫВНОЙ / ИМЯ *</label>
+                      <div className="relative group">
+                        <Icon name="User" size={17} className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors" style={{ color: "rgba(255,255,255,0.35)" }} />
+                        <input
+                          type="text"
+                          placeholder="Иванов Иван Иванович"
+                          className="form-input"
+                          style={{ paddingLeft: "2.9rem" }}
+                          required
+                          value={form.name}
+                          onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>ТЕЛЕФОН ДЛЯ СВЯЗИ *</label>
-                      <input
-                        type="tel"
-                        placeholder="+7 (___) ___-__-__"
-                        className="form-input"
-                        required
-                        value={form.phone}
-                        onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
-                      />
+                    <div className="animate-fade-blur" style={{ animationDelay: "0.4s", opacity: 0 }}>
+                      <label className="font-stm text-[10px] block mb-2.5 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>ТЕЛЕФОН ДЛЯ СВЯЗИ *</label>
+                      <div className="relative group">
+                        <Icon name="Phone" size={17} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "rgba(255,255,255,0.35)" }} />
+                        <input
+                          type="tel"
+                          placeholder="+7 (___) ___-__-__"
+                          className="form-input"
+                          style={{ paddingLeft: "2.9rem" }}
+                          required
+                          value={form.phone}
+                          onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>НАПРАВЛЕНИЕ СЛУЖБЫ</label>
-                      <select
-                        className="form-input"
-                        style={{ appearance: "none" }}
-                        value={form.specialty}
-                        onChange={e => setForm(p => ({ ...p, specialty: e.target.value }))}
-                      >
-                        <option value="" style={{ background:"#05070d" }}>Выберите специальность</option>
-                        <option value="OSINT-аналитик" style={{ background:"#05070d" }}>OSINT-аналитик</option>
-                        <option value="IT-специалист" style={{ background:"#05070d" }}>IT-специалист</option>
-                        <option value="Оператор БпЛА" style={{ background:"#05070d" }}>Оператор БпЛА</option>
-                        <option value="Водитель / Логистика" style={{ background:"#05070d" }}>Водитель / Логистика</option>
-                        <option value="Мониторинг СМИ" style={{ background:"#05070d" }}>Мониторинг СМИ</option>
-                      </select>
+                    <div className="animate-fade-blur" style={{ animationDelay: "0.5s", opacity: 0 }}>
+                      <label className="font-stm text-[10px] block mb-2.5 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>НАПРАВЛЕНИЕ СЛУЖБЫ</label>
+                      <div className="relative group">
+                        <Icon name="Crosshair" size={17} className="absolute left-4 top-1/2 -translate-y-1/2 z-10" style={{ color: "rgba(255,255,255,0.35)" }} />
+                        <Icon name="ChevronDown" size={16} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(255,255,255,0.35)" }} />
+                        <select
+                          className="form-input"
+                          style={{ appearance: "none", paddingLeft: "2.9rem" }}
+                          value={form.specialty}
+                          onChange={e => setForm(p => ({ ...p, specialty: e.target.value }))}
+                        >
+                          <option value="" style={{ background:"#0e0e10" }}>Выберите специальность</option>
+                          <option value="OSINT-аналитик" style={{ background:"#0e0e10" }}>OSINT-аналитик</option>
+                          <option value="IT-специалист" style={{ background:"#0e0e10" }}>IT-специалист</option>
+                          <option value="Оператор БпЛА" style={{ background:"#0e0e10" }}>Оператор БпЛА</option>
+                          <option value="Водитель / Логистика" style={{ background:"#0e0e10" }}>Водитель / Логистика</option>
+                          <option value="Мониторинг СМИ" style={{ background:"#0e0e10" }}>Мониторинг СМИ</option>
+                        </select>
+                      </div>
                     </div>
 
                     {formState === "error" && (
-                      <div className="flex items-center gap-2 p-3" style={{ background: "rgba(204,34,0,0.1)", border: "1px solid rgba(204,34,0,0.3)", borderRadius: 3 }}>
-                        <Icon name="AlertTriangle" size={14} style={{ color: "#cc2200" }} />
-                        <span className="font-exo text-sm" style={{ color: "rgba(255,100,80,0.9)" }}>Ошибка отправки. Напишите напрямую в Telegram.</span>
+                      <div className="flex items-center gap-2.5 p-3.5 animate-scale-reveal" style={{ background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.3)", borderRadius: 8 }}>
+                        <Icon name="TriangleAlert" size={15} style={{ color: "#ef4444" }} />
+                        <span className="font-exo text-sm" style={{ color: "rgba(255,120,100,0.95)" }}>Ошибка отправки. Напишите напрямую в Telegram.</span>
                       </div>
                     )}
 
                     <button
                       type="submit"
                       disabled={formState === "loading"}
-                      className="btn-red-animated w-full py-4 mt-2"
-                      style={{ borderRadius: "3px", opacity: formState === "loading" ? 0.7 : 1 }}
+                      className="btn-red-animated w-full py-4 mt-2 animate-fade-blur"
+                      style={{ borderRadius: "10px", opacity: formState === "loading" ? 0.7 : 1, animationDelay: "0.6s" }}
                       onMouseEnter={snd.hover}
                     >
                       {formState === "loading" ? (
@@ -1361,14 +1386,15 @@ export default function Index() {
                       )}
                     </button>
 
-                    <div className="flex items-center gap-2 pt-1">
-                      <Icon name="Lock" size={11} style={{ color: "rgba(255,255,255,0.35)" }} />
-                      <span className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(255,255,255,0.22)" }}>
-                        Данные передаются по защищённому каналу. Конфиденциально.
+                    <div className="flex items-center justify-center gap-2 pt-2">
+                      <Icon name="Lock" size={12} style={{ color: "rgba(255,255,255,0.35)" }} />
+                      <span className="font-stm text-[9px] tracking-wider" style={{ color: "rgba(255,255,255,0.3)" }}>
+                        Данные передаются по защищённому каналу
                       </span>
                     </div>
                   </form>
                 )}
+                </div>
               </div>
 
             </div>
