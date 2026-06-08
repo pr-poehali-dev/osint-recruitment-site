@@ -113,14 +113,46 @@ const SPEC_FILTERS  = [{v:"all",l:"Все"},{v:"osint",l:"OSINT"},{v:"it",l:"IT"
 const LEVEL_FILTERS = [{v:"all",l:"Любой опыт"},{v:"без опыта",l:"Без опыта"},{v:"опыт",l:"С опытом"}];
 
 const BENEFITS = [
-  { icon:"HeartPulse",   title:"Медицинское обеспечение",  desc:"Полная страховка и лечение за счёт государства" },
-  { icon:"Home",         title:"Ипотека",                  desc:"Льготная ипотека и жилищные субсидии" },
-  { icon:"Zap",          title:"Льготы по ЖКХ",            desc:"Скидки на коммунальные услуги и жильё" },
-  { icon:"CreditCard",   title:"Кредитные каникулы",       desc:"Налоговые и кредитные каникулы на период службы" },
-  { icon:"GraduationCap",title:"Образование",              desc:"Бесплатное обучение и профессиональный рост" },
-  { icon:"ShieldCheck",  title:"Списание долгов",          desc:"Списание задолженностей до 10 000 000 ₽" },
-  { icon:"Award",        title:"Статус ветерана",          desc:"Полный льготный пакет ветерана боевых действий" },
-  { icon:"Baby",         title:"Льготы семье",             desc:"Поддержка детей, питание в школах, детсады" },
+  {
+    icon:"HeartPulse", title:"Медицинское обеспечение",
+    sum:"Бесплатно",
+    desc:"Полное медицинское и стоматологическое обслуживание за счёт государства. Лечение, реабилитация, санаторно-курортное лечение. Страхование жизни и здоровья на весь период службы.",
+  },
+  {
+    icon:"Home", title:"Военная ипотека",
+    sum:"до 3 900 000 ₽",
+    desc:"Участие в накопительно-ипотечной системе (НИС). Государство ежегодно перечисляет средства на счёт военнослужащего. Первоначальный взнос и ежемесячные платежи — за счёт государства.",
+  },
+  {
+    icon:"Zap", title:"Льготы по ЖКХ",
+    sum:"до 50% скидка",
+    desc:"Компенсация расходов на коммунальные услуги до 50%. Льготы распространяются на членов семьи. Действует на весь период службы и после её окончания.",
+  },
+  {
+    icon:"CreditCard", title:"Кредитные каникулы",
+    sum:"на весь срок службы",
+    desc:"Полная приостановка выплат по кредитам и займам на период службы. Штрафы и пени не начисляются. Распространяется на ипотеку, потребительские кредиты и автокредиты.",
+  },
+  {
+    icon:"GraduationCap", title:"Образование",
+    sum:"Бесплатно",
+    desc:"Право на поступление в военные вузы и гражданские университеты без экзаменов по квоте. Бесплатное обучение детей в подшефных учебных заведениях. Дополнительные профессиональные курсы.",
+  },
+  {
+    icon:"ShieldCheck", title:"Списание задолженностей",
+    sum:"до 10 000 000 ₽",
+    desc:"Полное списание долгов по кредитам, микрозаймам и штрафам при выполнении условий контракта. Не требует судебных разбирательств. Применяется автоматически по решению командования.",
+  },
+  {
+    icon:"Award", title:"Статус ветерана",
+    sum:"Пожизненно",
+    desc:"Удостоверение ветерана боевых действий. Надбавка к пенсии, скидки на транспорт, приоритет в очередях госуслуг. Льготы на протезирование, лекарства и санаторное лечение пожизненно.",
+  },
+  {
+    icon:"Baby", title:"Льготы для семьи",
+    sum:"Семья защищена",
+    desc:"Бесплатное питание детей в школах и детских садах. Приоритетное зачисление в детские сады без очереди. Единовременные выплаты при рождении ребёнка. Социальная и юридическая поддержка семьи.",
+  },
 ];
 
 const STEPS = [
@@ -209,13 +241,15 @@ export default function Index() {
         {/* BG layers */}
         <div className="absolute inset-0">
           <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.18) saturate(0.2) contrast(1.1)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(5,7,13,0.99) 28%, rgba(5,7,13,0.65) 60%, rgba(5,7,13,0.92) 100%)" }} />
-          <div className="absolute inset-0 grid-cyber" />
+            style={{ filter: "brightness(0.28) saturate(0.35) contrast(1.15)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(5,7,13,0.95) 25%, rgba(5,7,13,0.55) 58%, rgba(5,7,13,0.88) 100%)" }} />
+          <div className="absolute inset-0 grid-cyber opacity-80" />
           <div className="absolute inset-0 circuit-lines" />
           {/* Corner accents */}
-          <div className="absolute top-20 left-0 w-px h-32" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.4), transparent)" }} />
-          <div className="absolute top-20 right-0 w-px h-32" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.4), transparent)" }} />
+          <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.7), transparent)" }} />
+          <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.6), transparent)" }} />
+          {/* Extra glow spots */}
+          <div className="absolute bottom-0 left-1/3 w-96 h-32" style={{ background: "radial-gradient(ellipse, rgba(0,255,136,0.07) 0%, transparent 70%)", filter: "blur(20px)" }} />
           <div className="scan-beam" />
         </div>
 
@@ -538,31 +572,59 @@ export default function Index() {
       </section>
 
       {/* ══ BENEFITS ════════════════════════════════════ */}
-      <section id="benefits" className="py-28" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+      <section id="benefits" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.12)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.4), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={benRef} className="section-entry">
             <div className="label-mono mb-3">// Социальный пакет</div>
             <div className="accent-line" />
-            <h2 className="font-orb text-white uppercase leading-tight mb-14" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Льготы и гарантии</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <h2 className="font-orb text-white uppercase leading-tight mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}>
+              Льготы и <span style={{ color: "#cc2200" }}>гарантии</span>
+            </h2>
+            <p className="font-exo text-white/45 text-base mb-12 max-w-xl leading-relaxed">
+              Государство гарантирует полный социальный пакет с первого дня службы — для вас и вашей семьи.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               {BENEFITS.map((b, i) => (
-                <div key={i} className="vol-card p-6 group animate-scale-in" style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
-                  <div className="mb-5 transition-transform group-hover:scale-110">
-                    <IBox icon={b.icon} size={24} boxSize={56} radius={14} glow />
+                <div key={i} className="vol-card group animate-fade-up" style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
+                  <div className="p-6 flex items-start gap-5">
+                    {/* Icon */}
+                    <div className="transition-transform group-hover:scale-110 shrink-0 mt-1">
+                      <IBox icon={b.icon} size={26} boxSize={60} radius={14} glow />
+                    </div>
+                    {/* Content */}
+                    <div className="min-w-0 flex-1">
+                      {/* Title + sum in one row */}
+                      <div className="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
+                        <div className="font-orb text-white text-sm uppercase tracking-wide leading-tight whitespace-nowrap">{b.title}</div>
+                        <div className="font-orb text-sm whitespace-nowrap shrink-0" style={{ color: "#00ff88", textShadow: "0 0 12px rgba(0,255,136,0.5)" }}>{b.sum}</div>
+                      </div>
+                      <div className="font-exo text-white/50 text-sm leading-[1.75]">{b.desc}</div>
+                    </div>
                   </div>
-                  <div className="font-orb text-white text-xs uppercase mb-2 tracking-wide leading-snug">{b.title}</div>
-                  <div className="font-exo text-white/38 text-sm leading-[1.7]">{b.desc}</div>
+                  {/* bottom accent line */}
+                  <div className="h-px mx-6" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.2), transparent)" }} />
                 </div>
               ))}
             </div>
-            <div className="mt-6 vol-card p-8 flex flex-col sm:flex-row items-center gap-8 cyber-frame"
-              style={{ borderColor: "rgba(204,34,0,0.2)", background: "rgba(204,34,0,0.04)" }}>
-              <IBox icon="ShieldCheck" size={32} boxSize={72} radius={18} glow />
-              <div>
-                <div className="font-orb text-white text-xl uppercase mb-2 tracking-wide">
-                  Списание задолженностей до <span className="money-red">10 000 000 ₽</span>
+
+            {/* Big callout */}
+            <div className="vol-card p-8 cyber-frame flex flex-col sm:flex-row items-center gap-8"
+              style={{ borderColor: "rgba(204,34,0,0.3)", background: "linear-gradient(135deg, rgba(204,34,0,0.08), rgba(204,34,0,0.02))" }}>
+              <div className="shrink-0">
+                <IBox icon="ShieldCheck" size={36} boxSize={80} radius={20} glow />
+              </div>
+              <div className="flex-1">
+                <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.5)" }}>СПЕЦИАЛЬНАЯ ГАРАНТИЯ ГОСУДАРСТВА</div>
+                <div className="font-orb text-white uppercase mb-2 flex flex-wrap items-baseline gap-3" style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.6rem)" }}>
+                  Списание задолженностей до
+                  <span className="money-red whitespace-nowrap" style={{ fontSize: "clamp(1.3rem, 3vw, 2rem)" }}>10 000 000 ₽</span>
                 </div>
-                <div className="font-exo text-white/42 text-sm">Полное списание кредитов, штрафов и задолженностей при выполнении условий контракта.</div>
+                <div className="font-exo text-white/50 text-base leading-relaxed">
+                  Полное списание кредитов, микрозаймов, штрафов и задолженностей при выполнении условий контракта. Не требует судебных разбирательств — применяется автоматически.
+                </div>
               </div>
             </div>
           </div>
