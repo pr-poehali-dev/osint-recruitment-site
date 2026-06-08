@@ -47,6 +47,16 @@ const BPLA_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8e748e04-f308-4462-a51e-341ca5da8cec.jpg";
 const RER_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/31f5937d-f408-41ec-961e-c5b319d3ac3a.jpg";
+const VAC_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/72844958-35ac-452e-84ab-a84797619c77.jpg";
+const BEN_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/01c5060c-2173-4df3-8273-90c897f44492.jpg";
+const STEPS_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a9baa003-7039-4fd4-992e-b5144696e88e.jpg";
+const FAQ_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/fb391fac-7819-4a23-b993-d74f96dcec5d.jpg";
+const CONTACTS_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/80af8495-f1e0-4adc-bf79-f1ab41f97756.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
 const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
@@ -836,12 +846,33 @@ export default function Index() {
             <div className="label-mono mb-3">// Открытые позиции</div>
             <div className="accent-line" />
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
-              <h2 className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-                Требуемые<br /><span style={{ color: "#cc2200" }}>специалисты</span>
-              </h2>
+              <div className="flex flex-col gap-4">
+                <h2 className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+                  Требуемые<br /><span style={{ color: "#cc2200" }}>специалисты</span>
+                </h2>
+              </div>
               <div className="flex flex-col gap-2.5">
                 <div className="flex flex-wrap gap-2">{SPEC_FILTERS.map(f => <button key={f.v} className={`tag-filter ${spec===f.v?"active":""}`} onClick={() => { setSpec(f.v); snd.click(); }} onMouseEnter={snd.hover}>{f.l}</button>)}</div>
                 <div className="flex flex-wrap gap-2">{LEVEL_FILTERS.map(f => <button key={f.v} className={`tag-filter ${level===f.v?"active":""}`} onClick={() => { setLevel(f.v); snd.click(); }} onMouseEnter={snd.hover}>{f.l}</button>)}</div>
+              </div>
+            </div>
+
+            <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
+              <img src={VAC_IMG} alt="Специалисты" className="w-full h-full object-cover" style={{ filter: "brightness(0.45) saturate(0.6)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.95) 0%, transparent 50%, rgba(2,8,24,0.9) 100%)" }} />
+              <div className="absolute inset-0 flex items-center px-10 gap-8">
+                <div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; НАБОР ОТКРЫТ · 2026</div>
+                  <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}>Профессиональный<br />коллектив ждёт тебя</div>
+                </div>
+                <div className="hidden md:flex gap-6 ml-auto">
+                  {[{n:"6", l:"Вакансий"},{n:"24ч", l:"Ответ"},{n:"100%", l:"Поддержка"}].map((s,i)=>(
+                    <div key={i} className="text-center">
+                      <div className="font-orb text-white font-black" style={{ fontSize:"1.6rem", color: i===0?"#ff2200":"#fff" }}>{s.n}</div>
+                      <div className="font-stm text-[9px] tracking-widest" style={{ color:"rgba(0,255,136,0.45)" }}>{s.l}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -918,9 +949,28 @@ export default function Index() {
             <h2 className="font-orb text-white uppercase leading-tight mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}>
               Льготы и <span style={{ color: "#cc2200" }}>гарантии</span>
             </h2>
-            <p className="font-exo text-white/45 text-base mb-12 max-w-xl leading-relaxed">
+            <p className="font-exo text-white/45 text-base mb-8 max-w-xl leading-relaxed">
               Государство гарантирует полный социальный пакет с первого дня службы — для вас и вашей семьи.
             </p>
+
+            <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
+              <img src={BEN_IMG} alt="Льготы и гарантии" className="w-full h-full object-cover" style={{ filter: "brightness(0.4) saturate(0.5)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.85) 100%)" }} />
+              <div className="absolute inset-0 flex items-center px-10 gap-6">
+                <div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; ГАРАНТИИ ГОСУДАРСТВА РФ</div>
+                  <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.1rem, 2.3vw, 1.7rem)" }}>8 видов льгот<br />с первого дня службы</div>
+                </div>
+                <div className="hidden md:flex gap-5 ml-auto">
+                  {[{n:"до 10 млн", l:"Списание долгов"},{n:"до 3.9 млн", l:"Военная ипотека"},{n:"50%", l:"Скидка ЖКХ"}].map((s,i)=>(
+                    <div key={i} className="text-center">
+                      <div className="font-orb font-black whitespace-nowrap" style={{ fontSize:"1.2rem", color: i===0?"#ff2200":"#00ff88" }}>{s.n}</div>
+                      <div className="font-stm text-[9px] tracking-widest whitespace-nowrap" style={{ color:"rgba(255,255,255,0.4)" }}>{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               {BENEFITS.map((b, i) => (
@@ -974,7 +1024,24 @@ export default function Index() {
           <div ref={stepsRef} className="section-entry">
             <div className="label-mono mb-3">// Алгоритм вступления</div>
             <div className="accent-line" />
-            <h2 className="font-orb text-white uppercase leading-tight mb-16" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
+            <h2 className="font-orb text-white uppercase leading-tight mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
+
+            <div className="relative w-full h-48 mb-12 overflow-hidden" style={{ borderRadius: "3px" }}>
+              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.38) saturate(0.5)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 60%, rgba(2,8,24,0.85) 100%)" }} />
+              <div className="absolute inset-0 flex items-center px-10">
+                <div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; ОТ ЗАЯВКИ ДО ЗАЧИСЛЕНИЯ</div>
+                  <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.1rem, 2.3vw, 1.7rem)" }}>5 простых шагов —<br />и вы в команде</div>
+                </div>
+                <div className="hidden sm:flex items-center gap-2 ml-auto">
+                  {["01","02","03","04","05"].map((n,i)=>(
+                    <div key={i} className="w-10 h-10 flex items-center justify-center font-orb text-xs font-black" style={{ background:"rgba(0,255,136,0.08)", border:"1px solid rgba(0,255,136,0.2)", borderRadius:"50%", color:"rgba(0,255,136,0.7)" }}>{n}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
               {STEPS.map((s, i) => (
                 <div key={i} className="flex flex-col items-center text-center group animate-fade-up" style={{ animationDelay: `${i * 0.12}s`, opacity: 0 }} onMouseEnter={snd.hover}>
@@ -1001,8 +1068,10 @@ export default function Index() {
           <div ref={faqRef} className="section-entry">
             <div className="label-mono mb-3">// База знаний</div>
             <div className="accent-line" />
-            <h2 className="font-orb text-white uppercase leading-tight mb-12" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Вопросы и ответы</h2>
-            <div className="max-w-3xl space-y-1.5">
+            <h2 className="font-orb text-white uppercase leading-tight mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Вопросы и ответы</h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
+              <div className="space-y-1.5">
               {FAQ.map((item, i) => (
                 <div key={i} className={`vol-card overflow-hidden faq-item ${openFaq===i?"open":""} animate-fade-up`} style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
                   <button className="w-full flex items-center justify-between p-5 text-left gap-4"
@@ -1028,6 +1097,23 @@ export default function Index() {
                   )}
                 </div>
               ))}
+              </div>
+
+              {/* FAQ sidebar image */}
+              <div className="hidden lg:block sticky top-20">
+                <div className="relative overflow-hidden" style={{ borderRadius: "3px", border: "1px solid rgba(0,255,136,0.15)" }}>
+                  <img src={FAQ_IMG} alt="FAQ" className="w-full h-72 object-cover" style={{ filter: "brightness(0.4) saturate(0.55)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(2,8,24,0.97) 100%)" }} />
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(0,255,136,0.5)" }}>&gt; ОСТАЛИСЬ ВОПРОСЫ?</div>
+                    <div className="font-orb text-white text-sm uppercase mb-3">Свяжитесь с нами напрямую</div>
+                    <a href="#contacts" className="btn-red py-2.5 px-4 text-xs w-full justify-center" style={{ borderRadius: "2px" }}>
+                      <Icon name="Phone" size={12} />
+                      Связаться
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1046,9 +1132,28 @@ export default function Index() {
             <h2 className="font-orb text-white uppercase leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
               Готов стать<br /><span style={{ color: "#cc2200" }}>частью команды?</span>
             </h2>
-            <p className="font-exo text-white/42 text-base leading-relaxed mb-12 max-w-xl">
+            <p className="font-exo text-white/42 text-base leading-relaxed mb-8 max-w-xl">
               Оставьте заявку — свяжемся в течение 24 часов. Всё конфиденциально.
             </p>
+
+            <div className="relative w-full h-44 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
+              <img src={CONTACTS_IMG} alt="Связаться с нами" className="w-full h-full object-cover" style={{ filter: "brightness(0.35) saturate(0.5)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.9) 100%)" }} />
+              <div className="absolute inset-0 flex items-center px-10 gap-8">
+                <div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; СВЯЗЬ 24/7</div>
+                  <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)" }}>Ответим в течение<br />24 часов</div>
+                </div>
+                <div className="hidden sm:flex gap-6 ml-auto">
+                  {[{icon:"Phone",l:"Телефон"},{icon:"Send",l:"Telegram"},{icon:"Mail",l:"Email"}].map((c,i)=>(
+                    <div key={i} className="flex flex-col items-center gap-2">
+                      <IBox icon={c.icon} size={16} boxSize={38} radius={8} />
+                      <span className="font-stm text-[9px] tracking-wider" style={{ color:"rgba(255,255,255,0.35)" }}>{c.l}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
