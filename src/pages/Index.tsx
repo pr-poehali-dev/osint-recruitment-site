@@ -48,15 +48,15 @@ const BPLA_IMG =
 const RER_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/31f5937d-f408-41ec-961e-c5b319d3ac3a.jpg";
 const VAC_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/72844958-35ac-452e-84ab-a84797619c77.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8ebf8acf-06bb-4e89-b33a-6e61130e8b7c.jpg";
 const BEN_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/01c5060c-2173-4df3-8273-90c897f44492.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/5e6dbee0-17c3-43af-8cd6-192ebd6f0cd4.jpg";
 const STEPS_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a9baa003-7039-4fd4-992e-b5144696e88e.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/d9ba618b-cbdb-40ba-a7c5-2025c4577e2d.jpg";
 const FAQ_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/fb391fac-7819-4a23-b993-d74f96dcec5d.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/57741d90-9675-45fe-b1fd-72cb000c7d57.jpg";
 const CONTACTS_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/80af8495-f1e0-4adc-bf79-f1ab41f97756.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/4ae49e59-ac35-4a63-acb8-f448d55b919c.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
 const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
@@ -858,7 +858,7 @@ export default function Index() {
             </div>
 
             <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={VAC_IMG} alt="Специалисты" className="w-full h-full object-cover" style={{ filter: "brightness(0.45) saturate(0.6)" }} />
+              <img src={VAC_IMG} alt="Специалисты" className="w-full h-full object-cover" style={{ filter: "brightness(0.75) saturate(0.9)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.95) 0%, transparent 50%, rgba(2,8,24,0.9) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-8">
                 <div>
@@ -954,7 +954,7 @@ export default function Index() {
             </p>
 
             <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={BEN_IMG} alt="Льготы и гарантии" className="w-full h-full object-cover" style={{ filter: "brightness(0.4) saturate(0.5)" }} />
+              <img src={BEN_IMG} alt="Льготы и гарантии" className="w-full h-full object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.85) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-6">
                 <div>
@@ -1027,7 +1027,7 @@ export default function Index() {
             <h2 className="font-orb text-white uppercase leading-tight mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
 
             <div className="relative w-full h-48 mb-12 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.38) saturate(0.5)" }} />
+              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 60%, rgba(2,8,24,0.85) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10">
                 <div>
@@ -1102,7 +1102,7 @@ export default function Index() {
               {/* FAQ sidebar image */}
               <div className="hidden lg:block sticky top-20">
                 <div className="relative overflow-hidden" style={{ borderRadius: "3px", border: "1px solid rgba(0,255,136,0.15)" }}>
-                  <img src={FAQ_IMG} alt="FAQ" className="w-full h-72 object-cover" style={{ filter: "brightness(0.4) saturate(0.55)" }} />
+                  <img src={FAQ_IMG} alt="FAQ" className="w-full h-72 object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(2,8,24,0.97) 100%)" }} />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(0,255,136,0.5)" }}>&gt; ОСТАЛИСЬ ВОПРОСЫ?</div>
@@ -1137,7 +1137,7 @@ export default function Index() {
             </p>
 
             <div className="relative w-full h-44 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={CONTACTS_IMG} alt="Связаться с нами" className="w-full h-full object-cover" style={{ filter: "brightness(0.35) saturate(0.5)" }} />
+              <img src={CONTACTS_IMG} alt="Связаться с нами" className="w-full h-full object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.9) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-8">
                 <div>
