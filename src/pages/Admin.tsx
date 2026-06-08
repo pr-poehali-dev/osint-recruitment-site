@@ -19,6 +19,8 @@ export default function Admin() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [count, setCount] = useState("");
+  const [countSaved, setCountSaved] = useState(false);
 
   const load = useCallback(async (pwd: string) => {
     setLoading(true);
@@ -29,12 +31,27 @@ export default function Admin() {
       });
       const data = await res.json();
       setReviews(data.reviews || []);
+      setCount(String(data.applications_count ?? ""));
       setAuthed(true);
     } catch {
       setError("Ошибка загрузки");
     }
     setLoading(false);
   }, []);
+
+  const saveCount = async () => {
+    const n = parseInt(count, 10);
+    if (isNaN(n) || n < 0) return;
+    try {
+      await fetch(REVIEWS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Admin-Password": password },
+        body: JSON.stringify({ action: "set_count", count: n }),
+      });
+      setCountSaved(true);
+      setTimeout(() => setCountSaved(false), 2500);
+    } catch { /* ignore */ }
+  };
 
   const login = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,6 +147,24 @@ export default function Admin() {
           <button onClick={() => load(password)} className="btn-ghost px-5 py-3 text-xs hover-lift" style={{ borderRadius: 8 }}>
             <Icon name="RefreshCw" size={15} />Обновить
           </button>
+        </div>
+
+        {/* Счётчик заявок */}
+        <div className="vol-card p-6 mb-10 flex flex-col sm:flex-row sm:items-center gap-4" style={{ borderRadius: 12, borderColor: "rgba(255,255,255,0.12)" }}>
+          <div className="flex items-center gap-3 flex-1">
+            <Icon name="Users" size={22} style={{ color: "#fff" }} />
+            <div>
+              <div className="font-orb text-white text-sm">Счётчик «Уже подали заявку»</div>
+              <div className="font-stm text-[10px] tracking-wide mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Это число показывается на главной странице</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <input type="number" min={0} className="form-input" style={{ width: 160 }}
+              value={count} onChange={e => setCount(e.target.value)} />
+            <button onClick={saveCount} className="btn-red-animated px-6 py-3 text-xs" style={{ borderRadius: 8, whiteSpace: "nowrap" }}>
+              {countSaved ? <><Icon name="Check" size={15} />Сохранено</> : <><Icon name="Save" size={15} />Сохранить</>}
+            </button>
+          </div>
         </div>
 
         {pending.length > 0 && (

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
+const REVIEWS_URL = "https://functions.poehali.dev/089447e4-e2ac-479d-b710-5eb8cb862516";
+
 function getTarget() {
   const d = new Date();
   d.setDate(d.getDate() + 7);
@@ -29,15 +31,21 @@ export default function UrgencyBar() {
   }, [target]);
 
   useEffect(() => {
-    const base = 1247;
-    const target = base + Math.floor((Date.now() / 86400000) % 50);
-    let cur = target - 40;
-    const id = setInterval(() => {
-      cur += 1;
-      setCount(cur);
-      if (cur >= target) clearInterval(id);
-    }, 35);
-    return () => clearInterval(id);
+    let cancelled = false;
+    fetch(REVIEWS_URL)
+      .then(r => r.json())
+      .then(data => {
+        if (cancelled) return;
+        const target = Number(data.applications_count) || 1247;
+        let cur = Math.max(0, target - 40);
+        const id = setInterval(() => {
+          cur += 1;
+          setCount(cur);
+          if (cur >= target) clearInterval(id);
+        }, 35);
+      })
+      .catch(() => setCount(1247));
+    return () => { cancelled = true; };
   }, []);
 
   const cell = (val: number, label: string) => (

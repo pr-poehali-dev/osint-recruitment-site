@@ -72,6 +72,9 @@ def handler(event: dict, context) -> dict:
         else:
             cur.execute("SELECT id, name, role, text, rating, status, created_at FROM reviews WHERE status = 'approved' ORDER BY created_at DESC")
         rows = cur.fetchall()
+        cur.execute("SELECT value FROM settings WHERE key = 'applications_count'")
+        cnt_row = cur.fetchone()
+        applications_count = int(cnt_row[0]) if cnt_row and str(cnt_row[0]).isdigit() else 1247
         cur.close()
         conn.close()
         reviews = [
@@ -81,7 +84,7 @@ def handler(event: dict, context) -> dict:
             }
             for r in rows
         ]
-        return {"statusCode": 200, "headers": cors, "body": json.dumps({"reviews": reviews})}
+        return {"statusCode": 200, "headers": cors, "body": json.dumps({"reviews": reviews, "applications_count": applications_count})}
 
     if method == "POST":
         try:
@@ -118,6 +121,20 @@ def handler(event: dict, context) -> dict:
 
         if not is_admin:
             return {"statusCode": 403, "headers": cors, "body": json.dumps({"error": "Неверный пароль"})}
+
+        if action == "set_count":
+            count = int(body.get("count") or 0)
+            count = max(0, min(99999999, count))
+            conn = get_conn()
+            cur = conn.cursor()
+            cur.execute(
+                f"INSERT INTO settings (key, value) VALUES ('applications_count', '{count}') "
+                f"ON CONFLICT (key) DO UPDATE SET value = '{count}'"
+            )
+            conn.commit()
+            cur.close()
+            conn.close()
+            return {"statusCode": 200, "headers": cors, "body": json.dumps({"ok": True, "count": count})}
 
         review_id = int(body.get("id") or 0)
         if review_id <= 0:
