@@ -5,7 +5,7 @@ import Icon from "@/components/ui/icon";
 type AnyIcon = any;
 
 const HERO_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/7abc612b-cec4-42e1-aa5c-1eb663e3077c.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/53feafdf-9089-49c0-af7b-0548c4432968.jpg";
 
 /* ── DATA ────────────────────────────────────────────── */
 
@@ -112,7 +112,10 @@ const STEPS = [
 const FAQ = [
   { q: "Кто может подать заявку?", a: "Граждане РФ от 18 до 49 лет. Для IT-специальностей — до 55 лет. Воинский опыт необязателен." },
   { q: "Какие требования к кандидатам?", a: "Гражданство РФ, отсутствие серьёзных судимостей, прохождение медкомиссии. Специфика — в зависимости от должности." },
-  { q: "Где проходит служба?", a: "Тыловые районы Забайкальского края, г. Чита. Без участия в прямых боевых действиях." },
+  { q: "Где проходит формирование?", a: "Формирование и подготовка проходят в г. Чита — столице Забайкальского края." },
+  { q: "Где проходит служба?", a: "Служба проходит в Донецке и Мариуполе." },
+  { q: "Нужно ли покупать экипировку самому?", a: "Нет. Вся необходимая экипировка и техника предоставляются подразделением." },
+  { q: "Как подать заявку?", a: "Оставьте своё имя и телефон в форме на сайте — наш специалист свяжется с вами в течение 24 часов." },
   { q: "Как осуществляется отбор?", a: "Телефонное интервью → встреча с представителем → медкомиссия → оформление документов." },
   { q: "Когда начинаются выплаты?", a: "Единовременная — в течение первого месяца. Ежемесячное довольствие — с первого дня службы." },
 ];
@@ -396,27 +399,46 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: "MapPin",   title: "Чита, Забайкалье", desc: "Тыловой район, без боевых задач", color: "rgba(239,68,68," },
-                { icon: "Shield",   title: "Аналитическая служба", desc: "IT, OSINT, операторы, логистика", color: "rgba(37,99,235," },
-                { icon: "Users",    title: "Команда профессионалов", desc: "Опытные наставники для новобранцев", color: "rgba(37,99,235," },
-                { icon: "Utensils", title: "Полное обеспечение", desc: "Питание, снаряжение, техника", color: "rgba(16,185,129," },
-              ].map((c, i) => (
-                <div key={i} className="vol-card p-6">
-                  <div className="w-14 h-14 flex items-center justify-center mb-5"
-                    style={{
-                      background: `linear-gradient(135deg, ${c.color}0.18) 0%, ${c.color}0.05) 100%)`,
-                      border: `1px solid ${c.color}0.3)`,
-                      borderRadius: "12px",
-                      boxShadow: `0 0 24px ${c.color}0.2), inset 0 1px 0 rgba(255,255,255,0.07)`
-                    }}>
-                    <Icon name={c.icon as AnyIcon} size={26} className={i === 0 ? "text-red-400" : i === 3 ? "text-emerald-400" : "text-blue-400"} />
+            <div className="flex flex-col gap-4">
+              {/* Chita highlight */}
+              <div className="vol-card p-6" style={{ background: "linear-gradient(135deg, rgba(239,68,68,0.08) 0%, rgba(14,18,30,0.8) 100%)", borderColor: "rgba(239,68,68,0.2)" }}>
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-14 h-14 flex items-center justify-center shrink-0"
+                    style={{ background: "linear-gradient(135deg, rgba(239,68,68,0.22), rgba(239,68,68,0.07))", border: "1px solid rgba(239,68,68,0.35)", borderRadius: "12px", boxShadow: "0 0 24px rgba(239,68,68,0.2)" }}>
+                    <Icon name="MapPin" size={26} className="text-red-400" />
                   </div>
-                  <div className="font-oswald font-semibold text-white text-sm uppercase mb-2">{c.title}</div>
-                  <div className="text-white/42 text-xs leading-relaxed">{c.desc}</div>
+                  <div>
+                    <div className="font-oswald font-bold text-white text-base uppercase mb-1">г. Чита — место формирования</div>
+                    <div className="label-mono text-[9px] text-red-400/70">Забайкальский край · Россия</div>
+                  </div>
                 </div>
-              ))}
+                <p className="text-white/55 text-sm leading-[1.75]">
+                  Чита — крупный административный центр на востоке России с населением около 300 000 человек. Город расположен в живописном месте у слияния рек Чита и Ингода, окружён сопками. Развитая инфраструктура: госпитали, учебные заведения, торговые центры. Умеренный континентальный климат с морозными зимами и тёплым летом. Именно здесь проходит формирование, подготовка и оформление личного состава подразделения.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: "Shield",   title: "Аналитическая служба", desc: "IT, OSINT, операторы, логистика", color: "rgba(37,99,235," },
+                  { icon: "Users",    title: "Команда профессионалов", desc: "Опытные наставники для новобранцев", color: "rgba(37,99,235," },
+                  { icon: "Utensils", title: "Полное обеспечение", desc: "Питание, снаряжение, техника", color: "rgba(16,185,129," },
+                  { icon: "Plane",    title: "Операторы БпЛА", desc: "Управление и разведка с воздуха", color: "rgba(168,85,247," },
+                ].map((c, i) => (
+                  <div key={i} className="vol-card p-5">
+                    <div className="w-12 h-12 flex items-center justify-center mb-4"
+                      style={{
+                        background: `linear-gradient(135deg, ${c.color}0.18) 0%, ${c.color}0.05) 100%)`,
+                        border: `1px solid ${c.color}0.3)`,
+                        borderRadius: "12px",
+                        boxShadow: `0 0 20px ${c.color}0.18), inset 0 1px 0 rgba(255,255,255,0.07)`
+                      }}>
+                      <Icon name={c.icon as AnyIcon} size={22} className={i === 2 ? "text-emerald-400" : i === 3 ? "text-purple-400" : "text-blue-400"} />
+                    </div>
+                    <div className="font-oswald font-semibold text-white text-sm uppercase mb-1">{c.title}</div>
+                    <div className="text-white/42 text-xs leading-relaxed">{c.desc}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
