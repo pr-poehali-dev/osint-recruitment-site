@@ -14,8 +14,8 @@ const BPLA_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8e748e04-f308-4462-a51e-341ca5da8cec.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
-const LogoS = ({ size = 36 }: { size?: number }) => (
-  <div style={{
+const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
+  <div className={animated ? "animate-logo-s" : ""} style={{
     width: size, height: size,
     display: "flex", alignItems: "center", justifyContent: "center",
     background: "linear-gradient(140deg, #cc2200 0%, #5a0f00 100%)",
@@ -26,6 +26,8 @@ const LogoS = ({ size = 36 }: { size?: number }) => (
     color: "#fff",
     fontWeight: 900,
     letterSpacing: "-0.02em",
+    cursor: "default",
+    perspective: "200px",
   }}>
     S
   </div>
@@ -213,7 +215,7 @@ export default function Index() {
 
         <div className="max-w-[1440px] w-full mx-auto px-6 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 shrink-0">
-            <LogoS size={34} />
+            <LogoS size={34} animated />
             <div>
               <div className="font-orb text-[12px] tracking-[0.18em] text-white leading-none">OSINT-РЭР</div>
               <div className="font-stm text-[8px] tracking-[0.2em] text-green-400/40 uppercase leading-none mt-0.5">Служба · Аналитика</div>
@@ -320,7 +322,7 @@ export default function Index() {
 
                     <div className="flex items-center justify-between mb-7">
                       <div className="flex items-center gap-2.5">
-                        <LogoS size={22} />
+                        <LogoS size={22} animated />
                         <span className="font-stm text-[9px] tracking-[0.25em]" style={{ color: "rgba(0,255,136,0.4)" }}>ВЫПЛАТЫ / ДОХОДЫ</span>
                       </div>
                       <div className="flex gap-1.5">
@@ -513,17 +515,24 @@ export default function Index() {
           <div ref={rerRef} className="section-entry">
             <div className="label-mono mb-3">// Что такое РЭР</div>
             <div className="accent-line" />
-            <h2 className="font-orb text-white uppercase leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              Радиоэлектронная<br /><span style={{ color: "#cc2200" }}>разведка</span>
+            <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+              <span className="animate-fade-left d0">Радиоэлектронная</span><br />
+              <span className="text-scan-green animate-fade-left d1">разведка</span>
             </h2>
             {/* Главное описание */}
-            <div className="max-w-2xl mb-8 p-6 vol-card" style={{ borderColor: "rgba(0,255,136,0.15)" }}>
-              <p className="font-exo text-white/70 text-base leading-[1.95] mb-4">
+            <div className="max-w-2xl mb-8 p-6 vol-card" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
+              {/* Animated header row */}
+              <div className="flex items-center gap-3 mb-4 pb-3" style={{ borderBottom: "1px solid rgba(0,255,136,0.1)" }}>
+                <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#00ff88", boxShadow: "0 0 8px #00ff88" }} />
+                <span className="font-stm text-xs tracking-widest text-scan-green">СИСТЕМА РАДИОЭЛЕКТРОННОЙ РАЗВЕДКИ</span>
+                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.3), transparent)" }} />
+              </div>
+              <p className="font-exo text-white/70 text-base leading-[1.95] mb-4 animate-text-reveal">
                 <span className="font-orb text-white text-sm tracking-wide">РЭР — радиоэлектронная разведка.</span>{" "}
                 Это направление разведки, которое занимается обнаружением, перехватом и анализом радиоэлектронных сигналов: связи, радиостанций, радаров и других источников излучения. РЭР помогает понимать активность противника, выявлять источники сигналов и получать важную информацию без прямого контакта.
               </p>
-              <p className="font-exo text-white/55 text-sm leading-[1.85] mb-5">
-                <span className="font-orb text-white/80 text-xs tracking-wide">Польза РЭР — очень высокая: 9/10.</span>{" "}
+              <p className="font-exo text-white/55 text-sm leading-[1.85] mb-5 animate-text-reveal" style={{ animationDelay: "0.15s" }}>
+                <span className="font-orb text-scan-green text-xs tracking-wide">Польза РЭР — очень высокая: 9/10.</span>{" "}
                 Она помогает быстрее получать данные, повышает осведомлённость об обстановке, поддерживает работу аналитиков, операторов БпЛА и командования.
               </p>
               {/* Рейтинг 9/10 */}
@@ -566,21 +575,31 @@ export default function Index() {
             <div className="label-mono mb-3">// Команда OSINT</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              Команда <span style={{ color: "#cc2200" }}>OSINT</span>
+              <span className="animate-fade-left d0">Команда</span>{" "}
+              <span className="text-scan-green animate-fade-left d1" style={{ WebkitTextFillColor: undefined }}>OSINT</span>
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
               {/* OSINT блок */}
-              <div className="vol-card p-7" style={{ borderColor: "rgba(0,255,136,0.15)" }}>
+              <div className="vol-card p-7" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
                 <div className="flex items-center gap-3 mb-5">
-                  <IBox icon="Search" size={22} boxSize={48} radius={12} glow />
-                  <span className="font-orb text-white text-sm uppercase tracking-wide">OSINT-подразделение</span>
+                  <div className="animate-icon-float">
+                    <IBox icon="Search" size={24} boxSize={52} radius={12} glow />
+                  </div>
+                  <div>
+                    <span className="font-orb text-white text-sm uppercase tracking-wide">OSINT-подразделение</span>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
+                      <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>АКТИВНО · 24/7</span>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-exo text-white/65 text-sm leading-[1.95] mb-4">
+                <div className="h-px mb-4" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.3), transparent)" }} />
+                <p className="font-exo text-white/65 text-sm leading-[1.95] mb-4 animate-text-reveal">
                   <span className="font-orb text-white/90 text-xs tracking-wide">OSINT-подразделение</span> — это команда специалистов, которая занимается сбором, проверкой и анализом информации из открытых источников: СМИ, социальных сетей, карт, публичных баз данных, фото, видео и других доступных материалов. Такая работа помогает быстрее понимать обстановку, выявлять важные события, отслеживать изменения и готовить аналитические материалы для командования.
                 </p>
-                <p className="font-exo text-white/50 text-sm leading-[1.85] mb-5">
-                  <span className="font-orb text-white/75 text-xs">Польза OSINT в армии — очень высокая: 9/10.</span>{" "}
+                <p className="font-exo text-white/50 text-sm leading-[1.85] mb-5 animate-text-reveal" style={{ animationDelay: "0.2s" }}>
+                  <span className="font-orb text-xs" style={{ color: "#00ff88" }}>Польза OSINT в армии — очень высокая: 9/10.</span>{" "}
                   OSINT помогает принимать более точные решения, дополняет данные разведки, снижает неопределённость, ускоряет анализ ситуации и поддерживает работу других направлений: РЭР, БпЛА, связи, IT и штабной аналитики.
                 </p>
                 <div className="flex items-center gap-3">
@@ -692,26 +711,54 @@ export default function Index() {
               : <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {filtered.map((v, vi) => (
                     <div key={v.id} className="vol-card p-7 group cyber-frame animate-fade-up" style={{ animationDelay: `${vi * 0.08}s`, opacity: 0 }}>
-                      <div className="flex items-start justify-between mb-5">
-                        <IBox icon={v.icon} size={24} boxSize={56} radius={12} glow />
-                        <span className="font-stm text-[8px] tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>{v.level}</span>
+                      {/* Иконка + уровень */}
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="vacancy-icon-wrap">
+                          <div className="relative">
+                            {/* outer ring */}
+                            <div className="absolute inset-0 rounded-xl animate-icon-glow" style={{ borderRadius: 14, opacity: 0.6 }} />
+                            <IBox icon={v.icon} size={28} boxSize={62} radius={14} glow />
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end gap-1">
+                          <span className="font-stm text-[8px] tracking-widest px-2 py-0.5"
+                            style={{ background: "rgba(0,255,136,0.07)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 2, color: "rgba(0,255,136,0.6)" }}>
+                            {v.level}
+                          </span>
+                          {/* animated dot */}
+                          <div className="flex items-center gap-1">
+                            <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
+                            <span className="font-stm text-[8px]" style={{ color: "rgba(0,255,136,0.35)" }}>активна</span>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="font-orb text-white text-base uppercase mb-3 group-hover:text-white/70 transition-colors tracking-wide">{v.title}</h3>
-                      <p className="font-exo text-white/42 text-sm leading-[1.8] mb-5">{v.desc}</p>
-                      <div className="flex flex-wrap gap-1.5 mb-6">
+
+                      <h3 className="font-orb text-white text-base uppercase mb-2 tracking-wide transition-all group-hover:text-scan-green"
+                        style={{ lineHeight: 1.2 }}>{v.title}</h3>
+
+                      {/* thin colored accent under title */}
+                      <div className="h-px mb-3 transition-all duration-500 group-hover:w-full" style={{ width: 32, background: "linear-gradient(90deg, #00ff88, rgba(0,255,136,0.1))" }} />
+
+                      <p className="font-exo text-white/45 text-sm leading-[1.8] mb-5">{v.desc}</p>
+
+                      <div className="flex flex-wrap gap-1.5 mb-5">
                         {v.tags.map(tag => (
-                          <span key={tag} className="font-stm text-[8px] px-2.5 py-1"
+                          <span key={tag} className="font-stm text-[8px] px-2.5 py-1 transition-all hover:border-green-400/30 hover:text-white/50"
                             style={{ background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.28)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
                             {tag}
                           </span>
                         ))}
                       </div>
-                      <div className="flex items-center justify-between pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+
+                      <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
                         <div>
                           <div className="money text-lg">от 210 000 ₽</div>
-                          <div className="font-stm text-[8px] mt-0.5" style={{ color: "rgba(0,255,136,0.3)" }}>в месяц</div>
+                          <div className="font-stm text-[8px] mt-0.5" style={{ color: "rgba(0,255,136,0.4)" }}>в месяц</div>
                         </div>
-                        <a href="#contacts" className="btn-red text-xs px-5 py-2.5" style={{ borderRadius: "2px" }}>Подать заявку</a>
+                        <a href="#contacts" className="btn-red-animated px-5 py-2.5" style={{ borderRadius: "2px" }}>
+                          <Icon name="Send" size={12} />
+                          Подать заявку
+                        </a>
                       </div>
                     </div>
                   ))}
@@ -918,13 +965,13 @@ export default function Index() {
         <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.4), rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <LogoS size={28} />
+            <LogoS size={28} animated />
             <div>
               <div className="font-orb text-white text-xs tracking-widest">OSINT-РЭР</div>
               <div className="font-stm text-[8px] tracking-[0.2em]" style={{ color: "rgba(0,255,136,0.3)" }}>СЛУЖБА · АНАЛИТИКА</div>
             </div>
           </div>
-          <div className="font-stm text-[9px] text-center tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>© 2024 OSINT-РЭР — Все права защищены</div>
+          <div className="font-stm text-[9px] text-center tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>© 2026 OSINT-РЭР — Все права защищены</div>
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
             <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>НАБОР ОТКРЫТ</span>
