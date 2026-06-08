@@ -217,6 +217,15 @@ const STEPS = [
   { n:"05", t:"Служба",       d:"Зачисление в подразделение и начало работы", icon:"ShieldCheck" },
 ];
 
+const REVIEWS = [
+  { name:"Алексей М.", role:"OSINT-аналитик · 8 мес. службы", initials:"АМ", color:"#00ff88",
+    text:"Пришёл без опыта, обучили с нуля. Работа интеллектуальная, без участия в боях. Выплаты приходят день в день, всё официально по контракту." },
+  { name:"Дмитрий К.", role:"Оператор БпЛА · 1 год службы", initials:"ДК", color:"#cc2200",
+    text:"Долго сомневался, но решился. Полностью обеспечили экипировкой, проезд оплатили. Доход за первый год превысил 5 миллионов — закрыл ипотеку." },
+  { name:"Сергей В.", role:"IT-специалист · 6 мес. службы", initials:"СВ", color:"#2563eb",
+    text:"Занимаюсь защищённой инфраструктурой, по своей специальности. Коллектив профессиональный, командование адекватное. Семья получила все льготы." },
+];
+
 const FAQ = [
   { q:"Кто может подать заявку?",        a:"Граждане РФ от 18 до 49 лет. Для IT-специальностей — до 55 лет. Воинский опыт необязателен." },
   { q:"Какие требования к кандидатам?",  a:"Гражданство РФ, отсутствие серьёзных судимостей, прохождение медкомиссии. Специфика зависит от должности." },
@@ -399,21 +408,22 @@ export default function Index() {
                   { icon:"FileSignature", t:"Контракт",  s:"Официально" },
                   { icon:"ShieldOff", t:"Без боёв",      s:"Тыловые районы" },
                 ].map((c, i) => (
-                  <div key={i} className="vol-card flex flex-col gap-2 p-4" style={{ borderColor: "rgba(0,255,136,0.15)" }}>
+                  <div key={i} className="vol-card flex flex-col gap-2 p-4 transition-all hover:scale-105"
+                    style={{ borderColor: "rgba(0,255,136,0.35)", background: "rgba(0,255,136,0.05)", boxShadow: "0 0 22px rgba(0,255,136,0.1), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
                     <IBox icon={c.icon} size={16} boxSize={34} radius={7} />
                     <div className="font-orb text-white text-sm leading-tight">{c.t}</div>
-                    <div className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(0,255,136,0.5)" }}>{c.s}</div>
+                    <div className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(0,255,136,0.65)" }}>{c.s}</div>
                   </div>
                 ))}
               </div>
 
               {/* Кому подходит */}
-              <div className="animate-fade-up d5 mt-6 vol-card p-5" style={{ animationDelay: "0.9s", opacity: 0, borderColor: "rgba(204,34,0,0.18)" }}>
-                <div className="font-stm text-[9px] tracking-widest mb-3" style={{ color: "rgba(204,34,0,0.7)" }}>// НАПРАВЛЕНИЯ НАБОРА</div>
+              <div className="animate-fade-up d5 mt-6 vol-card p-5" style={{ animationDelay: "0.9s", opacity: 0, borderColor: "rgba(204,34,0,0.4)", background: "rgba(204,34,0,0.06)", boxShadow: "0 0 24px rgba(204,34,0,0.12)" }}>
+                <div className="font-stm text-[9px] tracking-widest mb-3" style={{ color: "rgba(255,100,80,0.85)" }}>// НАПРАВЛЕНИЯ НАБОРА</div>
                 <div className="flex flex-wrap gap-2">
                   {["OSINT-аналитик","IT-специалист","Оператор БпЛА","Мониторинг СМИ","Логистика","Сисадмин"].map((tag, i) => (
                     <span key={i} className="font-stm text-[10px] tracking-wide px-3 py-1.5"
-                      style={{ background:"rgba(0,255,136,0.07)", border:"1px solid rgba(0,255,136,0.2)", borderRadius:2, color:"rgba(255,255,255,0.7)" }}>
+                      style={{ background:"rgba(0,255,136,0.1)", border:"1px solid rgba(0,255,136,0.3)", borderRadius:2, color:"rgba(255,255,255,0.85)" }}>
                       {tag}
                     </span>
                   ))}
@@ -522,6 +532,43 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
+      <section className="py-24 relative overflow-hidden" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
+        <div className="max-w-[1440px] mx-auto px-6 relative">
+          <div className="label-mono mb-3">// Отзывы служащих</div>
+          <div className="accent-line" />
+          <h2 className="font-orb text-white uppercase leading-tight mb-12" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+            Говорят<br /><span style={{ color: "#00ff88" }}>наши люди</span>
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {REVIEWS.map((r, i) => (
+              <div key={i} className="vol-card p-7 flex flex-col gap-5"
+                style={{ borderColor: `${r.color}40`, background: `${r.color}08`, boxShadow: `0 0 30px ${r.color}15` }}>
+                <Icon name="Quote" size={28} style={{ color: `${r.color}` }} />
+                <p className="font-exo text-white/72 text-sm leading-[1.85] flex-1">{r.text}</p>
+                <div className="flex items-center gap-1 mb-1">
+                  {[...Array(5)].map((_, s) => (
+                    <Icon key={s} name="Star" size={14} style={{ color: "#ffb800", fill: "#ffb800" }} />
+                  ))}
+                </div>
+                <div className="flex items-center gap-3 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div className="shrink-0 flex items-center justify-center font-orb text-white text-sm"
+                    style={{ width: 44, height: 44, borderRadius: 10, background: `linear-gradient(135deg, ${r.color}30, ${r.color}10)`, border: `1px solid ${r.color}50`, boxShadow: `0 0 16px ${r.color}25` }}>
+                    {r.initials}
+                  </div>
+                  <div>
+                    <div className="font-orb text-white text-sm">{r.name}</div>
+                    <div className="font-stm text-[9px] tracking-wider mt-0.5" style={{ color: `${r.color}aa` }}>{r.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
       <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
