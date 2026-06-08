@@ -6,6 +6,12 @@ type AnyIcon = any;
 
 const HERO_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/6658d0b3-e1a3-4ae6-bbe4-09cd1625f5c1.jpg";
+const OSINT_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8eb5e63c-ad19-4f06-a754-0ea7ae356fb8.jpg";
+const OSINT_VIZ_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a958d524-268e-4fbf-a68e-81b630c18e7d.jpg";
+const BPLA_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8e748e04-f308-4462-a51e-341ca5da8cec.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
 const LogoS = ({ size = 36 }: { size?: number }) => (
@@ -62,13 +68,14 @@ function useReveal() {
 
 /* ── DATA ───────────────────────────────────────────────── */
 const NAV = [
-  { label: "Что такое РЭР", href: "#rer" },
-  { label: "О команде",     href: "#about" },
-  { label: "Вакансии",      href: "#vacancies" },
-  { label: "Льготы",        href: "#benefits" },
-  { label: "Этапы",         href: "#steps" },
-  { label: "FAQ",           href: "#faq" },
-  { label: "Контакты",      href: "#contacts" },
+  { label: "Что такое OSINT", href: "#osint" },
+  { label: "Что такое РЭР",  href: "#rer" },
+  { label: "О команде",      href: "#about" },
+  { label: "Вакансии",       href: "#vacancies" },
+  { label: "Льготы",         href: "#benefits" },
+  { label: "Этапы",          href: "#steps" },
+  { label: "FAQ",            href: "#faq" },
+  { label: "Контакты",       href: "#contacts" },
 ];
 
 const RER_TASKS = [
@@ -186,6 +193,7 @@ export default function Index() {
     (level === "all" || v.level     === level)
   );
 
+  const osintRef    = useReveal();
   const rerRef      = useReveal();
   const aboutRef    = useReveal();
   const vacRef      = useReveal();
@@ -258,16 +266,18 @@ export default function Index() {
 
             {/* LEFT */}
             <div>
-              <div className="animate-fade-up d0 inline-flex items-center gap-2.5 mb-7 px-4 py-2 cyber-frame"
-                style={{ border: "1px solid rgba(0,255,136,0.18)", borderRadius: "2px", background: "rgba(0,255,136,0.03)" }}>
-                <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
-                <span className="font-stm text-[10px] tracking-[0.28em]" style={{ color: "rgba(0,255,136,0.6)" }}>НАБОР ОТКРЫТ · 2024</span>
+              <div className="animate-fade-up d0 inline-flex items-center gap-3 mb-8 px-5 py-3 cyber-frame"
+                style={{ border: "1px solid rgba(0,255,136,0.25)", borderRadius: "3px", background: "rgba(0,255,136,0.05)" }}>
+                <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#00ff88", boxShadow: "0 0 10px #00ff88" }} />
+                <span className="font-stm tracking-[0.3em]" style={{ color: "rgba(0,255,136,0.85)", fontSize: "0.82rem" }}>НАБОР ОТКРЫТ · 2026</span>
+                <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#00ff88", boxShadow: "0 0 10px #00ff88", animationDelay: "0.5s" }} />
               </div>
 
               <h1 className="animate-fade-up d1 font-orb text-white leading-[0.88] mb-6 animate-glitch"
                 style={{ fontSize: "clamp(2.8rem, 7vw, 5.8rem)", textTransform: "uppercase", letterSpacing: "-0.02em" }}>
-                OSINT-<span style={{ color: "#cc2200", textShadow: "0 0 30px rgba(204,34,0,0.6)" }}>РЭР</span><br />
-                <span style={{ fontSize: "45%", color: "rgba(255,255,255,0.5)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.06em" }}>Радиоэлектронная разведка</span>
+                OSINT<br />
+                <span style={{ color: "#cc2200", textShadow: "0 0 30px rgba(204,34,0,0.6)" }}>подразделение</span><br />
+                <span style={{ fontSize: "40%", color: "rgba(255,255,255,0.45)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.06em" }}>Радиоэлектронная разведка · РЭР</span>
               </h1>
 
               <p className="animate-fade-up d2 text-white/48 text-base leading-relaxed max-w-[480px] mb-2">
@@ -388,6 +398,111 @@ export default function Index() {
         </div>
       </div>
 
+      {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
+      <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.4), transparent)" }} />
+
+        <div className="max-w-[1440px] mx-auto px-6">
+          <div ref={osintRef} className="section-entry">
+            <div className="label-mono mb-3">// Что такое OSINT</div>
+            <div className="accent-line" />
+            <h2 className="font-orb text-white uppercase leading-tight mb-10" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+              Open Source<br /><span style={{ color: "#00ff88" }}>Intelligence</span>
+            </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
+              {/* Текст */}
+              <div>
+                <div className="vol-card p-7 mb-6" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
+                  <p className="font-exo text-white/72 text-base leading-[1.95] mb-4">
+                    <span className="font-orb text-white text-sm tracking-wide">OSINT</span>{" "}
+                    (Open Source Intelligence) — это разведка на основе открытых источников. Специалисты собирают, проверяют и анализируют информацию из СМИ, социальных сетей, публичных баз данных, спутниковых снимков, форумов, видео и фото. Всё это — легальные, общедоступные материалы.
+                  </p>
+                  <p className="font-exo text-white/55 text-sm leading-[1.85] mb-5">
+                    В армии OSINT помогает понимать обстановку без прямого контакта с противником, отслеживать перемещения, выявлять угрозы, готовить аналитику для командования и поддерживать работу операторов БпЛА, РЭР и штаба.
+                  </p>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="font-orb text-xs text-white/60">Польза OSINT в армии:</span>
+                    <div className="flex gap-1">
+                      {Array.from({ length: 10 }).map((_, i) => (
+                        <div key={i} className="h-2.5 rounded-sm" style={{
+                          width: 20,
+                          background: i < 9 ? "rgba(0,255,136,0.85)" : "rgba(255,255,255,0.1)",
+                          boxShadow: i < 9 ? "0 0 6px rgba(0,255,136,0.5)" : "none",
+                          transition: `opacity 0.3s ${i * 0.05}s`,
+                        }} />
+                      ))}
+                    </div>
+                    <span className="font-orb text-sm" style={{ color: "#00ff88" }}>9 / 10</span>
+                  </div>
+                </div>
+
+                {/* Источники OSINT */}
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { icon:"Newspaper",    label:"СМИ и новости",        col:"rgba(0,255,136," },
+                    { icon:"MessageCircle",label:"Социальные сети",      col:"rgba(0,255,136," },
+                    { icon:"Map",          label:"Карты и геоданные",    col:"rgba(0,255,136," },
+                    { icon:"Camera",       label:"Фото и видео",         col:"rgba(0,255,136," },
+                    { icon:"Database",     label:"Публичные базы данных",col:"rgba(0,255,136," },
+                    { icon:"Globe",        label:"Открытые реестры",     col:"rgba(0,255,136," },
+                  ].map((s, i) => (
+                    <div key={i} className="flex items-center gap-3 p-3 animate-fade-left"
+                      style={{ animationDelay: `${i * 0.08}s`, opacity: 0, background: "rgba(0,255,136,0.04)", border: "1px solid rgba(0,255,136,0.14)", borderRadius: 4 }}>
+                      <IBox icon={s.icon} size={16} boxSize={34} radius={8} glow />
+                      <span className="font-exo text-white/60 text-sm">{s.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Картинка */}
+              <div className="relative animate-fade-right" style={{ opacity: 0, animationDelay: "0.2s" }}>
+                <div className="cyber-frame overflow-hidden rounded" style={{ borderRadius: 4 }}>
+                  <img src={OSINT_VIZ_IMG} alt="OSINT визуализация"
+                    className="w-full object-cover"
+                    style={{ height: 340, filter: "brightness(0.75) saturate(0.8) contrast(1.1)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(5,7,13,0.9) 100%)" }} />
+                  <div className="absolute bottom-5 left-5">
+                    <div className="font-stm text-[10px] tracking-widest mb-1" style={{ color: "rgba(0,255,136,0.6)" }}>// OSINT VISUALIZATION</div>
+                    <div className="font-orb text-white text-base">Разведка открытых источников</div>
+                  </div>
+                </div>
+                {/* floating badge */}
+                <div className="absolute -top-4 -right-4 px-4 py-2 animate-float"
+                  style={{ background: "rgba(5,7,13,0.95)", border: "1px solid rgba(0,255,136,0.35)", borderRadius: 3, boxShadow: "0 0 20px rgba(0,255,136,0.15)" }}>
+                  <div className="font-orb text-xs" style={{ color: "#00ff88" }}>OSINT · 24/7</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Вторая картинка — аналитики */}
+            <div className="relative overflow-hidden cyber-frame animate-fade-up" style={{ opacity: 0, animationDelay: "0.3s", borderRadius: 4 }}>
+              <img src={OSINT_IMG} alt="OSINT команда"
+                className="w-full object-cover"
+                style={{ height: 280, objectPosition: "center 30%", filter: "brightness(0.55) saturate(0.6) contrast(1.1)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.85) 0%, transparent 40%, rgba(5,7,13,0.7) 100%)" }} />
+              <div className="absolute inset-0 grid-cyber opacity-30" />
+              <div className="absolute left-8 top-1/2 -translate-y-1/2">
+                <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>// LIVE MONITORING</div>
+                <div className="font-orb text-white text-xl uppercase mb-2">Аналитики за работой</div>
+                <div className="font-exo text-white/50 text-sm max-w-xs">Круглосуточный мониторинг открытых источников в защищённом контуре</div>
+              </div>
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+                {["СМИ активны", "Telegram · 847 каналов", "Соцсети · мониторинг"].map((t, i) => (
+                  <div key={i} className="flex items-center gap-2 px-3 py-1.5"
+                    style={{ background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 2 }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88", animationDelay: `${i * 0.4}s` }} />
+                    <span className="font-stm text-[10px] tracking-wider" style={{ color: "rgba(0,255,136,0.7)" }}>{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══ ЧТО ТАКОЕ РЭР ══════════════════════════════ */}
       <section id="rer" className="py-28 relative overflow-hidden">
         {/* cyber bg accent */}
@@ -451,7 +566,7 @@ export default function Index() {
             <div className="label-mono mb-3">// Команда OSINT</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              Команда <span style={{ color: "#cc2200" }}>OSINT-РЭР</span>
+              Команда <span style={{ color: "#cc2200" }}>OSINT</span>
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
@@ -497,6 +612,29 @@ export default function Index() {
                       <Icon name="ChevronRight" size={11} style={{ color: "rgba(0,255,136,0.7)" }} />
                     </div>
                     <span className="font-exo text-white/55 text-sm leading-relaxed">{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Картинка команды ── */}
+            <div className="relative overflow-hidden cyber-frame mb-8 animate-fade-up" style={{ opacity: 0, animationDelay: "0.2s", borderRadius: 4 }}>
+              <img src={BPLA_IMG} alt="Операторы БпЛА"
+                className="w-full object-cover"
+                style={{ height: 260, objectPosition: "center 40%", filter: "brightness(0.5) saturate(0.6) contrast(1.15)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.92) 0%, transparent 45%, rgba(5,7,13,0.75) 100%)" }} />
+              <div className="absolute inset-0 grid-cyber opacity-25" />
+              <div className="absolute left-8 top-1/2 -translate-y-1/2">
+                <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>// ОПЕРАТОРЫ БпЛА</div>
+                <div className="font-orb text-white text-xl uppercase mb-2">Воздушная разведка</div>
+                <div className="font-exo text-white/50 text-sm max-w-xs">Управление беспилотниками, аэрофотосъёмка и корректировка данных в реальном времени</div>
+              </div>
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+                {["БпЛА · в воздухе", "Съёмка · активна", "Связь · защищена"].map((t, i) => (
+                  <div key={i} className="flex items-center gap-2 px-3 py-1.5"
+                    style={{ background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 2 }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88", animationDelay: `${i * 0.3}s` }} />
+                    <span className="font-stm text-[10px] tracking-wider" style={{ color: "rgba(0,255,136,0.7)" }}>{t}</span>
                   </div>
                 ))}
               </div>
