@@ -235,11 +235,17 @@ export default function Index() {
   const [form, setForm] = useState({ name: "", phone: "", specialty: "", email: "" });
   const [formState, setFormState] = useState<"idle"|"loading"|"success"|"error">("idle");
 
+  // Подсветка формы при переходе с карты
+  const [formFlash, setFormFlash] = useState(false);
+
   // Подстановка специальности из кибер-карты
   useEffect(() => {
     const onSelect = (e: Event) => {
       const spec = (e as CustomEvent).detail;
       if (typeof spec === "string") setForm(p => ({ ...p, specialty: spec }));
+      setFormFlash(false);
+      setTimeout(() => setFormFlash(true), 600);
+      setTimeout(() => setFormFlash(false), 2400);
     };
     window.addEventListener("select-specialty", onSelect);
     return () => window.removeEventListener("select-specialty", onSelect);
@@ -1379,7 +1385,7 @@ export default function Index() {
               </div>
 
               {/* ── Форма ── */}
-              <div className="vol-card cyber-frame animate-fade-right relative overflow-hidden" style={{ opacity: 0, animationDelay: "0.2s", borderRadius: 16 }}>
+              <div className={`vol-card cyber-frame animate-fade-right relative overflow-hidden ${formFlash ? "form-flash" : ""}`} style={{ opacity: 0, animationDelay: "0.2s", borderRadius: 16 }}>
                 {/* верхняя подсветка */}
                 <div className="absolute top-0 inset-x-0 h-32 pointer-events-none" style={{ background: "radial-gradient(ellipse at top, rgba(255,255,255,0.07), transparent 70%)" }} />
 
