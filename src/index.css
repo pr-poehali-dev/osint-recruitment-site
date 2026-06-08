@@ -401,6 +401,20 @@
   opacity: 0;
 }
 
+/* ── ICON BOX GLASS SHEEN ── */
+.vol-card .icon-vol::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
 /* ── SCAN BEAM ── */
 .scan-beam {
   position: absolute;

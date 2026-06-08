@@ -238,11 +238,11 @@ export default function Index() {
               {/* CTA buttons */}
               <div className="animate-fade-up d4 flex flex-wrap gap-4">
                 <a href="#contacts" className="btn-red px-10 py-4 text-sm animate-pulse-red" style={{ borderRadius: "3px" }}>
-                  <Icon name="Send" size={15} />
+                  <Icon name="Send" size={18} />
                   Оставить заявку
                 </a>
                 <a href="#vacancies" className="btn-ghost px-10 py-4 text-sm" style={{ borderRadius: "3px" }}>
-                  <Icon name="ChevronDown" size={15} />
+                  <Icon name="ChevronDown" size={18} />
                   Смотреть вакансии
                 </a>
               </div>
@@ -314,10 +314,13 @@ export default function Index() {
                         { icon: "Home",        label: "Ипотека" },
                         { icon: "GraduationCap",label:"Льготы" },
                       ].map((q, i) => (
-                        <div key={i} className="flex flex-col items-center gap-1.5 p-3 cursor-pointer transition-all"
-                          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
-                          <Icon name={q.icon as AnyIcon} size={14} className="text-blue-400" />
-                          <span className="label-mono text-[9px] text-white/35">{q.label}</span>
+                        <div key={i} className="flex flex-col items-center gap-2 p-4 cursor-pointer transition-all hover:scale-105"
+                          style={{ background: "rgba(37,99,235,0.07)", border: "1px solid rgba(37,99,235,0.18)", borderRadius: "3px" }}>
+                          <div className="w-8 h-8 flex items-center justify-center rounded-full"
+                            style={{ background: "linear-gradient(135deg, rgba(37,99,235,0.3), rgba(37,99,235,0.1))", boxShadow: "0 0 12px rgba(37,99,235,0.3)" }}>
+                            <Icon name={q.icon as AnyIcon} size={16} className="text-blue-300" />
+                          </div>
+                          <span className="label-mono text-[9px] text-white/45">{q.label}</span>
                         </div>
                       ))}
                     </div>
@@ -334,15 +337,20 @@ export default function Index() {
         <div className="max-w-[1440px] mx-auto px-6 py-5">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             {STATS.map((s, i) => (
-              <div key={i} className="flex items-center gap-3 px-5 py-1"
+              <div key={i} className="flex items-center gap-4 px-5 py-3"
                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.07)" : "none" }}>
-                <div className="w-8 h-8 flex items-center justify-center shrink-0"
-                  style={{ background: "rgba(37,99,235,0.1)", border: "1px solid rgba(37,99,235,0.18)", borderRadius: "2px" }}>
-                  <Icon name={s.icon as AnyIcon} size={14} className="text-blue-400" />
+                <div className="w-11 h-11 flex items-center justify-center shrink-0 relative"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(37,99,235,0.22) 0%, rgba(37,99,235,0.06) 100%)",
+                    border: "1px solid rgba(37,99,235,0.35)",
+                    borderRadius: "10px",
+                    boxShadow: "0 0 18px rgba(37,99,235,0.2), inset 0 1px 0 rgba(255,255,255,0.08)"
+                  }}>
+                  <Icon name={s.icon as AnyIcon} size={20} className="text-blue-300" />
                 </div>
                 <div>
-                  <div className="font-oswald font-semibold text-white text-sm leading-tight">{s.val}</div>
-                  <div className="text-white/38 text-[11px]">{s.sub}</div>
+                  <div className="font-oswald font-bold text-white text-base leading-tight">{s.val}</div>
+                  <div className="text-white/38 text-[11px] mt-0.5">{s.sub}</div>
                 </div>
               </div>
             ))}
@@ -390,15 +398,20 @@ export default function Index() {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "MapPin",   title: "Чита, Забайкалье", desc: "Тыловой район, без боевых задач" },
-                { icon: "Shield",   title: "Аналитическая служба", desc: "IT, OSINT, операторы, логистика" },
-                { icon: "Users",    title: "Команда профессионалов", desc: "Опытные наставники для новобранцев" },
-                { icon: "Utensils", title: "Полное обеспечение", desc: "Питание, снаряжение, техника" },
+                { icon: "MapPin",   title: "Чита, Забайкалье", desc: "Тыловой район, без боевых задач", color: "rgba(239,68,68," },
+                { icon: "Shield",   title: "Аналитическая служба", desc: "IT, OSINT, операторы, логистика", color: "rgba(37,99,235," },
+                { icon: "Users",    title: "Команда профессионалов", desc: "Опытные наставники для новобранцев", color: "rgba(37,99,235," },
+                { icon: "Utensils", title: "Полное обеспечение", desc: "Питание, снаряжение, техника", color: "rgba(16,185,129," },
               ].map((c, i) => (
                 <div key={i} className="vol-card p-6">
-                  <div className="w-10 h-10 flex items-center justify-center mb-4"
-                    style={{ background: "rgba(37,99,235,0.1)", border: "1px solid rgba(37,99,235,0.18)", borderRadius: "3px" }}>
-                    <Icon name={c.icon as AnyIcon} size={18} className="text-blue-400" />
+                  <div className="w-14 h-14 flex items-center justify-center mb-5"
+                    style={{
+                      background: `linear-gradient(135deg, ${c.color}0.18) 0%, ${c.color}0.05) 100%)`,
+                      border: `1px solid ${c.color}0.3)`,
+                      borderRadius: "12px",
+                      boxShadow: `0 0 24px ${c.color}0.2), inset 0 1px 0 rgba(255,255,255,0.07)`
+                    }}>
+                    <Icon name={c.icon as AnyIcon} size={26} className={i === 0 ? "text-red-400" : i === 3 ? "text-emerald-400" : "text-blue-400"} />
                   </div>
                   <div className="font-oswald font-semibold text-white text-sm uppercase mb-2">{c.title}</div>
                   <div className="text-white/42 text-xs leading-relaxed">{c.desc}</div>
@@ -446,9 +459,14 @@ export default function Index() {
               {filtered.map(v => (
                 <div key={v.id} className="vol-card p-7 group">
                   <div className="flex items-start justify-between mb-5">
-                    <div className="w-11 h-11 flex items-center justify-center"
-                      style={{ background: "rgba(37,99,235,0.1)", border: "1px solid rgba(37,99,235,0.2)", borderRadius: "3px" }}>
-                      <Icon name={v.icon as AnyIcon} size={20} className="text-blue-400" />
+                    <div className="w-14 h-14 flex items-center justify-center"
+                      style={{
+                        background: "linear-gradient(135deg, rgba(37,99,235,0.2) 0%, rgba(37,99,235,0.06) 100%)",
+                        border: "1px solid rgba(37,99,235,0.3)",
+                        borderRadius: "14px",
+                        boxShadow: "0 0 28px rgba(37,99,235,0.2), inset 0 1px 0 rgba(255,255,255,0.08)"
+                      }}>
+                      <Icon name={v.icon as AnyIcon} size={26} className="text-blue-300" />
                     </div>
                     <span className="label-mono text-[9px] text-white/30">{v.region}</span>
                   </div>
@@ -518,16 +536,33 @@ export default function Index() {
               },
             ].map((card, ci) => (
               <div key={ci} className="vol-card p-8">
-                <div className="flex items-center gap-3 mb-7">
-                  <Icon name={card.icon as AnyIcon} size={20} className={card.color} />
-                  <span className="font-oswald font-semibold text-white text-sm uppercase tracking-widest">{card.title}</span>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-14 h-14 flex items-center justify-center shrink-0"
+                    style={{
+                      background: ci === 0
+                        ? "linear-gradient(135deg, rgba(52,211,153,0.2), rgba(52,211,153,0.05))"
+                        : "linear-gradient(135deg, rgba(37,99,235,0.2), rgba(37,99,235,0.05))",
+                      border: `1px solid ${card.borderColor}`,
+                      borderRadius: "14px",
+                      boxShadow: ci === 0
+                        ? "0 0 28px rgba(52,211,153,0.2), inset 0 1px 0 rgba(255,255,255,0.07)"
+                        : "0 0 28px rgba(37,99,235,0.2), inset 0 1px 0 rgba(255,255,255,0.07)"
+                    }}>
+                    <Icon name={card.icon as AnyIcon} size={28} className={card.color} />
+                  </div>
+                  <span className="font-oswald font-bold text-white text-lg uppercase tracking-wider">{card.title}</span>
                 </div>
                 <div className="space-y-4">
                   {card.items.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="w-5 h-5 flex items-center justify-center mt-0.5 shrink-0"
-                        style={{ background: "rgba(255,255,255,0.05)", border: `1px solid ${card.borderColor}`, borderRadius: "2px" }}>
-                        <Icon name={ci === 0 ? "Check" : "ChevronRight"} size={11} className={card.color} />
+                      <div className="w-6 h-6 flex items-center justify-center mt-0.5 shrink-0"
+                        style={{
+                          background: ci === 0 ? "rgba(52,211,153,0.12)" : "rgba(37,99,235,0.12)",
+                          border: `1px solid ${card.borderColor}`,
+                          borderRadius: "6px",
+                          boxShadow: ci === 0 ? "0 0 8px rgba(52,211,153,0.15)" : "0 0 8px rgba(37,99,235,0.15)"
+                        }}>
+                        <Icon name={ci === 0 ? "Check" : "ChevronRight"} size={13} className={card.color} />
                       </div>
                       <span className="text-white/60 text-sm leading-relaxed">{item}</span>
                     </div>
@@ -551,21 +586,31 @@ export default function Index() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {BENEFITS.map((b, i) => (
               <div key={i} className="vol-card p-6 group cursor-default">
-                <div className="w-10 h-10 flex items-center justify-center mb-5 transition-all"
-                  style={{ background: "rgba(37,99,235,0.08)", border: "1px solid rgba(37,99,235,0.16)", borderRadius: "3px" }}>
-                  <Icon name={b.icon as AnyIcon} size={18} className="text-blue-400" />
+                <div className="w-14 h-14 flex items-center justify-center mb-5 transition-all group-hover:scale-110"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(37,99,235,0.2) 0%, rgba(37,99,235,0.06) 100%)",
+                    border: "1px solid rgba(37,99,235,0.28)",
+                    borderRadius: "16px",
+                    boxShadow: "0 0 24px rgba(37,99,235,0.18), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2)"
+                  }}>
+                  <Icon name={b.icon as AnyIcon} size={26} className="text-blue-300" />
                 </div>
-                <div className="font-oswald font-semibold text-white text-sm uppercase mb-2 leading-snug">{b.title}</div>
-                <div className="text-white/42 text-xs leading-[1.7]">{b.desc}</div>
+                <div className="font-oswald font-bold text-white text-base uppercase mb-2 leading-snug">{b.title}</div>
+                <div className="text-white/45 text-sm leading-[1.7]">{b.desc}</div>
               </div>
             ))}
           </div>
 
           {/* Big callout */}
-          <div className="mt-8 red-card p-8 flex flex-col sm:flex-row items-center gap-6" style={{ borderRadius: "3px" }}>
-            <div className="w-14 h-14 flex items-center justify-center shrink-0"
-              style={{ background: "rgba(200,30,30,0.2)", border: "1px solid rgba(200,30,30,0.4)", borderRadius: "3px" }}>
-              <Icon name="Shield" size={24} className="text-red-400" />
+          <div className="mt-8 red-card p-8 flex flex-col sm:flex-row items-center gap-8" style={{ borderRadius: "3px" }}>
+            <div className="w-20 h-20 flex items-center justify-center shrink-0"
+              style={{
+                background: "linear-gradient(135deg, rgba(200,30,30,0.3) 0%, rgba(200,30,30,0.1) 100%)",
+                border: "1px solid rgba(200,30,30,0.45)",
+                borderRadius: "20px",
+                boxShadow: "0 0 40px rgba(200,30,30,0.3), inset 0 1px 0 rgba(255,255,255,0.08)"
+              }}>
+              <Icon name="Shield" size={36} className="text-red-400" />
             </div>
             <div>
               <div className="font-oswald font-bold text-white text-2xl uppercase mb-1">Списание задолженностей до 10 000 000 ₽</div>
@@ -588,9 +633,14 @@ export default function Index() {
             {STEPS.map((s, i) => (
               <div key={i} className="flex flex-col items-center text-center group">
                 {/* Circle */}
-                <div className="relative w-20 h-20 flex items-center justify-center mb-5 transition-all group-hover:scale-105"
-                  style={{ background: "linear-gradient(135deg, rgba(37,99,235,0.18) 0%, rgba(37,99,235,0.06) 100%)", border: "2px solid rgba(37,99,235,0.35)", borderRadius: "50%", boxShadow: "0 0 32px rgba(37,99,235,0.15)" }}>
-                  <span className="font-oswald font-bold text-white text-xl" style={{ color: "hsl(210,80%,72%)" }}>{s.n}</span>
+                <div className="relative w-24 h-24 flex items-center justify-center mb-6 transition-all group-hover:scale-110"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(37,99,235,0.22) 0%, rgba(37,99,235,0.07) 100%)",
+                    border: "2px solid rgba(37,99,235,0.4)",
+                    borderRadius: "50%",
+                    boxShadow: "0 0 40px rgba(37,99,235,0.22), 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)"
+                  }}>
+                  <span className="font-oswald font-bold text-2xl" style={{ color: "hsl(210,80%,76%)" }}>{s.n}</span>
                   {/* Connector */}
                   {i < STEPS.length - 1 && (
                     <div className="hidden lg:block absolute left-full top-1/2 -translate-y-1/2 ml-2" style={{ width: "calc(100% - 2.5rem)", height: "1px", background: "linear-gradient(90deg, rgba(37,99,235,0.5), rgba(37,99,235,0.1))" }} />
@@ -622,9 +672,16 @@ export default function Index() {
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <span className="text-white text-sm font-medium leading-relaxed">{item.q}</span>
-                  <div className="w-7 h-7 flex items-center justify-center shrink-0 transition-all"
-                    style={{ background: openFaq === i ? "rgba(37,99,235,0.2)" : "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "2px" }}>
-                    <Icon name={openFaq === i ? "Minus" : "Plus"} size={13} className={openFaq === i ? "text-blue-400" : "text-white/50"} />
+                  <div className="w-9 h-9 flex items-center justify-center shrink-0 transition-all"
+                    style={{
+                      background: openFaq === i
+                        ? "linear-gradient(135deg, rgba(37,99,235,0.3), rgba(37,99,235,0.1))"
+                        : "rgba(255,255,255,0.05)",
+                      border: openFaq === i ? "1px solid rgba(37,99,235,0.5)" : "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: "8px",
+                      boxShadow: openFaq === i ? "0 0 14px rgba(37,99,235,0.25)" : "none"
+                    }}>
+                    <Icon name={openFaq === i ? "Minus" : "Plus"} size={16} className={openFaq === i ? "text-blue-300" : "text-white/50"} />
                   </div>
                 </button>
                 {openFaq === i && (
@@ -664,9 +721,15 @@ export default function Index() {
                   { icon: "Send",  label: "@FO_ZABAIKALIE",      sub: "Telegram — 24/7" },
                 ].map((c, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="w-10 h-10 flex items-center justify-center shrink-0"
-                      style={{ background: "rgba(37,99,235,0.1)", border: "1px solid rgba(37,99,235,0.2)", borderRadius: "2px" }}>
-                      <Icon name={c.icon as AnyIcon} size={16} className="text-blue-400" />
+                    <div className="w-13 h-13 flex items-center justify-center shrink-0"
+                      style={{
+                        width: "52px", height: "52px",
+                        background: "linear-gradient(135deg, rgba(37,99,235,0.22) 0%, rgba(37,99,235,0.07) 100%)",
+                        border: "1px solid rgba(37,99,235,0.3)",
+                        borderRadius: "12px",
+                        boxShadow: "0 0 20px rgba(37,99,235,0.18), inset 0 1px 0 rgba(255,255,255,0.08)"
+                      }}>
+                      <Icon name={c.icon as AnyIcon} size={22} className="text-blue-300" />
                     </div>
                     <div>
                       <div className="text-white/85 text-sm font-medium">{c.label}</div>
