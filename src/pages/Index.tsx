@@ -390,6 +390,35 @@ export default function Index() {
                   </div>
                 ))}
               </div>
+
+              {/* Ключевые условия */}
+              <div className="animate-fade-up d5 mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3" style={{ animationDelay: "0.8s", opacity: 0 }}>
+                {[
+                  { icon:"UserCheck", t:"18–49 лет",     s:"Возраст" },
+                  { icon:"GraduationCap", t:"Обучение",  s:"С нуля, бесплатно" },
+                  { icon:"FileSignature", t:"Контракт",  s:"Официально" },
+                  { icon:"ShieldOff", t:"Без боёв",      s:"Тыловые районы" },
+                ].map((c, i) => (
+                  <div key={i} className="vol-card flex flex-col gap-2 p-4" style={{ borderColor: "rgba(0,255,136,0.15)" }}>
+                    <IBox icon={c.icon} size={16} boxSize={34} radius={7} />
+                    <div className="font-orb text-white text-sm leading-tight">{c.t}</div>
+                    <div className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(0,255,136,0.5)" }}>{c.s}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Кому подходит */}
+              <div className="animate-fade-up d5 mt-6 vol-card p-5" style={{ animationDelay: "0.9s", opacity: 0, borderColor: "rgba(204,34,0,0.18)" }}>
+                <div className="font-stm text-[9px] tracking-widest mb-3" style={{ color: "rgba(204,34,0,0.7)" }}>// НАПРАВЛЕНИЯ НАБОРА</div>
+                <div className="flex flex-wrap gap-2">
+                  {["OSINT-аналитик","IT-специалист","Оператор БпЛА","Мониторинг СМИ","Логистика","Сисадмин"].map((tag, i) => (
+                    <span key={i} className="font-stm text-[10px] tracking-wide px-3 py-1.5"
+                      style={{ background:"rgba(0,255,136,0.07)", border:"1px solid rgba(0,255,136,0.2)", borderRadius:2, color:"rgba(255,255,255,0.7)" }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* RIGHT: Payment card */}
