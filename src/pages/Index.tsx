@@ -399,21 +399,45 @@ export default function Index() {
       <section id="about" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
-          <div ref={aboutRef} className="section-entry grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-            <div>
-              <div className="label-mono mb-3">// Команда</div>
-              <div className="accent-line" />
-              <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-                Команда <span style={{ color: "#cc2200" }}>OSINT-РЭР</span>
-              </h2>
-              <p className="font-exo text-white/50 leading-[1.9] mb-5 text-[0.92rem]">
-                Слаженная команда аналитиков, инженеров, операторов БпЛА и специалистов тылового обеспечения.
-                Каждый новобранец проходит подготовку под руководством опытных наставников.
-              </p>
-              <p className="font-stm text-xs mb-10 tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>
-                &gt; СИЛЬНАЯ КОМАНДА · НАДЁЖНЫЕ КОМАНДИРЫ · ЯСНЫЕ ЗАДАЧИ
-              </p>
-              <div className="space-y-3.5">
+          <div ref={aboutRef} className="section-entry">
+
+            {/* ── OSINT описание ── */}
+            <div className="label-mono mb-3">// Команда OSINT</div>
+            <div className="accent-line" />
+            <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+              Команда <span style={{ color: "#cc2200" }}>OSINT-РЭР</span>
+            </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+              {/* OSINT блок */}
+              <div className="vol-card p-7" style={{ borderColor: "rgba(0,255,136,0.15)" }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <IBox icon="Search" size={22} boxSize={48} radius={12} glow />
+                  <span className="font-orb text-white text-sm uppercase tracking-wide">OSINT-подразделение</span>
+                </div>
+                <p className="font-exo text-white/65 text-sm leading-[1.95] mb-4">
+                  <span className="font-orb text-white/90 text-xs tracking-wide">OSINT-подразделение</span> — это команда специалистов, которая занимается сбором, проверкой и анализом информации из открытых источников: СМИ, социальных сетей, карт, публичных баз данных, фото, видео и других доступных материалов. Такая работа помогает быстрее понимать обстановку, выявлять важные события, отслеживать изменения и готовить аналитические материалы для командования.
+                </p>
+                <p className="font-exo text-white/50 text-sm leading-[1.85] mb-5">
+                  <span className="font-orb text-white/75 text-xs">Польза OSINT в армии — очень высокая: 9/10.</span>{" "}
+                  OSINT помогает принимать более точные решения, дополняет данные разведки, снижает неопределённость, ускоряет анализ ситуации и поддерживает работу других направлений: РЭР, БпЛА, связи, IT и штабной аналитики.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-1">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <div key={i} className="h-2 rounded-sm" style={{
+                        width: 16,
+                        background: i < 9 ? "rgba(0,255,136,0.85)" : "rgba(255,255,255,0.1)",
+                        boxShadow: i < 9 ? "0 0 6px rgba(0,255,136,0.5)" : "none",
+                      }} />
+                    ))}
+                  </div>
+                  <span className="font-orb text-xs" style={{ color: "rgba(0,255,136,0.7)" }}>9 / 10</span>
+                </div>
+              </div>
+
+              {/* Задачи команды */}
+              <div className="flex flex-col gap-3">
                 {[
                   "Обнаружение и перехват радиоэлектронных сигналов",
                   "Анализ активности противника по данным РЭР",
@@ -422,7 +446,7 @@ export default function Index() {
                   "Подготовка аналитических докладов для командования",
                   "Поддержка операторов БпЛА актуальными данными",
                 ].map((t, i) => (
-                  <div key={i} className="flex items-start gap-3 animate-fade-left" style={{ animationDelay: `${0.1 + i * 0.07}s`, opacity: 0 }}>
+                  <div key={i} className="flex items-start gap-3 animate-fade-right" style={{ animationDelay: `${0.1 + i * 0.07}s`, opacity: 0 }}>
                     <div className="ibox mt-0.5 shrink-0" style={{ width: 20, height: 20, background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 5 }}>
                       <Icon name="ChevronRight" size={11} style={{ color: "rgba(0,255,136,0.7)" }} />
                     </div>
@@ -432,20 +456,32 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon:"Radio",      title:"Радиоперехват",    desc:"Обнаружение сигналов на всех частотных диапазонах" },
-                { icon:"Search",     title:"OSINT",            desc:"Разведка по открытым источникам данных" },
-                { icon:"Plane",      title:"Операторы БпЛА",  desc:"Воздушная разведка и аэрофотосъёмка" },
-                { icon:"Database",   title:"Аналитика",        desc:"Обработка данных и подготовка докладов" },
-              ].map((c, i) => (
-                <div key={i} className="vol-card p-6 cyber-frame animate-scale-in" style={{ animationDelay: `${i * 0.1}s`, opacity: 0 }}>
-                  <IBox icon={c.icon} size={22} boxSize={52} radius={12} glow />
-                  <div className="font-orb text-white text-xs uppercase mt-5 mb-2 tracking-wide">{c.title}</div>
-                  <div className="font-exo text-white/38 text-xs leading-[1.75]">{c.desc}</div>
+            {/* ── Вкладка «О командирах» ── */}
+            <div className="vol-card p-8 cyber-frame" style={{ borderColor: "rgba(204,34,0,0.2)", background: "rgba(204,34,0,0.03)" }}>
+              <div className="flex items-center gap-4 mb-8">
+                <IBox icon="ShieldCheck" size={24} boxSize={56} radius={14} glow />
+                <div>
+                  <div className="font-orb text-white text-base uppercase tracking-wide mb-0.5">О командирах</div>
+                  <div className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.4)" }}>ПРОФЕССИОНАЛЬНЫЙ СОСТАВ</div>
                 </div>
-              ))}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { icon:"Star",       title:"Боевой опыт",           desc:"Каждый командир прошёл реальные операции и знает, как действовать в условиях неопределённости." },
+                  { icon:"GraduationCap", title:"Профессиональная подготовка", desc:"Специализированное военное образование, курсы разведки и технических дисциплин." },
+                  { icon:"Users",      title:"Наставничество",         desc:"Каждый новобранец закрепляется за опытным офицером, который помогает на всех этапах службы." },
+                  { icon:"Target",     title:"Результат — главное",    desc:"Командиры ставят чёткие задачи, обеспечивают ресурсами и несут ответственность за итог." },
+                ].map((c, i) => (
+                  <div key={i} className="flex flex-col gap-3 p-5 animate-scale-in"
+                    style={{ animationDelay: `${i * 0.1}s`, opacity: 0, background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "3px" }}>
+                    <IBox icon={c.icon} size={20} boxSize={46} radius={10} glow />
+                    <div className="font-orb text-white text-xs uppercase tracking-wide leading-snug">{c.title}</div>
+                    <div className="font-exo text-white/42 text-xs leading-[1.75]">{c.desc}</div>
+                  </div>
+                ))}
+              </div>
             </div>
+
           </div>
         </div>
       </section>
