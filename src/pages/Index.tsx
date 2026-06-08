@@ -263,7 +263,13 @@ export default function Index() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim()) return;
+    if (!form.name.trim()) return;
+    const digits = form.phone.replace(/\D/g, "");
+    if (digits.length !== 11) {
+      setFormState("error");
+      setTimeout(() => setFormState("idle"), 4000);
+      return;
+    }
     snd.submit();
     setFormState("loading");
     try {
@@ -1377,7 +1383,11 @@ export default function Index() {
                     {formState === "error" && (
                       <div className="flex items-center gap-2.5 p-3.5 animate-scale-reveal" style={{ background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.3)", borderRadius: 8 }}>
                         <Icon name="TriangleAlert" size={15} style={{ color: "#ef4444" }} />
-                        <span className="font-exo text-sm" style={{ color: "rgba(255,120,100,0.95)" }}>Ошибка отправки. Напишите напрямую в Telegram.</span>
+                        <span className="font-exo text-sm" style={{ color: "rgba(255,120,100,0.95)" }}>
+                          {form.phone.replace(/\D/g, "").length !== 11
+                            ? "Введите полный номер телефона (11 цифр)."
+                            : "Ошибка отправки. Напишите напрямую в Telegram."}
+                        </span>
                       </div>
                     )}
 
