@@ -348,9 +348,14 @@ export default function Index() {
               <p className="animate-fade-up d2 text-white/48 text-base leading-relaxed max-w-[480px] mb-2">
                 Анализ открытых источников, IT, операторы БпЛА, логистика.
               </p>
-              <p className="animate-fade-up d3 font-stm text-xs mb-10 tracking-widest" style={{ color: "rgba(0,255,136,0.35)" }}>
-                &gt; БЕЗ УЧАСТИЯ В БОЕВЫХ ДЕЙСТВИЯХ_<span className="cursor" />
-              </p>
+              <div className="animate-fade-up d3 mb-10 flex flex-col gap-2">
+                <p className="font-stm tracking-widest" style={{ fontSize: "clamp(0.85rem, 2vw, 1.1rem)", color: "rgba(0,255,136,0.75)", textShadow: "0 0 16px rgba(0,255,136,0.35)" }}>
+                  &gt; БЕЗ УЧАСТИЯ В БОЕВЫХ ДЕЙСТВИЯХ_<span className="cursor" />
+                </p>
+                <p className="font-stm tracking-widest text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  &gt; СЛУЖБА: <span style={{ color: "rgba(255,255,255,0.6)" }}>ДОНЕЦК · МАРИУПОЛЬ</span>
+                </p>
+              </div>
 
               <div className="animate-fade-up d4 flex flex-wrap gap-4">
                 <a href="#contacts" className="btn-red px-10 py-4 text-xs animate-pulse-red" style={{ borderRadius: "2px" }} onClick={snd.submit} onMouseEnter={snd.hover}>
