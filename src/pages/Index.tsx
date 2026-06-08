@@ -238,18 +238,33 @@ export default function Index() {
   // Подсветка формы при переходе с карты
   const [formFlash, setFormFlash] = useState(false);
 
+  // Запуск вспышки формы
+  const triggerFlash = useCallback(() => {
+    setFormFlash(false);
+    setTimeout(() => setFormFlash(true), 600);
+    setTimeout(() => setFormFlash(false), 2400);
+  }, []);
+
   // Подстановка специальности из кибер-карты
   useEffect(() => {
     const onSelect = (e: Event) => {
       const spec = (e as CustomEvent).detail;
       if (typeof spec === "string") setForm(p => ({ ...p, specialty: spec }));
-      setFormFlash(false);
-      setTimeout(() => setFormFlash(true), 600);
-      setTimeout(() => setFormFlash(false), 2400);
+      triggerFlash();
     };
     window.addEventListener("select-specialty", onSelect);
     return () => window.removeEventListener("select-specialty", onSelect);
-  }, []);
+  }, [triggerFlash]);
+
+  // Вспышка при клике на любую кнопку «Оставить заявку» (ссылка на #contacts)
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest('a[href="#contacts"]');
+      if (target) triggerFlash();
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [triggerFlash]);
 
   // Денежные суммы из настроек
   const [pay, setPay] = useState({ once: 2600000, monthly: 210000, federal: 400000, year: 5120000 });
