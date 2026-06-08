@@ -58,23 +58,83 @@ interface DayStat {
   count: number;
 }
 
+interface SourceStat {
+  source: string;
+  count: number;
+}
+
 interface Stats {
   total: number;
   by_status: Record<string, number>;
   by_day: DayStat[];
+  clicks_by_source: SourceStat[];
 }
 
-type TabKey = "applications" | "reviews" | "settings" | "vacancies" | "faq" | "gallery" | "stats";
+interface Callback {
+  id: number;
+  name: string;
+  phone: string;
+  preferred_time: string;
+  status: string;
+  created_at: string | null;
+}
+
+interface BlogPost {
+  id: number;
+  title: string;
+  excerpt: string;
+  body: string;
+  image_url: string;
+  sort_order: number;
+  active: boolean;
+}
+
+interface DocItem {
+  id: number;
+  title: string;
+  description: string;
+  image_url: string;
+  sort_order: number;
+  active: boolean;
+}
+
+type TabKey =
+  | "applications"
+  | "reviews"
+  | "settings"
+  | "vacancies"
+  | "faq"
+  | "gallery"
+  | "stats"
+  | "callbacks"
+  | "blog"
+  | "documents";
 
 const TABS: { key: TabKey; label: string; icon: string }[] = [
   { key: "applications", label: "Заявки", icon: "Inbox" },
+  { key: "callbacks", label: "Звонки", icon: "PhoneCall" },
   { key: "reviews", label: "Отзывы", icon: "MessageSquare" },
   { key: "settings", label: "Настройки", icon: "SlidersHorizontal" },
   { key: "vacancies", label: "Вакансии", icon: "Briefcase" },
+  { key: "blog", label: "Блог", icon: "Newspaper" },
+  { key: "documents", label: "Документы", icon: "FileText" },
   { key: "faq", label: "FAQ", icon: "HelpCircle" },
   { key: "gallery", label: "Галерея", icon: "Image" },
   { key: "stats", label: "Статистика", icon: "BarChart3" },
 ];
+
+const CALLBACK_STATUSES: { key: string; label: string }[] = [
+  { key: "new", label: "Новый" },
+  { key: "done", label: "Обработан" },
+];
+
+const cbStatusStyle = (status: string): { bg: string; color: string } =>
+  status === "done"
+    ? { bg: "rgba(255,255,255,0.16)", color: "#ffffff" }
+    : { bg: "rgba(220,38,38,0.14)", color: "#ef4444" };
+
+const cbStatusLabel = (status: string): string =>
+  CALLBACK_STATUSES.find((s) => s.key === status)?.label || status;
 
 const APP_STATUSES: { key: string; label: string }[] = [
   { key: "new", label: "Новая" },
@@ -139,6 +199,25 @@ const emptyGallery = (): GalleryItem => ({
   active: true,
 });
 
+const emptyBlog = (): BlogPost => ({
+  id: 0,
+  title: "",
+  excerpt: "",
+  body: "",
+  image_url: "",
+  sort_order: 0,
+  active: true,
+});
+
+const emptyDoc = (): DocItem => ({
+  id: 0,
+  title: "",
+  description: "",
+  image_url: "",
+  sort_order: 0,
+  active: true,
+});
+
 export default function Admin() {
   const [password, setPassword] = useState("");
   const [authed, setAuthed] = useState(false);
@@ -154,12 +233,17 @@ export default function Admin() {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [faq, setFaq] = useState<Faq[]>([]);
   const [gallery, setGallery] = useState<GalleryItem[]>([]);
-  const [stats, setStats] = useState<Stats>({ total: 0, by_status: {}, by_day: [] });
+  const [callbacks, setCallbacks] = useState<Callback[]>([]);
+  const [blog, setBlog] = useState<BlogPost[]>([]);
+  const [documents, setDocuments] = useState<DocItem[]>([]);
+  const [stats, setStats] = useState<Stats>({ total: 0, by_status: {}, by_day: [], clicks_by_source: [] });
 
   // editing forms
   const [vacForm, setVacForm] = useState<Vacancy | null>(null);
   const [faqForm, setFaqForm] = useState<Faq | null>(null);
   const [galForm, setGalForm] = useState<GalleryItem | null>(null);
+  const [blogForm, setBlogForm] = useState<BlogPost | null>(null);
+  const [docForm, setDocForm] = useState<DocItem | null>(null);
 
   const [cfg, setCfg] = useState({
     applications_count: "",
@@ -275,7 +359,44 @@ export default function Admin() {
           total: data.total || 0,
           by_status: data.by_status || {},
           by_day: data.by_day || [],
+          clicks_by_source: data.clicks_by_source || [],
         });
+      } catch {
+        /* ignore */
+      }
+    },
+    [adminGet]
+  );
+
+  const loadCallbacks = useCallback(
+    async (pwd: string) => {
+      try {
+        const data = await adminGet("callbacks", pwd);
+        setCallbacks(data.callbacks || []);
+      } catch {
+        /* ignore */
+      }
+    },
+    [adminGet]
+  );
+
+  const loadBlog = useCallback(
+    async (pwd: string) => {
+      try {
+        const data = await adminGet("blog", pwd);
+        setBlog(data.blog || []);
+      } catch {
+        /* ignore */
+      }
+    },
+    [adminGet]
+  );
+
+  const loadDocuments = useCallback(
+    async (pwd: string) => {
+      try {
+        const data = await adminGet("documents", pwd);
+        setDocuments(data.documents || []);
       } catch {
         /* ignore */
       }
@@ -295,6 +416,9 @@ export default function Admin() {
           loadFaq(pwd),
           loadGallery(pwd),
           loadStats(pwd),
+          loadCallbacks(pwd),
+          loadBlog(pwd),
+          loadDocuments(pwd),
         ]);
         setAuthed(true);
       } catch {
@@ -302,7 +426,17 @@ export default function Admin() {
       }
       setLoading(false);
     },
-    [loadApplications, loadReviewsAndSettings, loadVacancies, loadFaq, loadGallery, loadStats]
+    [
+      loadApplications,
+      loadReviewsAndSettings,
+      loadVacancies,
+      loadFaq,
+      loadGallery,
+      loadStats,
+      loadCallbacks,
+      loadBlog,
+      loadDocuments,
+    ]
   );
 
   const login = (e: React.FormEvent) => {
@@ -332,6 +466,15 @@ export default function Admin() {
         break;
       case "stats":
         loadStats(password);
+        break;
+      case "callbacks":
+        loadCallbacks(password);
+        break;
+      case "blog":
+        loadBlog(password);
+        break;
+      case "documents":
+        loadDocuments(password);
         break;
     }
   };
@@ -501,6 +644,84 @@ export default function Admin() {
     try {
       await adminPost({ action: "gallery_delete", id });
       loadGallery(password);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  // ===== actions: callbacks =====
+  const setCallbackStatus = async (id: number, status: string) => {
+    try {
+      await adminPost({ action: "callback_status", id, status });
+      loadCallbacks(password);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const deleteCallback = async (id: number) => {
+    try {
+      await adminPost({ action: "callback_delete", id });
+      loadCallbacks(password);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  // ===== actions: blog =====
+  const saveBlog = async () => {
+    if (!blogForm) return;
+    try {
+      await adminPost({
+        action: "blog_save",
+        id: blogForm.id,
+        title: blogForm.title,
+        excerpt: blogForm.excerpt,
+        body: blogForm.body,
+        image_url: blogForm.image_url,
+        sort_order: blogForm.sort_order,
+        active: blogForm.active,
+      });
+      setBlogForm(null);
+      loadBlog(password);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const deleteBlog = async (id: number) => {
+    try {
+      await adminPost({ action: "blog_delete", id });
+      loadBlog(password);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  // ===== actions: documents =====
+  const saveDoc = async () => {
+    if (!docForm) return;
+    try {
+      await adminPost({
+        action: "document_save",
+        id: docForm.id,
+        title: docForm.title,
+        description: docForm.description,
+        image_url: docForm.image_url,
+        sort_order: docForm.sort_order,
+        active: docForm.active,
+      });
+      setDocForm(null);
+      loadDocuments(password);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const deleteDoc = async (id: number) => {
+    try {
+      await adminPost({ action: "document_delete", id });
+      loadDocuments(password);
     } catch {
       /* ignore */
     }
@@ -1118,8 +1339,282 @@ export default function Admin() {
     </div>
   );
 
+  const renderCallbacks = () => (
+    <div className="animate-fade-blur">
+      <div className="label-mono mb-4">Заявки на обратный звонок · {callbacks.length}</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {callbacks.map((c) => {
+          const st = cbStatusStyle(c.status);
+          return (
+            <div
+              key={c.id}
+              className="vol-card hover-lift p-6 flex flex-col gap-4 animate-fade-blur"
+              style={{ borderRadius: 12, borderColor: "rgba(255,255,255,0.1)" }}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <Icon name="PhoneCall" size={18} style={{ color: "#ef4444" }} />
+                  <div className="font-orb text-white text-base">{c.name || "—"}</div>
+                </div>
+                <span
+                  className="font-stm text-[9px] tracking-widest px-2.5 py-1 whitespace-nowrap"
+                  style={{ borderRadius: 4, background: st.bg, color: st.color }}
+                >
+                  {cbStatusLabel(c.status).toUpperCase()}
+                </span>
+              </div>
+
+              <a
+                href={`tel:${c.phone}`}
+                className="font-orb text-white text-lg hover:text-[#ef4444] transition-colors"
+              >
+                {c.phone || "—"}
+              </a>
+
+              <div className="flex items-center justify-between font-stm text-[10px] tracking-wide" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <span className="flex items-center gap-1.5">
+                  <Icon name="Clock" size={12} style={{ color: "rgba(255,255,255,0.4)" }} />
+                  {c.preferred_time || "любое"}
+                </span>
+                <span>{fmtDate(c.created_at)}</span>
+              </div>
+
+              <div className="accent-line" />
+
+              <div>
+                <label className={labelCls} style={labelStyle}>
+                  Статус
+                </label>
+                <select
+                  className="form-input"
+                  value={c.status}
+                  onChange={(e) => setCallbackStatus(c.id, e.target.value)}
+                >
+                  {CALLBACK_STATUSES.map((s) => (
+                    <option key={s.key} value={s.key}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={() => deleteCallback(c.id)}
+                className="flex items-center justify-center gap-2 py-2.5 transition-all hover:scale-[1.02] font-stm text-[10px] tracking-widest"
+                style={{ borderRadius: 8, background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.3)", color: "#ef4444" }}
+              >
+                <Icon name="Trash2" size={13} />
+                Удалить
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      {callbacks.length === 0 && <div className="font-exo text-white/40 text-center py-20">Запросов на звонок нет</div>}
+    </div>
+  );
+
+  const renderBlog = () => (
+    <div className="animate-fade-blur">
+      <div className="flex justify-end mb-6">
+        <button onClick={() => setBlogForm(emptyBlog())} className="btn-red-animated px-5 py-3 text-xs" style={{ borderRadius: 8 }}>
+          <Icon name="Plus" size={15} />
+          Добавить статью
+        </button>
+      </div>
+
+      {blogForm && (
+        <div className="vol-card p-7 mb-8 animate-fade-blur" style={{ borderRadius: 14, borderColor: "rgba(220,38,38,0.3)" }}>
+          <div className="font-orb text-white text-base mb-5">{blogForm.id ? "Редактирование статьи" : "Новая статья"}</div>
+          <div className="grid grid-cols-1 gap-5">
+            <div>
+              <label className={labelCls} style={labelStyle}>Заголовок</label>
+              <input className="form-input" value={blogForm.title} onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })} />
+            </div>
+            <div>
+              <label className={labelCls} style={labelStyle}>Краткое описание</label>
+              <textarea className="form-input" rows={2} value={blogForm.excerpt} onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })} />
+            </div>
+            <div>
+              <label className={labelCls} style={labelStyle}>Полный текст</label>
+              <textarea className="form-input" rows={6} value={blogForm.body} onChange={(e) => setBlogForm({ ...blogForm, body: e.target.value })} />
+            </div>
+            <div>
+              <label className={labelCls} style={labelStyle}>Ссылка на картинку (URL)</label>
+              <input className="form-input" value={blogForm.image_url} onChange={(e) => setBlogForm({ ...blogForm, image_url: e.target.value })} placeholder="https://..." />
+            </div>
+            <div className="grid grid-cols-2 gap-5">
+              <div>
+                <label className={labelCls} style={labelStyle}>Порядок</label>
+                <input type="number" className="form-input" value={blogForm.sort_order} onChange={(e) => setBlogForm({ ...blogForm, sort_order: Number(e.target.value) })} />
+              </div>
+              <div className="flex items-end">
+                <label className="flex items-center gap-2 font-stm text-[11px] tracking-wide cursor-pointer" style={{ color: "rgba(255,255,255,0.7)" }}>
+                  <input type="checkbox" checked={blogForm.active} onChange={(e) => setBlogForm({ ...blogForm, active: e.target.checked })} />
+                  Активна
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-6">
+            <button onClick={saveBlog} className="btn-red-animated px-6 py-3 text-xs" style={{ borderRadius: 8 }}>
+              <Icon name="Save" size={15} />
+              Сохранить
+            </button>
+            <button onClick={() => setBlogForm(null)} className="btn-ghost px-6 py-3 text-xs" style={{ borderRadius: 8 }}>
+              <Icon name="X" size={15} />
+              Отмена
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {blog.map((b) => (
+          <div key={b.id} className="vol-card p-6 flex flex-col gap-3 animate-fade-blur" style={{ borderRadius: 12, borderColor: "rgba(255,255,255,0.1)" }}>
+            {b.image_url && (
+              <img
+                src={b.image_url}
+                alt={b.title}
+                style={{ width: "100%", height: 160, objectFit: "cover", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)" }}
+              />
+            )}
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <Icon name="Newspaper" size={18} style={{ color: "#ef4444" }} />
+                <div className="font-orb text-white text-base">{b.title}</div>
+              </div>
+              {!b.active && (
+                <span className="font-stm text-[9px] tracking-widest px-2 py-1" style={{ borderRadius: 4, background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }}>
+                  СКРЫТА
+                </span>
+              )}
+            </div>
+            <p className="font-exo text-white/65 text-sm leading-relaxed">{b.excerpt}</p>
+            <div className="flex gap-2 pt-2">
+              <button onClick={() => setBlogForm({ ...b })} className="btn-ghost flex-1 py-2.5 text-[10px]" style={{ borderRadius: 8 }}>
+                <Icon name="Pencil" size={13} />
+                Редактировать
+              </button>
+              <button
+                onClick={() => deleteBlog(b.id)}
+                className="flex items-center justify-center px-3 py-2.5 transition-all hover:scale-105"
+                style={{ borderRadius: 8, background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.3)" }}
+              >
+                <Icon name="Trash2" size={13} style={{ color: "#ef4444" }} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {blog.length === 0 && <div className="font-exo text-white/40 text-center py-20">Статей нет</div>}
+    </div>
+  );
+
+  const renderDocuments = () => (
+    <div className="animate-fade-blur">
+      <div className="flex justify-end mb-6">
+        <button onClick={() => setDocForm(emptyDoc())} className="btn-red-animated px-5 py-3 text-xs" style={{ borderRadius: 8 }}>
+          <Icon name="Plus" size={15} />
+          Добавить документ
+        </button>
+      </div>
+
+      {docForm && (
+        <div className="vol-card p-7 mb-8 animate-fade-blur" style={{ borderRadius: 14, borderColor: "rgba(220,38,38,0.3)" }}>
+          <div className="font-orb text-white text-base mb-5">{docForm.id ? "Редактирование документа" : "Новый документ"}</div>
+          <div className="grid grid-cols-1 gap-5">
+            <div>
+              <label className={labelCls} style={labelStyle}>Название</label>
+              <input className="form-input" value={docForm.title} onChange={(e) => setDocForm({ ...docForm, title: e.target.value })} />
+            </div>
+            <div>
+              <label className={labelCls} style={labelStyle}>Описание</label>
+              <textarea className="form-input" rows={3} value={docForm.description} onChange={(e) => setDocForm({ ...docForm, description: e.target.value })} />
+            </div>
+            <div>
+              <label className={labelCls} style={labelStyle}>Ссылка на картинку (URL)</label>
+              <input className="form-input" value={docForm.image_url} onChange={(e) => setDocForm({ ...docForm, image_url: e.target.value })} placeholder="https://..." />
+            </div>
+            <div className="grid grid-cols-2 gap-5">
+              <div>
+                <label className={labelCls} style={labelStyle}>Порядок</label>
+                <input type="number" className="form-input" value={docForm.sort_order} onChange={(e) => setDocForm({ ...docForm, sort_order: Number(e.target.value) })} />
+              </div>
+              <div className="flex items-end">
+                <label className="flex items-center gap-2 font-stm text-[11px] tracking-wide cursor-pointer" style={{ color: "rgba(255,255,255,0.7)" }}>
+                  <input type="checkbox" checked={docForm.active} onChange={(e) => setDocForm({ ...docForm, active: e.target.checked })} />
+                  Активен
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-6">
+            <button onClick={saveDoc} className="btn-red-animated px-6 py-3 text-xs" style={{ borderRadius: 8 }}>
+              <Icon name="Save" size={15} />
+              Сохранить
+            </button>
+            <button onClick={() => setDocForm(null)} className="btn-ghost px-6 py-3 text-xs" style={{ borderRadius: 8 }}>
+              <Icon name="X" size={15} />
+              Отмена
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+        {documents.map((d) => (
+          <div key={d.id} className="vol-card p-4 flex flex-col gap-3 animate-fade-blur" style={{ borderRadius: 12, borderColor: "rgba(255,255,255,0.1)" }}>
+            <div
+              style={{
+                width: "100%",
+                aspectRatio: "3 / 4",
+                borderRadius: 8,
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.03)",
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {d.image_url ? (
+                <img src={d.image_url} alt={d.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              ) : (
+                <Icon name="FileText" size={32} style={{ color: "rgba(255,255,255,0.25)" }} />
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="font-orb text-white text-sm flex-1">{d.title}</div>
+              {!d.active && (
+                <span className="font-stm text-[8px] tracking-widest px-1.5 py-0.5" style={{ borderRadius: 4, background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }}>
+                  СКРЫТ
+                </span>
+              )}
+            </div>
+            <div className="font-exo text-white/65 text-xs leading-snug">{d.description || "Без описания"}</div>
+            <div className="flex gap-2">
+              <button onClick={() => setDocForm({ ...d })} className="btn-ghost flex-1 py-2 text-[10px]" style={{ borderRadius: 8 }}>
+                <Icon name="Pencil" size={12} />
+              </button>
+              <button
+                onClick={() => deleteDoc(d.id)}
+                className="flex items-center justify-center px-3 py-2 transition-all hover:scale-105"
+                style={{ borderRadius: 8, background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.3)" }}
+              >
+                <Icon name="Trash2" size={12} style={{ color: "#ef4444" }} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {documents.length === 0 && <div className="font-exo text-white/40 text-center py-20">Документов нет</div>}
+    </div>
+  );
+
   const renderStats = () => {
     const maxCount = Math.max(1, ...stats.by_day.map((d) => d.count));
+    const maxClicks = Math.max(1, ...stats.clicks_by_source.map((c) => c.count));
     const statCards = [
       { label: "Всего заявок", value: stats.total },
       { label: "Новых", value: stats.by_status.new || 0 },
@@ -1175,6 +1670,42 @@ export default function Admin() {
             </div>
           )}
         </div>
+
+        <div className="vol-card p-7 mt-10" style={{ borderRadius: 14, borderColor: "rgba(255,255,255,0.12)" }}>
+          <div className="flex items-center gap-3 mb-2">
+            <Icon name="MousePointerClick" size={20} style={{ color: "#fff" }} />
+            <div className="font-orb text-white text-base">Клики по кнопкам</div>
+          </div>
+          <div className="label-mono mb-7">Источники кликов</div>
+          {stats.clicks_by_source.length === 0 ? (
+            <div className="font-exo text-white/40 text-center py-12">Нет данных</div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {stats.clicks_by_source.map((c) => {
+                const w = Math.round((c.count / maxClicks) * 100);
+                return (
+                  <div key={c.source} className="flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between font-stm text-[11px] tracking-wide">
+                      <span style={{ color: "rgba(255,255,255,0.75)" }}>{c.source}</span>
+                      <span style={{ color: "#ef4444" }}>{c.count}</span>
+                    </div>
+                    <div style={{ width: "100%", height: 10, borderRadius: 5, background: "rgba(255,255,255,0.05)", overflow: "hidden" }}>
+                      <div
+                        style={{
+                          width: `${Math.max(2, w)}%`,
+                          height: "100%",
+                          borderRadius: 5,
+                          background: "linear-gradient(90deg, #dc2626, #ef4444)",
+                          transition: "width 0.4s ease",
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     );
   };
@@ -1195,6 +1726,12 @@ export default function Admin() {
         return renderGallery();
       case "stats":
         return renderStats();
+      case "callbacks":
+        return renderCallbacks();
+      case "blog":
+        return renderBlog();
+      case "documents":
+        return renderDocuments();
     }
   };
 

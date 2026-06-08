@@ -70,8 +70,25 @@ def handler(event: dict, context) -> dict:
             by_day = [{"date": r[0], "count": r[1]} for r in cur.fetchall()]
             cur.execute("SELECT COUNT(*) FROM applications")
             total = cur.fetchone()[0]
+            cur.execute("SELECT source, COUNT(*) FROM button_clicks GROUP BY source ORDER BY COUNT(*) DESC")
+            clicks_by_source = [{"source": r[0], "count": r[1]} for r in cur.fetchall()]
             cur.close(); conn.close()
-            return {"statusCode": 200, "headers": cors, "body": json.dumps({"total": total, "by_status": by_status, "by_day": by_day})}
+            return {"statusCode": 200, "headers": cors, "body": json.dumps({"total": total, "by_status": by_status, "by_day": by_day, "clicks_by_source": clicks_by_source})}
+        if resource == "callbacks":
+            cur.execute("SELECT id, name, phone, preferred_time, status, created_at FROM callbacks ORDER BY created_at DESC")
+            data = [{"id": r[0], "name": r[1], "phone": r[2], "preferred_time": r[3], "status": r[4], "created_at": r[5].isoformat() if r[5] else None} for r in cur.fetchall()]
+            cur.close(); conn.close()
+            return {"statusCode": 200, "headers": cors, "body": json.dumps({"callbacks": data})}
+        if resource == "blog":
+            cur.execute("SELECT id, title, excerpt, body, image_url, sort_order, active FROM blog_posts ORDER BY sort_order, id DESC")
+            data = [{"id": r[0], "title": r[1], "excerpt": r[2], "body": r[3], "image_url": r[4], "sort_order": r[5], "active": r[6]} for r in cur.fetchall()]
+            cur.close(); conn.close()
+            return {"statusCode": 200, "headers": cors, "body": json.dumps({"blog": data})}
+        if resource == "documents":
+            cur.execute("SELECT id, title, description, image_url, sort_order, active FROM documents ORDER BY sort_order, id")
+            data = [{"id": r[0], "title": r[1], "description": r[2], "image_url": r[3], "sort_order": r[4], "active": r[5]} for r in cur.fetchall()]
+            cur.close(); conn.close()
+            return {"statusCode": 200, "headers": cors, "body": json.dumps({"documents": data})}
         if resource in ("vacancies", "faq", "gallery"):
             if resource == "vacancies":
                 cur.execute("SELECT id, specialty, level, icon, title, descr, tags, salary, sort_order, active FROM vacancies ORDER BY sort_order, id")
@@ -138,6 +155,35 @@ def handler(event: dict, context) -> dict:
                 cur.execute(f"INSERT INTO gallery (url, caption, sort_order, active) VALUES ('{esc(g.get('url',''))}','{esc(g.get('caption',''))}',{int(g.get('sort_order') or 0)},{'true' if g.get('active', True) else 'false'})")
         elif action == "gallery_delete":
             cur.execute(f"DELETE FROM gallery WHERE id = {rid}")
+
+        # Блог
+        elif action == "blog_save":
+            b = body
+            fields = f"title='{esc(b.get('title',''))}', excerpt='{esc(b.get('excerpt',''))}', body='{esc(b.get('body',''))}', image_url='{esc(b.get('image_url',''))}', sort_order={int(b.get('sort_order') or 0)}, active={'true' if b.get('active', True) else 'false'}"
+            if rid > 0:
+                cur.execute(f"UPDATE blog_posts SET {fields} WHERE id = {rid}")
+            else:
+                cur.execute(f"INSERT INTO blog_posts (title, excerpt, body, image_url, sort_order, active) VALUES ('{esc(b.get('title',''))}','{esc(b.get('excerpt',''))}','{esc(b.get('body',''))}','{esc(b.get('image_url',''))}',{int(b.get('sort_order') or 0)},{'true' if b.get('active', True) else 'false'})")
+        elif action == "blog_delete":
+            cur.execute(f"DELETE FROM blog_posts WHERE id = {rid}")
+
+        # Документы
+        elif action == "document_save":
+            d = body
+            fields = f"title='{esc(d.get('title',''))}', description='{esc(d.get('description',''))}', image_url='{esc(d.get('image_url',''))}', sort_order={int(d.get('sort_order') or 0)}, active={'true' if d.get('active', True) else 'false'}"
+            if rid > 0:
+                cur.execute(f"UPDATE documents SET {fields} WHERE id = {rid}")
+            else:
+                cur.execute(f"INSERT INTO documents (title, description, image_url, sort_order, active) VALUES ('{esc(d.get('title',''))}','{esc(d.get('description',''))}','{esc(d.get('image_url',''))}',{int(d.get('sort_order') or 0)},{'true' if d.get('active', True) else 'false'})")
+        elif action == "document_delete":
+            cur.execute(f"DELETE FROM documents WHERE id = {rid}")
+
+        # Обратные звонки
+        elif action == "callback_status":
+            cur.execute(f"UPDATE callbacks SET status = '{esc(body.get('status','new'))}' WHERE id = {rid}")
+        elif action == "callback_delete":
+            cur.execute(f"DELETE FROM callbacks WHERE id = {rid}")
+
         else:
             cur.close(); conn.close()
             return {"statusCode": 400, "headers": cors, "body": json.dumps({"error": "Unknown action"})}

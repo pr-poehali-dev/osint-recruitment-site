@@ -1238,6 +1238,28 @@ h3 {
   letter-spacing: -0.03em;
 }
 
+/* ── БЕГУЩАЯ СТРОКА ── */
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: tickerScroll 40s linear infinite;
+  will-change: transform;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+:root.a11y .ticker-track {
+  animation: none;
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
 /* ── ВСПЫШКА-АКЦЕНТ ФОРМЫ ── */
 @keyframes formFlash {
   0% {

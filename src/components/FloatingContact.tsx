@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const LINKS = [
-  { icon: "Send", label: "Telegram", href: "https://t.me/Ares_deavel7", color: "rgba(255,255,255," },
-  { icon: "Phone", label: "Позвонить", href: "tel:+79490914468", color: "rgba(255,255,255," },
-  { icon: "Mail", label: "Email", href: "mailto:titanzver200@gmail.com", color: "rgba(255,255,255," },
+  { icon: "Send", label: "Telegram", href: "https://t.me/Ares_deavel7" },
+  { icon: "MessageCircle", label: "WhatsApp", href: "https://wa.me/79490914468" },
+  { icon: "Phone", label: "Позвонить", href: "tel:+79490914468" },
+  { icon: "Mail", label: "Email", href: "mailto:titanzver200@gmail.com" },
 ];
 
 export default function FloatingContact() {
@@ -24,6 +25,16 @@ export default function FloatingContact() {
     <div className="fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-3">
       {/* список контактов */}
       <div className={`flex flex-col items-end gap-3 transition-all duration-400 ${open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}`}>
+        <button onClick={() => { window.dispatchEvent(new CustomEvent("open-callback")); setOpen(false); }}
+          className="flex items-center gap-3 group">
+          <span className="font-stm text-[11px] tracking-wide px-3 py-1.5 vol-card" style={{ borderRadius: 8, color: "rgba(255,255,255,0.85)", whiteSpace: "nowrap" }}>
+            Заказать звонок
+          </span>
+          <span className="flex items-center justify-center transition-all group-hover:scale-110"
+            style={{ width: 48, height: 48, borderRadius: 14, background: "linear-gradient(135deg, rgba(220,38,38,0.3), rgba(220,38,38,0.1))", border: "1px solid rgba(220,38,38,0.4)", boxShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
+            <Icon name="PhoneCall" size={20} style={{ color: "#fff" }} />
+          </span>
+        </button>
         {LINKS.map((l, i) => (
           <a key={i} href={l.href} target="_blank" rel="noreferrer"
             className="flex items-center gap-3 group"

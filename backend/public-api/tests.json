@@ -1,0 +1,36 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get blog",
+      "method": "GET",
+      "path": "/?resource=blog",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get documents",
+      "method": "GET",
+      "path": "/?resource=documents",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Track click",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "click", "source": "hero"},
+      "expectedStatus": 200
+    },
+    {
+      "name": "Callback requires phone",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "callback", "name": "Тест"},
+      "expectedStatus": 422
+    }
+  ]
+}

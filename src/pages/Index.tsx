@@ -12,6 +12,15 @@ import Comparison from "@/components/Comparison";
 import AccessibilityBar from "@/components/AccessibilityBar";
 import CyberMap from "@/components/CyberMap";
 import CyberBackground from "@/components/CyberBackground";
+import Ticker from "@/components/Ticker";
+import LiveViewers from "@/components/LiveViewers";
+import Timeline from "@/components/Timeline";
+import Objections from "@/components/Objections";
+import Blog from "@/components/Blog";
+import CallbackModal from "@/components/CallbackModal";
+import StatusCheck from "@/components/StatusCheck";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import { trackClick } from "@/lib/api";
 
 /* ── SOUND ENGINE ────────────────────────────────────────── */
 function useSound() {
@@ -230,6 +239,7 @@ export default function Index() {
   // Вакансии и FAQ — подгружаются с бэкенда, fallback при ошибке
   const [vacancies, setVacancies] = useState(VACANCIES_FALLBACK);
   const [faqList,   setFaqList]   = useState(FAQ_FALLBACK);
+  const [faqSearch, setFaqSearch] = useState("");
 
   // Form state
   const [form, setForm] = useState({ name: "", phone: "", specialty: "", email: "" });
@@ -237,6 +247,22 @@ export default function Index() {
 
   // Подсветка формы при переходе с карты
   const [formFlash, setFormFlash] = useState(false);
+
+  // Автосохранение черновика заявки
+  useEffect(() => {
+    try {
+      const draft = localStorage.getItem("app_draft");
+      if (draft) {
+        const d = JSON.parse(draft);
+        setForm(p => ({ ...p, ...d }));
+      }
+    } catch { /* ignore */ }
+  }, []);
+  useEffect(() => {
+    if (form.name || form.phone || form.email) {
+      try { localStorage.setItem("app_draft", JSON.stringify(form)); } catch { /* ignore */ }
+    }
+  }, [form]);
 
   // Запуск вспышки формы
   const triggerFlash = useCallback(() => {
@@ -260,7 +286,11 @@ export default function Index() {
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest('a[href="#contacts"]');
-      if (target) triggerFlash();
+      if (target) {
+        triggerFlash();
+        const section = target.closest("section")?.id || target.closest("[id]")?.id || "nav";
+        trackClick(section);
+      }
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
@@ -357,6 +387,7 @@ export default function Index() {
       if (res.ok) {
         setFormState("success");
         setForm({ name: "", phone: "", specialty: "", email: "" });
+        try { localStorage.removeItem("app_draft"); } catch { /* ignore */ }
       } else {
         setFormState("error");
       }
@@ -381,6 +412,8 @@ export default function Index() {
       <ScrollProgress />
       <ExitPopup />
       <AccessibilityBar />
+      <LiveViewers />
+      <CallbackModal />
       <FloatingContact />
 
       {/* ══ NAV ═════════════════════════════════════════ */}
@@ -563,7 +596,7 @@ export default function Index() {
 
                     <div className="p-5 mt-5 mb-5" style={{ background: "rgba(204,34,0,0.08)", border: "1px solid rgba(204,34,0,0.2)", borderRadius: "2px" }}>
                       <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>ОБЩИЙ ДОХОД · ГОД 1</div>
-                      <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от {rub(pay.year)}</div>
+                      <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от <AnimatedCounter to={pay.year} suffix=" ₽" /></div>
                     </div>
 
                     <div className="flex items-center gap-3 p-3 mb-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
@@ -587,6 +620,9 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* ══ БЕГУЩАЯ СТРОКА ══════════════════════════════ */}
+      <Ticker />
 
       {/* ══ STATS BAR ═══════════════════════════════════ */}
       <div style={{ background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.15)", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
@@ -642,6 +678,9 @@ export default function Index() {
 
       {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
       <div id="reviews"><ReviewsCarousel /></div>
+
+      {/* ══ БЛОГ ════════════════════════════════════════ */}
+      <Blog />
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
       <section id="osint" className="py-28 relative overflow-hidden sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
@@ -1219,9 +1258,19 @@ export default function Index() {
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Вопросы и ответы</h2>
 
+            <div className="relative mb-8 max-w-xl">
+              <Icon name="Search" size={18} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "rgba(255,255,255,0.35)" }} />
+              <input className="form-input" style={{ paddingLeft: "2.9rem" }} placeholder="Поиск по вопросам..."
+                value={faqSearch} onChange={e => setFaqSearch(e.target.value)} />
+            </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
               <div className="space-y-1.5">
-              {faqList.map((item, i) => (
+              {faqList.filter(item =>
+                !faqSearch.trim() ||
+                item.q.toLowerCase().includes(faqSearch.toLowerCase()) ||
+                item.a.toLowerCase().includes(faqSearch.toLowerCase())
+              ).map((item, i) => (
                 <div key={i} className={`vol-card overflow-hidden faq-item ${openFaq===i?"open":""} animate-fade-up`} style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
                   <button className="w-full flex items-center justify-between p-5 text-left gap-4"
                     style={{ background: openFaq===i ? "rgba(255,255,255,0.03)" : "transparent" }}
@@ -1283,6 +1332,12 @@ export default function Index() {
       {/* ══ КИБЕР-КАРТА ═════════════════════════════════ */}
       <CyberMap />
 
+      {/* ══ ОДИН ДЕНЬ ═══════════════════════════════════ */}
+      <Timeline />
+
+      {/* ══ ВОЗРАЖЕНИЯ ══════════════════════════════════ */}
+      <Objections />
+
       {/* ══ CONTACTS ════════════════════════════════════ */}
       <section id="contacts" className="py-28 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
@@ -1317,6 +1372,11 @@ export default function Index() {
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* Проверка статуса заявки */}
+            <div className="mb-10">
+              <StatusCheck />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
