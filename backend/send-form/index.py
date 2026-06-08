@@ -46,7 +46,7 @@ def send_email(name: str, phone: str, specialty: str):
 
     msg.attach(MIMEText(html, "html"))
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=20) as server:
+    with smtplib.SMTP_SSL("smtp.yandex.ru", 465, timeout=20) as server:
         server.login(email_from, email_password)
         server.sendmail(email_from, email_from, msg.as_string())
 
