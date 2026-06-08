@@ -8,8 +8,8 @@ import LocationsBlock from "@/components/LocationsBlock";
 import ScrollProgress from "@/components/ScrollProgress";
 import ExitPopup from "@/components/ExitPopup";
 import Quiz from "@/components/Quiz";
-import Gallery from "@/components/Gallery";
 import Comparison from "@/components/Comparison";
+import AccessibilityBar from "@/components/AccessibilityBar";
 
 /* ── SOUND ENGINE ────────────────────────────────────────── */
 function useSound() {
@@ -68,23 +68,18 @@ const FAQ_IMG =
 const CONTACTS_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/61ad5beb-bfc8-4fca-8b38-3d50a3196b4e.jpg";
 
-/* ── LOGO S ─────────────────────────────────────────────── */
+/* ── LOGO (премиальная иконка-эмблема) ──────────────────── */
 const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
   <div className={animated ? "animate-logo-s" : ""} style={{
     width: size, height: size,
     display: "flex", alignItems: "center", justifyContent: "center",
-    background: "linear-gradient(140deg, #cc2200 0%, #5a0f00 100%)",
-    borderRadius: "3px",
-    boxShadow: "0 0 20px rgba(204,34,0,0.4), 0 2px 0 rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.3)",
-    fontFamily: "'Orbitron', sans-serif",
-    fontSize: size * 0.48,
-    color: "#fff",
-    fontWeight: 900,
-    letterSpacing: "-0.02em",
+    background: "linear-gradient(140deg, #dc2626 0%, #5a0f00 100%)",
+    borderRadius: size * 0.28,
+    boxShadow: "0 0 20px rgba(220,38,38,0.4), 0 2px 0 rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.3)",
     cursor: "default",
     perspective: "200px",
   }}>
-    S
+    <Icon name="Radar" size={size * 0.56} style={{ color: "#fff" }} />
   </div>
 );
 
@@ -129,7 +124,6 @@ const NAV = [
   { label: "Доход",          href: "#calculator" },
   { label: "Тест",           href: "#quiz" },
   { label: "Льготы",         href: "#benefits" },
-  { label: "Галерея",        href: "#gallery" },
   { label: "Отзывы",         href: "#reviews" },
   { label: "FAQ",            href: "#faq" },
   { label: "Контакты",       href: "#contacts" },
@@ -236,7 +230,7 @@ export default function Index() {
   const [faqList,   setFaqList]   = useState(FAQ_FALLBACK);
 
   // Form state
-  const [form, setForm] = useState({ name: "", phone: "", specialty: "" });
+  const [form, setForm] = useState({ name: "", phone: "", specialty: "", email: "" });
   const [formState, setFormState] = useState<"idle"|"loading"|"success"|"error">("idle");
 
   // Денежные суммы из настроек
@@ -329,7 +323,7 @@ export default function Index() {
       });
       if (res.ok) {
         setFormState("success");
-        setForm({ name: "", phone: "", specialty: "" });
+        setForm({ name: "", phone: "", specialty: "", email: "" });
       } else {
         setFormState("error");
       }
@@ -351,6 +345,7 @@ export default function Index() {
     <div className="min-h-screen font-exo" style={{ background: "var(--bg)" }}>
       <ScrollProgress />
       <ExitPopup />
+      <AccessibilityBar />
       <FloatingContact />
 
       {/* ══ NAV ═════════════════════════════════════════ */}
@@ -614,7 +609,7 @@ export default function Index() {
       <div id="reviews"><ReviewsCarousel /></div>
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
-      <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+      <section id="osint" className="py-28 relative overflow-hidden sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
 
@@ -719,7 +714,7 @@ export default function Index() {
       </section>
 
       {/* ══ ЧТО ТАКОЕ РЭР ══════════════════════════════ */}
-      <section id="rer" className="py-28 relative overflow-hidden">
+      <section id="rer" className="py-28 relative overflow-hidden sect-texture t-dots">
         {/* cyber bg accent */}
         <div className="absolute inset-0 grid-cyber opacity-50 pointer-events-none" />
         <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.3), transparent)" }} />
@@ -802,7 +797,7 @@ export default function Index() {
       </section>
 
       {/* ══ ABOUT ═══════════════════════════════════════ */}
-      <section id="about" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <section id="about" className="py-28 relative sect-texture t-red" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={aboutRef} className="section-entry">
@@ -958,7 +953,7 @@ export default function Index() {
       </section>
 
       {/* ══ VACANCIES ═══════════════════════════════════ */}
-      <section id="vacancies" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <section id="vacancies" className="py-28 relative sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={vacRef} className="section-entry">
@@ -1058,7 +1053,7 @@ export default function Index() {
       </section>
 
       {/* ══ BENEFITS ════════════════════════════════════ */}
-      <section id="benefits" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+      <section id="benefits" className="py-28 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
         <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
@@ -1137,7 +1132,7 @@ export default function Index() {
       </section>
 
       {/* ══ STEPS ═══════════════════════════════════════ */}
-      <section id="steps" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <section id="steps" className="py-28 relative sect-texture t-red" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute inset-0 grid-cyber opacity-25 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={stepsRef} className="section-entry">
@@ -1182,7 +1177,7 @@ export default function Index() {
       </section>
 
       {/* ══ FAQ ═════════════════════════════════════════ */}
-      <section id="faq" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <section id="faq" className="py-28 relative sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={faqRef} className="section-entry">
             <div className="label-mono mb-3">// База знаний</div>
@@ -1247,14 +1242,11 @@ export default function Index() {
       {/* ══ КВИЗ ════════════════════════════════════════ */}
       <div id="quiz"><Quiz /></div>
 
-      {/* ══ ГАЛЕРЕЯ ═════════════════════════════════════ */}
-      <div id="gallery"><Gallery /></div>
-
       {/* ══ ГЕОГРАФИЯ ═══════════════════════════════════ */}
       <LocationsBlock />
 
       {/* ══ CONTACTS ════════════════════════════════════ */}
-      <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+      <section id="contacts" className="py-28 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
         <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.5), transparent)" }} />
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.4), transparent)" }} />
@@ -1445,6 +1437,20 @@ export default function Index() {
                       </div>
                     </div>
                     <div className="animate-fade-blur" style={{ animationDelay: "0.5s", opacity: 0 }}>
+                      <label className="font-stm text-[10px] block mb-2.5 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>EMAIL (для подтверждения)</label>
+                      <div className="relative group">
+                        <Icon name="Mail" size={17} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "rgba(255,255,255,0.35)" }} />
+                        <input
+                          type="email"
+                          placeholder="you@example.com"
+                          className="form-input"
+                          style={{ paddingLeft: "2.9rem" }}
+                          value={form.email}
+                          onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    <div className="animate-fade-blur" style={{ animationDelay: "0.6s", opacity: 0 }}>
                       <label className="font-stm text-[10px] block mb-2.5 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>НАПРАВЛЕНИЕ СЛУЖБЫ</label>
                       <div className="relative group">
                         <Icon name="Crosshair" size={17} className="absolute left-4 top-1/2 -translate-y-1/2 z-10" style={{ color: "rgba(255,255,255,0.35)" }} />

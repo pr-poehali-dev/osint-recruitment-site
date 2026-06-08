@@ -98,7 +98,7 @@ export default function ReviewsCarousel() {
   };
 
   return (
-    <section className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+    <section className="py-28 relative overflow-hidden sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
       <div className="absolute inset-0 grid-cyber opacity-20 pointer-events-none" />
       <div className="max-w-[1440px] mx-auto px-6 relative">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">

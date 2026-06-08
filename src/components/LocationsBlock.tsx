@@ -8,7 +8,7 @@ const LOCATIONS = [
 
 export default function LocationsBlock() {
   return (
-    <section className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+    <section className="py-28 relative overflow-hidden sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
       <div className="absolute inset-0 grid-cyber opacity-20 pointer-events-none" />
       <div className="max-w-[1440px] mx-auto px-6 relative">
         <div className="label-mono mb-3">География</div>

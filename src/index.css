@@ -47,6 +47,127 @@
   --sidebar-ring: 10 80% 42%;
 }
 
+/* ── СВЕТЛАЯ ТЕМА ── */
+:root.light {
+  --bg: #f4f4f5;
+  --bg2: #ebebed;
+  --bg3: #e2e2e5;
+  --white: #18181b;
+  --dim: rgba(24, 24, 27, 0.6);
+  --dimmer: rgba(24, 24, 27, 0.4);
+  --border: rgba(0, 0, 0, 0.1);
+  --border2: rgba(0, 0, 0, 0.16);
+}
+:root.light body {
+  background-color: var(--bg);
+  color: var(--white);
+}
+/* В светлой теме инвертируем «белые» декоративные цвета */
+:root.light .vol-card {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.015) 100%
+  );
+  border-color: rgba(0, 0, 0, 0.1);
+}
+:root.light .vol-card:hover {
+  border-color: rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 0 40px rgba(0, 0, 0, 0.06),
+    0 24px 60px rgba(0, 0, 0, 0.12);
+}
+:root.light .grid-cyber {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+:root.light .text-white,
+:root.light .font-orb {
+  color: #18181b;
+}
+:root.light .btn-ghost {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.7);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+:root.light .btn-ghost:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.4);
+  color: #000;
+}
+:root.light .form-input {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #18181b;
+}
+:root.light .form-input::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+:root.light .label-mono,
+:root.light .nav-link {
+  color: rgba(0, 0, 0, 0.55);
+}
+:root.light .money {
+  color: #18181b;
+}
+
+/* ── РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ ── */
+:root.a11y {
+  --bg: #000000;
+  --bg2: #000000;
+  --bg3: #0a0a0a;
+  --white: #ffff00;
+  --dim: #ffff00;
+  --dimmer: #ffcc00;
+}
+:root.a11y body {
+  background: #000 !important;
+  color: #ffff00 !important;
+  font-size: 21px;
+  letter-spacing: 0;
+}
+:root.a11y * {
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+:root.a11y img {
+  filter: grayscale(1) contrast(1.1) !important;
+}
+:root.a11y .text-white,
+:root.a11y .font-orb,
+:root.a11y .font-exo,
+:root.a11y .font-stm,
+:root.a11y p,
+:root.a11y span,
+:root.a11y div,
+:root.a11y a,
+:root.a11y label,
+:root.a11y h1,
+:root.a11y h2,
+:root.a11y h3 {
+  color: #ffff00 !important;
+}
+:root.a11y .vol-card,
+:root.a11y .form-input {
+  background: #000 !important;
+  border: 2px solid #ffff00 !important;
+}
+:root.a11y .btn-red,
+:root.a11y .btn-red-animated,
+:root.a11y .btn-ghost {
+  background: #000 !important;
+  color: #ffff00 !important;
+  border: 2px solid #ffff00 !important;
+}
+:root.a11y .grid-cyber,
+:root.a11y .scanlines::after,
+:root.a11y .scan-beam {
+  display: none !important;
+}
+
 @layer base {
   * {
     @apply border-border box-border;
@@ -81,6 +202,87 @@
   font-family: "Inter", sans-serif;
   font-weight: 500;
   letter-spacing: 0.04em;
+}
+
+/* ── ТЕКСТУРНЫЕ ПОДЛОЖКИ СЕКЦИЙ ── */
+.sect-texture {
+  position: relative;
+}
+.sect-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 255, 255, 0.035) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(220, 38, 38, 0.05) 0%,
+      transparent 50%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+}
+.sect-texture > * {
+  position: relative;
+  z-index: 1;
+}
+/* варианты акцента подложки */
+.sect-texture.t-red::before {
+  background-image:
+    radial-gradient(
+      circle at 80% 15%,
+      rgba(220, 38, 38, 0.08) 0%,
+      transparent 50%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+}
+.sect-texture.t-dots::before {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(220, 38, 38, 0.05) 0%,
+      transparent 50%
+    );
+  background-size:
+    26px 26px,
+    100% 100%;
+}
+:root.light .sect-texture::before {
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(0, 0, 0, 0.04) 0%, transparent 45%),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(220, 38, 38, 0.06) 0%,
+      transparent 50%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.015) 0px,
+      rgba(0, 0, 0, 0.015) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+}
+:root.a11y .sect-texture::before {
+  display: none;
 }
 
 /* ── CYBER BG PATTERNS ── */
@@ -1115,4 +1317,69 @@ h1,
 h2,
 h3 {
   letter-spacing: -0.03em;
+}
+
+/* ── АДАПТИВ: ПЛАНШЕТЫ ── */
+@media (max-width: 1024px) {
+  body {
+    font-size: 17px;
+  }
+  section {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+}
+
+/* ── АДАПТИВ: МОБИЛЬНЫЕ ── */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  section {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+  /* убираем тяжёлые ховер-сдвиги на тач-устройствах */
+  .hover-lift:hover {
+    transform: none;
+  }
+  .vol-card:hover {
+    transform: none;
+  }
+  /* плавающие кнопки компактнее */
+  .form-input {
+    font-size: 16px; /* предотвращает зум при фокусе на iOS */
+  }
+  /* отключаем дорогую анимацию shimmer на мобиле */
+  .shimmer-hover::after {
+    display: none;
+  }
+}
+
+/* ── АДАПТИВ: МАЛЫЕ ТЕЛЕФОНЫ ── */
+@media (max-width: 420px) {
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  .cyber-frame::before,
+  .cyber-frame::after {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* ── ТАЧ-УСТРОЙСТВА: убираем hover-артефакты ── */
+@media (hover: none) {
+  .hover-lift:hover,
+  .vol-card:hover {
+    transform: none;
+  }
+}
+
+/* предотвращаем горизонтальный скролл на мобильных */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }

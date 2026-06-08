@@ -38,7 +38,7 @@ export default function IncomeCalculator() {
   const total = monthly * months + pay.once + pay.federal;
 
   return (
-    <section className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+    <section className="py-28 relative overflow-hidden sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
       <div className="absolute inset-0 grid-cyber opacity-20 pointer-events-none" />
       <div className="max-w-[1100px] mx-auto px-6 relative">
         <div className="label-mono mb-3">Калькулятор дохода</div>
