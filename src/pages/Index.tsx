@@ -579,7 +579,7 @@ export default function Index() {
             <div className="label-mono mb-3">// Что такое РЭР</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              <span className="animate-fade-left d0">Радиоэлектронная</span><br />
+              <span className="animate-fade-left d0">Радиоэлектронная </span>
               <span className="text-scan-green animate-fade-left d1">разведка</span>
             </h2>
             {/* Главное описание */}
