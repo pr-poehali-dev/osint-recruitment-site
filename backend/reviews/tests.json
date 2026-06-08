@@ -1,0 +1,37 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get approved reviews",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Create review pending",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "create", "name": "Тест Тестов", "role": "Тестировщик", "text": "Отличная служба, всем рекомендую попробовать.", "rating": 5},
+      "expectedStatus": 200
+    },
+    {
+      "name": "Create review missing fields",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "create", "name": ""},
+      "expectedStatus": 422
+    },
+    {
+      "name": "Moderation without password",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "approve", "id": 1},
+      "expectedStatus": 403
+    }
+  ]
+}

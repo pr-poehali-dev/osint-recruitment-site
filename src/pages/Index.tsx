@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Icon from "@/components/ui/icon";
+import ReviewsCarousel from "@/components/ReviewsCarousel";
 
 /* ── SOUND ENGINE ────────────────────────────────────────── */
 function useSound() {
@@ -217,15 +218,6 @@ const STEPS = [
   { n:"05", t:"Служба",       d:"Зачисление в подразделение и начало работы", icon:"ShieldCheck" },
 ];
 
-const REVIEWS = [
-  { name:"Алексей М.", role:"OSINT-аналитик · 8 мес. службы", initials:"АМ", color:"#ffffff",
-    text:"Пришёл без опыта, обучили с нуля. Работа интеллектуальная, без участия в боях. Выплаты приходят день в день, всё официально по контракту." },
-  { name:"Дмитрий К.", role:"Оператор БпЛА · 1 год службы", initials:"ДК", color:"#ffffff",
-    text:"Долго сомневался, но решился. Полностью обеспечили экипировкой, проезд оплатили. Доход за первый год превысил 5 миллионов — закрыл ипотеку." },
-  { name:"Сергей В.", role:"IT-специалист · 6 мес. службы", initials:"СВ", color:"#ffffff",
-    text:"Занимаюсь защищённой инфраструктурой, по своей специальности. Коллектив профессиональный, командование адекватное. Семья получила все льготы." },
-];
-
 const FAQ = [
   { q:"Кто может подать заявку?",        a:"Граждане РФ от 18 до 49 лет. Для IT-специальностей — до 55 лет. Воинский опыт необязателен." },
   { q:"Какие требования к кандидатам?",  a:"Гражданство РФ, отсутствие серьёзных судимостей, прохождение медкомиссии. Специфика зависит от должности." },
@@ -277,7 +269,6 @@ export default function Index() {
     }
     setTimeout(() => setFormState("idle"), 5000);
   };
-  const reviewsRef  = useReveal();
   const osintRef    = useReveal();
   const rerRef      = useReveal();
   const aboutRef    = useReveal();
@@ -535,41 +526,7 @@ export default function Index() {
       </div>
 
       {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
-      <section className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="absolute inset-0 grid-cyber opacity-20 pointer-events-none" />
-        <div ref={reviewsRef} className="max-w-[1440px] mx-auto px-6 relative section-entry">
-          <div className="label-mono mb-3">Отзывы служащих</div>
-          <div className="accent-line" />
-          <h2 className="font-orb text-white leading-[0.95] mb-14" style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}>
-            Говорят<br /><span style={{ color: "rgba(255,255,255,0.4)" }}>наши люди</span>
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-            {REVIEWS.map((r, i) => (
-              <div key={i} className="vol-card hover-lift shimmer-hover p-9 flex flex-col gap-6 animate-fade-blur"
-                style={{ animationDelay: `${0.15 + i * 0.15}s`, opacity: 0, borderColor: "rgba(255,255,255,0.1)" }}>
-                <Icon name="Quote" size={34} style={{ color: "rgba(255,255,255,0.25)" }} />
-                <p className="font-exo text-white/75 leading-[1.8] flex-1" style={{ fontSize: "1.02rem" }}>{r.text}</p>
-                <div className="flex items-center gap-1.5">
-                  {[...Array(5)].map((_, s) => (
-                    <Icon key={s} name="Star" size={15} style={{ color: "#ffffff", fill: "#ffffff" }} />
-                  ))}
-                </div>
-                <div className="flex items-center gap-4 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-                  <div className="shrink-0 flex items-center justify-center font-orb text-white"
-                    style={{ width: 50, height: 50, borderRadius: 14, fontSize: "1rem", background: "linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04))", border: "1px solid rgba(255,255,255,0.18)", boxShadow: "0 0 20px rgba(255,255,255,0.06)" }}>
-                    {r.initials}
-                  </div>
-                  <div>
-                    <div className="font-orb text-white" style={{ fontSize: "1.05rem" }}>{r.name}</div>
-                    <div className="font-stm text-[11px] tracking-wide mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{r.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReviewsCarousel />
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
       <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
