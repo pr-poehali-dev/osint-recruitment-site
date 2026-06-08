@@ -464,11 +464,12 @@ export default function Index() {
                   <Icon name={s.icon as AnyIcon} size={i === 0 ? 30 : 26} style={{ color: i === 0 ? "rgba(255,100,80,0.95)" : "rgba(220,240,255,0.9)" }} />
                 </div>
                 <div className="min-w-0">
-                  <div className="font-orb font-black leading-tight whitespace-nowrap"
+                  <div className="font-orb font-black leading-tight"
                     style={{
-                      fontSize: i === 0 ? "clamp(1.4rem, 3vw, 1.9rem)" : "clamp(1rem, 1.8vw, 1.35rem)",
+                      fontSize: i === 0 ? "clamp(1.2rem, 4.5vw, 1.9rem)" : "clamp(1rem, 1.8vw, 1.35rem)",
                       color: i === 0 ? "#ff2200" : "#fff",
                       textShadow: i === 0 ? "0 0 20px rgba(255,34,0,0.6)" : "none",
+                      wordBreak: "break-all",
                     }}>{s.val}</div>
                   <div className="font-exo text-sm mt-0.5" style={{ color: i === 0 ? "rgba(255,150,130,0.7)" : "rgba(255,255,255,0.4)" }}>{s.sub}</div>
                 </div>
