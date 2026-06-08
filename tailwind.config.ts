@@ -19,9 +19,12 @@ export default {
 			}
 		},
 		fontFamily: {
-			oswald: ['Oswald', 'sans-serif'],
-			ibm: ['IBM Plex Sans', 'sans-serif'],
-			mono: ['IBM Plex Mono', 'monospace'],
+			russo: ['Russo One', 'sans-serif'],
+			exo: ['Exo 2', 'sans-serif'],
+			stm: ['Share Tech Mono', 'monospace'],
+			oswald: ['Russo One', 'sans-serif'],
+			ibm: ['Exo 2', 'sans-serif'],
+			mono: ['Share Tech Mono', 'monospace'],
 		},
 		extend: {
 			colors: {
