@@ -131,7 +131,7 @@ const PAYMENTS = [
 ];
 
 const STATS = [
-  { icon: "Banknote",    val: "> 2,6 млн ₽",    sub: "Единовременная выплата" },
+  { icon: "Banknote",    val: "2 600 000 ₽",    sub: "Единовременная выплата" },
   { icon: "Clock",       val: "24 / 7",          sub: "Аналитическая работа" },
   { icon: "BarChart3",   val: "1000+",           sub: "Выполненных задач" },
   { icon: "ShieldCheck", val: "100%",            sub: "Конфиденциальность" },
@@ -439,26 +439,38 @@ export default function Index() {
       {/* ══ STATS BAR ═══════════════════════════════════ */}
       <div style={{ background: "rgba(0,255,136,0.03)", borderTop: "1px solid rgba(0,255,136,0.15)", borderBottom: "1px solid rgba(0,255,136,0.12)" }}>
         <div className="max-w-[1440px] mx-auto px-6 py-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0">
             {STATS.map((s, i) => (
-              <div key={i} className="stat-card flex items-center gap-4 px-6 py-5 animate-fade-up"
-                style={{ animationDelay: `${i * 0.08}s`, opacity: 0, borderLeft: i > 0 ? "1px solid rgba(0,255,136,0.1)" : "none" }}>
-                {/* Крупная объёмная иконка */}
+              <div key={i} className={`stat-card flex items-center gap-4 px-6 animate-fade-up ${i === 0 ? "py-6 sm:col-span-2 lg:col-span-1" : "py-5"}`}
+                style={{
+                  animationDelay: `${i * 0.08}s`, opacity: 0,
+                  borderLeft: i > 0 ? "1px solid rgba(0,255,136,0.1)" : "none",
+                  ...(i === 0 ? { background: "rgba(204,34,0,0.06)", borderLeft: "3px solid rgba(204,34,0,0.6)" } : {}),
+                }}>
                 <div className="shrink-0" style={{
-                  width: 58, height: 58,
+                  width: i === 0 ? 64 : 58, height: i === 0 ? 64 : 58,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  background: "linear-gradient(145deg, rgba(0,255,136,0.14) 0%, rgba(0,255,136,0.04) 60%, rgba(0,0,0,0.15) 100%)",
-                  border: "1px solid rgba(0,255,136,0.22)",
-                  borderTop: "1px solid rgba(0,255,136,0.35)",
+                  background: i === 0
+                    ? "linear-gradient(145deg, rgba(204,34,0,0.22) 0%, rgba(204,34,0,0.06) 60%, rgba(0,0,0,0.15) 100%)"
+                    : "linear-gradient(145deg, rgba(0,255,136,0.14) 0%, rgba(0,255,136,0.04) 60%, rgba(0,0,0,0.15) 100%)",
+                  border: i === 0 ? "1px solid rgba(204,34,0,0.35)" : "1px solid rgba(0,255,136,0.22)",
+                  borderTop: i === 0 ? "1px solid rgba(204,34,0,0.5)" : "1px solid rgba(0,255,136,0.35)",
                   borderRadius: 14,
-                  boxShadow: "0 0 28px rgba(0,255,136,0.2), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  boxShadow: i === 0
+                    ? "0 0 28px rgba(204,34,0,0.3), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)"
+                    : "0 0 28px rgba(0,255,136,0.2), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
                   position: "relative",
                 }}>
-                  <Icon name={s.icon as AnyIcon} size={26} style={{ color: "rgba(220,240,255,0.9)" }} />
+                  <Icon name={s.icon as AnyIcon} size={i === 0 ? 30 : 26} style={{ color: i === 0 ? "rgba(255,100,80,0.95)" : "rgba(220,240,255,0.9)" }} />
                 </div>
                 <div className="min-w-0">
-                  <div className="font-orb text-white font-bold whitespace-nowrap leading-tight" style={{ fontSize: "clamp(1rem, 1.8vw, 1.35rem)" }}>{s.val}</div>
-                  <div className="font-exo text-white/40 text-sm mt-0.5">{s.sub}</div>
+                  <div className="font-orb font-black leading-tight whitespace-nowrap"
+                    style={{
+                      fontSize: i === 0 ? "clamp(1.4rem, 3vw, 1.9rem)" : "clamp(1rem, 1.8vw, 1.35rem)",
+                      color: i === 0 ? "#ff2200" : "#fff",
+                      textShadow: i === 0 ? "0 0 20px rgba(255,34,0,0.6)" : "none",
+                    }}>{s.val}</div>
+                  <div className="font-exo text-sm mt-0.5" style={{ color: i === 0 ? "rgba(255,150,130,0.7)" : "rgba(255,255,255,0.4)" }}>{s.sub}</div>
                 </div>
               </div>
             ))}
