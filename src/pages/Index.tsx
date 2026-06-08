@@ -288,15 +288,15 @@ export default function Index() {
                 </a>
               </div>
 
-              <div className="animate-fade-up d5 mt-14 grid grid-cols-3 gap-6 max-w-[440px]">
+              <div className="animate-fade-up d5 mt-14 flex flex-wrap gap-8">
                 {[
-                  { val:"5 120 000 ₽", sub:"Доход за 1-й год" },
-                  { val:"210 000 ₽",   sub:"В месяц" },
-                  { val:"1000+",        sub:"Задач выполнено" },
+                  { val:"5 120 000 ₽", sub:"Доход за 1-й год", color:"#ff4422" },
+                  { val:"210 000 ₽",   sub:"В месяц",          color:"#ffffff" },
+                  { val:"1000+",       sub:"Задач выполнено",   color:"#00ff88" },
                 ].map((s, i) => (
                   <div key={i} className="animate-fade-up" style={{ animationDelay: `${0.5 + i * 0.1}s`, opacity: 0 }}>
-                    <div className="font-orb text-white leading-none mb-1.5" style={{ fontSize: "1.4rem" }}>{s.val}</div>
-                    <div className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.35)" }}>{s.sub}</div>
+                    <div className="font-orb leading-none mb-1.5 whitespace-nowrap" style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", color: s.color, textShadow: `0 0 20px ${s.color}60` }}>{s.val}</div>
+                    <div className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(0,255,136,0.4)" }}>{s.sub}</div>
                   </div>
                 ))}
               </div>
@@ -359,16 +359,28 @@ export default function Index() {
       </section>
 
       {/* ══ STATS BAR ═══════════════════════════════════ */}
-      <div style={{ background: "rgba(0,255,136,0.02)", borderTop: "1px solid rgba(0,255,136,0.1)", borderBottom: "1px solid rgba(0,255,136,0.08)" }}>
-        <div className="max-w-[1440px] mx-auto px-6 py-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+      <div style={{ background: "rgba(0,255,136,0.03)", borderTop: "1px solid rgba(0,255,136,0.15)", borderBottom: "1px solid rgba(0,255,136,0.12)" }}>
+        <div className="max-w-[1440px] mx-auto px-6 py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-0">
             {STATS.map((s, i) => (
-              <div key={i} className="stat-card flex items-center gap-3.5 px-5 py-3 animate-fade-up"
-                style={{ animationDelay: `${i * 0.08}s`, opacity: 0, borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
-                <IBox icon={s.icon} size={18} boxSize={42} radius={10} glow />
-                <div>
-                  <div className="font-orb text-white text-sm leading-tight">{s.val}</div>
-                  <div className="font-exo text-white/32 text-[11px]">{s.sub}</div>
+              <div key={i} className="stat-card flex items-center gap-4 px-6 py-5 animate-fade-up"
+                style={{ animationDelay: `${i * 0.08}s`, opacity: 0, borderLeft: i > 0 ? "1px solid rgba(0,255,136,0.1)" : "none" }}>
+                {/* Крупная объёмная иконка */}
+                <div className="shrink-0" style={{
+                  width: 58, height: 58,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: "linear-gradient(145deg, rgba(0,255,136,0.14) 0%, rgba(0,255,136,0.04) 60%, rgba(0,0,0,0.15) 100%)",
+                  border: "1px solid rgba(0,255,136,0.22)",
+                  borderTop: "1px solid rgba(0,255,136,0.35)",
+                  borderRadius: 14,
+                  boxShadow: "0 0 28px rgba(0,255,136,0.2), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  position: "relative",
+                }}>
+                  <Icon name={s.icon as AnyIcon} size={26} style={{ color: "rgba(220,240,255,0.9)" }} />
+                </div>
+                <div className="min-w-0">
+                  <div className="font-orb text-white font-bold whitespace-nowrap leading-tight" style={{ fontSize: "clamp(1rem, 1.8vw, 1.35rem)" }}>{s.val}</div>
+                  <div className="font-exo text-white/40 text-sm mt-0.5">{s.sub}</div>
                 </div>
               </div>
             ))}
