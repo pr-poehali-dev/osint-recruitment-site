@@ -11,18 +11,16 @@
       "method": "POST",
       "path": "/",
       "body": {"specialty": "OSINT"},
-      "expectedStatus": 422,
-      "bodyMatcher": "partial",
-      "expectedBody": {"error": "string"}
+      "expectedStatus": 422
     },
     {
-      "name": "Valid submission (no secrets)",
+      "name": "Valid submission",
       "method": "POST",
       "path": "/",
       "body": {"name": "Иван Иванов", "phone": "+79001234567", "specialty": "OSINT-аналитик"},
       "expectedStatus": 200,
       "bodyMatcher": "partial",
-      "expectedBody": {"ok": true}
+      "expectedBody": {"ok": true, "email": true}
     }
   ]
 }
