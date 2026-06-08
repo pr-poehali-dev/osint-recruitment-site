@@ -5,6 +5,11 @@ import FloatingContact from "@/components/FloatingContact";
 import UrgencyBar from "@/components/UrgencyBar";
 import IncomeCalculator from "@/components/IncomeCalculator";
 import LocationsBlock from "@/components/LocationsBlock";
+import ScrollProgress from "@/components/ScrollProgress";
+import ExitPopup from "@/components/ExitPopup";
+import Quiz from "@/components/Quiz";
+import Gallery from "@/components/Gallery";
+import Comparison from "@/components/Comparison";
 
 /* ── SOUND ENGINE ────────────────────────────────────────── */
 function useSound() {
@@ -120,12 +125,12 @@ function useReveal() {
 
 /* ── DATA ───────────────────────────────────────────────── */
 const NAV = [
-  { label: "Что такое OSINT", href: "#osint" },
-  { label: "Что такое РЭР",  href: "#rer" },
-  { label: "О команде",      href: "#about" },
   { label: "Вакансии",       href: "#vacancies" },
+  { label: "Доход",          href: "#calculator" },
+  { label: "Тест",           href: "#quiz" },
   { label: "Льготы",         href: "#benefits" },
-  { label: "Этапы",          href: "#steps" },
+  { label: "Галерея",        href: "#gallery" },
+  { label: "Отзывы",         href: "#reviews" },
   { label: "FAQ",            href: "#faq" },
   { label: "Контакты",       href: "#contacts" },
 ];
@@ -139,7 +144,7 @@ const RER_TASKS = [
   { icon: "Database",  title: "Аналитика и доклады",     desc: "Структурирование полученных данных и подготовка разведывательных докладов для командования." },
 ];
 
-const VACANCIES = [
+const VACANCIES_FALLBACK = [
   { id:1, specialty:"osint",     level:"опыт",      icon:"Search",  title:"OSINT-аналитик",
     desc:"Разведка по открытым источникам. Формирование досье объектов, мониторинг цифровых следов, подготовка аналитических докладов.", tags:["Аналитика","OSINT","Отчётность"] },
   { id:2, specialty:"it",        level:"опыт",      icon:"Monitor", title:"IT-специалист",
@@ -208,7 +213,7 @@ const STEPS = [
   { n:"05", t:"Служба",       d:"Зачисление в подразделение и начало работы", icon:"ShieldCheck" },
 ];
 
-const FAQ = [
+const FAQ_FALLBACK = [
   { q:"Кто может подать заявку?",        a:"Граждане РФ от 18 до 49 лет. Для IT-специальностей — до 55 лет. Воинский опыт необязателен." },
   { q:"Какие требования к кандидатам?",  a:"Гражданство РФ, отсутствие серьёзных судимостей, прохождение медкомиссии. Специфика зависит от должности." },
   { q:"Где проходит формирование?",      a:"Формирование и подготовка проходят в г. Чита — столице Забайкальского края." },
@@ -225,6 +230,10 @@ export default function Index() {
   const [level,   setLevel]   = useState("all");
   const [openFaq, setOpenFaq] = useState<number|null>(null);
   const [menu,    setMenu]    = useState(false);
+
+  // Вакансии и FAQ — подгружаются с бэкенда, fallback при ошибке
+  const [vacancies, setVacancies] = useState(VACANCIES_FALLBACK);
+  const [faqList,   setFaqList]   = useState(FAQ_FALLBACK);
 
   // Form state
   const [form, setForm] = useState({ name: "", phone: "", specialty: "" });
@@ -246,9 +255,41 @@ export default function Index() {
       })
       .catch(() => { /* defaults */ });
   }, []);
+
+  // Загрузка вакансий и FAQ с бэкенда (с fallback на статичные данные)
+  useEffect(() => {
+    const ADMIN_URL = "https://functions.poehali.dev/88252a0d-1b4c-4850-a460-7bcb94f113d5";
+
+    fetch(`${ADMIN_URL}?resource=vacancies`)
+      .then(r => r.json())
+      .then(d => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const list = (d.vacancies || []).map((v: any) => ({
+          id: v.id,
+          specialty: v.specialty,
+          level: v.level,
+          icon: v.icon,
+          title: v.title,
+          desc: v.descr,
+          tags: Array.isArray(v.tags) ? v.tags : [],
+        }));
+        if (list.length) setVacancies(list);
+      })
+      .catch(() => { /* fallback */ });
+
+    fetch(`${ADMIN_URL}?resource=faq`)
+      .then(r => r.json())
+      .then(d => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const list = (d.faq || []).map((f: any) => ({ q: f.question, a: f.answer }));
+        if (list.length) setFaqList(list);
+      })
+      .catch(() => { /* fallback */ });
+  }, []);
+
   const rub = (n: number) => n.toLocaleString("ru-RU") + " ₽";
 
-  const filtered = VACANCIES.filter(v =>
+  const filtered = vacancies.filter(v =>
     (spec  === "all" || v.specialty === spec) &&
     (level === "all" || v.level     === level)
   );
@@ -308,6 +349,8 @@ export default function Index() {
 
   return (
     <div className="min-h-screen font-exo" style={{ background: "var(--bg)" }}>
+      <ScrollProgress />
+      <ExitPopup />
       <FloatingContact />
 
       {/* ══ NAV ═════════════════════════════════════════ */}
@@ -568,7 +611,7 @@ export default function Index() {
       <UrgencyBar />
 
       {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
-      <ReviewsCarousel />
+      <div id="reviews"><ReviewsCarousel /></div>
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
       <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
@@ -1148,7 +1191,7 @@ export default function Index() {
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
               <div className="space-y-1.5">
-              {FAQ.map((item, i) => (
+              {faqList.map((item, i) => (
                 <div key={i} className={`vol-card overflow-hidden faq-item ${openFaq===i?"open":""} animate-fade-up`} style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
                   <button className="w-full flex items-center justify-between p-5 text-left gap-4"
                     style={{ background: openFaq===i ? "rgba(255,255,255,0.03)" : "transparent" }}
@@ -1196,7 +1239,16 @@ export default function Index() {
       </section>
 
       {/* ══ КАЛЬКУЛЯТОР ДОХОДА ══════════════════════════ */}
-      <IncomeCalculator />
+      <div id="calculator"><IncomeCalculator /></div>
+
+      {/* ══ СРАВНЕНИЕ ═══════════════════════════════════ */}
+      <Comparison />
+
+      {/* ══ КВИЗ ════════════════════════════════════════ */}
+      <div id="quiz"><Quiz /></div>
+
+      {/* ══ ГАЛЕРЕЯ ═════════════════════════════════════ */}
+      <div id="gallery"><Gallery /></div>
 
       {/* ══ ГЕОГРАФИЯ ═══════════════════════════════════ */}
       <LocationsBlock />

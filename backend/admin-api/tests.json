@@ -1,0 +1,35 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Public vacancies",
+      "method": "GET",
+      "path": "/?resource=vacancies",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Public faq",
+      "method": "GET",
+      "path": "/?resource=faq",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Applications require admin",
+      "method": "GET",
+      "path": "/?resource=applications",
+      "expectedStatus": 403
+    },
+    {
+      "name": "POST require admin",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "app_delete", "id": 1},
+      "expectedStatus": 403
+    }
+  ]
+}
