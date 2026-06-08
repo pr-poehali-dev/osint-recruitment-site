@@ -15,9 +15,7 @@ from email.mime.multipart import MIMEMultipart
 def send_email(name: str, phone: str, specialty: str):
     email_from = os.environ.get("EMAIL_FROM", "")
     email_password = os.environ.get("EMAIL_PASSWORD", "")
-    print(f"[EMAIL] from={email_from!r} pwd_len={len(email_password)}")
     if not email_from or not email_password:
-        print("[EMAIL] secrets missing — abort")
         return
 
     msg = MIMEMultipart("alternative")
@@ -48,14 +46,9 @@ def send_email(name: str, phone: str, specialty: str):
 
     msg.attach(MIMEText(html, "html"))
 
-    try:
-        with smtplib.SMTP_SSL("smtp.yandex.ru", 465, timeout=20) as server:
-            server.login(email_from, email_password)
-            server.sendmail(email_from, email_from, msg.as_string())
-        print("[EMAIL] sent OK")
-    except Exception as e:
-        print(f"[EMAIL] ERROR: {type(e).__name__}: {e}")
-        raise
+    with smtplib.SMTP_SSL("smtp.yandex.ru", 465, timeout=20) as server:
+        server.login(email_from, email_password)
+        server.sendmail(email_from, email_from, msg.as_string())
 
 
 def handler(event: dict, context) -> dict:
@@ -76,7 +69,6 @@ def handler(event: dict, context) -> dict:
     name      = body.get("name", "").strip()
     phone     = body.get("phone", "").strip()
     specialty = body.get("specialty", "Не указана").strip()
-    print(f"[FORM] method={event.get('httpMethod')} name={name!r} phone={phone!r}")
 
     if not name or not phone:
         return {
