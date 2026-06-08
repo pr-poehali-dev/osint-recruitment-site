@@ -247,6 +247,20 @@ export default function Index() {
 
   const snd = useSound();
 
+  const formatPhone = (raw: string) => {
+    let d = raw.replace(/\D/g, "");
+    if (d.startsWith("8")) d = "7" + d.slice(1);
+    if (!d.startsWith("7")) d = "7" + d;
+    d = d.slice(0, 11);
+    const p = d.slice(1);
+    let out = "+7";
+    if (p.length > 0) out += " (" + p.slice(0, 3);
+    if (p.length >= 3) out += ") " + p.slice(3, 6);
+    if (p.length >= 6) out += "-" + p.slice(6, 8);
+    if (p.length >= 8) out += "-" + p.slice(8, 10);
+    return out;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim()) return;
@@ -1334,7 +1348,8 @@ export default function Index() {
                           style={{ paddingLeft: "2.9rem" }}
                           required
                           value={form.phone}
-                          onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
+                          onChange={e => setForm(p => ({ ...p, phone: formatPhone(e.target.value) }))}
+                          onFocus={e => { if (!e.target.value) setForm(p => ({ ...p, phone: "+7 (" })); }}
                         />
                       </div>
                     </div>
