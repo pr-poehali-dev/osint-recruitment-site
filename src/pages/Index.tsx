@@ -218,11 +218,11 @@ const STEPS = [
 ];
 
 const REVIEWS = [
-  { name:"Алексей М.", role:"OSINT-аналитик · 8 мес. службы", initials:"АМ", color:"#00ff88",
+  { name:"Алексей М.", role:"OSINT-аналитик · 8 мес. службы", initials:"АМ", color:"#ffffff",
     text:"Пришёл без опыта, обучили с нуля. Работа интеллектуальная, без участия в боях. Выплаты приходят день в день, всё официально по контракту." },
-  { name:"Дмитрий К.", role:"Оператор БпЛА · 1 год службы", initials:"ДК", color:"#cc2200",
+  { name:"Дмитрий К.", role:"Оператор БпЛА · 1 год службы", initials:"ДК", color:"#ffffff",
     text:"Долго сомневался, но решился. Полностью обеспечили экипировкой, проезд оплатили. Доход за первый год превысил 5 миллионов — закрыл ипотеку." },
-  { name:"Сергей В.", role:"IT-специалист · 6 мес. службы", initials:"СВ", color:"#2563eb",
+  { name:"Сергей В.", role:"IT-специалист · 6 мес. службы", initials:"СВ", color:"#ffffff",
     text:"Занимаюсь защищённой инфраструктурой, по своей специальности. Коллектив профессиональный, командование адекватное. Семья получила все льготы." },
 ];
 
@@ -277,6 +277,7 @@ export default function Index() {
     }
     setTimeout(() => setFormState("idle"), 5000);
   };
+  const reviewsRef  = useReveal();
   const osintRef    = useReveal();
   const rerRef      = useReveal();
   const aboutRef    = useReveal();
@@ -291,9 +292,9 @@ export default function Index() {
 
       {/* ══ NAV ═════════════════════════════════════════ */}
       <nav className="fixed top-0 inset-x-0 z-50 h-14 flex items-center"
-        style={{ background: "rgba(5,7,13,0.97)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(0,255,136,0.1)" }}>
+        style={{ background: "rgba(5,7,13,0.97)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
         {/* top green line */}
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.6), rgba(204,34,0,0.4), transparent)" }} />
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), rgba(204,34,0,0.4), transparent)" }} />
 
         <div className="max-w-[1440px] w-full mx-auto px-6 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 shrink-0">
@@ -321,7 +322,7 @@ export default function Index() {
 
         {menu && (
           <div className="absolute top-14 inset-x-0 px-6 py-5 flex flex-col gap-4 z-50"
-            style={{ background: "rgba(5,7,13,0.99)", borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+            style={{ background: "rgba(5,7,13,0.99)", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
             {NAV.map(n => <a key={n.href} href={n.href} className="nav-link py-1" onClick={() => setMenu(false)}>{n.label}</a>)}
             <a href="#contacts" className="btn-red py-3 text-xs" style={{ borderRadius: "2px" }}>Оставить заявку</a>
           </div>
@@ -338,10 +339,10 @@ export default function Index() {
           <div className="absolute inset-0 grid-cyber opacity-80" />
           <div className="absolute inset-0 circuit-lines" />
           {/* Corner accents */}
-          <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.7), transparent)" }} />
+          <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.7), transparent)" }} />
           <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.6), transparent)" }} />
           {/* Extra glow spots */}
-          <div className="absolute bottom-0 left-1/3 w-96 h-32" style={{ background: "radial-gradient(ellipse, rgba(0,255,136,0.07) 0%, transparent 70%)", filter: "blur(20px)" }} />
+          <div className="absolute bottom-0 left-1/3 w-96 h-32" style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.07) 0%, transparent 70%)", filter: "blur(20px)" }} />
           <div className="scan-beam" />
         </div>
 
@@ -351,10 +352,10 @@ export default function Index() {
             {/* LEFT */}
             <div>
               <div className="animate-fade-up d0 inline-flex items-center gap-3 mb-8 px-5 py-3 cyber-frame"
-                style={{ border: "1px solid rgba(0,255,136,0.25)", borderRadius: "3px", background: "rgba(0,255,136,0.05)" }}>
-                <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#00ff88", boxShadow: "0 0 10px #00ff88" }} />
-                <span className="font-stm tracking-[0.3em]" style={{ color: "rgba(0,255,136,0.85)", fontSize: "0.82rem" }}>НАБОР ОТКРЫТ · 2026</span>
-                <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#00ff88", boxShadow: "0 0 10px #00ff88", animationDelay: "0.5s" }} />
+                style={{ border: "1px solid rgba(255,255,255,0.25)", borderRadius: "3px", background: "rgba(255,255,255,0.05)" }}>
+                <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#ffffff", boxShadow: "0 0 10px #ffffff" }} />
+                <span className="font-stm tracking-[0.3em]" style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.82rem" }}>НАБОР ОТКРЫТ · 2026</span>
+                <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#ffffff", boxShadow: "0 0 10px #ffffff", animationDelay: "0.5s" }} />
               </div>
 
               <h1 className="animate-fade-up d1 font-orb text-white leading-[0.88] mb-6 animate-glitch"
@@ -368,7 +369,7 @@ export default function Index() {
                 Анализ открытых источников, IT, операторы БпЛА, логистика.
               </p>
               <div className="animate-fade-up d3 mb-10 flex flex-col gap-2">
-                <p className="font-stm tracking-widest" style={{ fontSize: "clamp(0.85rem, 2vw, 1.1rem)", color: "rgba(0,255,136,0.75)", textShadow: "0 0 16px rgba(0,255,136,0.35)" }}>
+                <p className="font-stm tracking-widest" style={{ fontSize: "clamp(0.85rem, 2vw, 1.1rem)", color: "rgba(255,255,255,0.75)", textShadow: "0 0 16px rgba(255,255,255,0.35)" }}>
                   &gt; БЕЗ УЧАСТИЯ В БОЕВЫХ ДЕЙСТВИЯХ_<span className="cursor" />
                 </p>
                 <p className="font-stm tracking-widest text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
@@ -391,11 +392,11 @@ export default function Index() {
                 {[
                   { val:"5 120 000 ₽", sub:"Доход за 1-й год", color:"#ff4422" },
                   { val:"210 000 ₽",   sub:"В месяц",          color:"#ffffff" },
-                  { val:"1000+",       sub:"Задач выполнено",   color:"#00ff88" },
+                  { val:"1000+",       sub:"Задач выполнено",   color:"#ffffff" },
                 ].map((s, i) => (
                   <div key={i} className="animate-fade-up" style={{ animationDelay: `${0.5 + i * 0.1}s`, opacity: 0 }}>
                     <div className="font-orb leading-none mb-1.5 whitespace-nowrap" style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", color: s.color, textShadow: `0 0 20px ${s.color}60` }}>{s.val}</div>
-                    <div className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(0,255,136,0.4)" }}>{s.sub}</div>
+                    <div className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>{s.sub}</div>
                   </div>
                 ))}
               </div>
@@ -408,22 +409,22 @@ export default function Index() {
                   { icon:"FileSignature", t:"Контракт",  s:"Официально" },
                   { icon:"ShieldOff", t:"Без боёв",      s:"Тыловые районы" },
                 ].map((c, i) => (
-                  <div key={i} className="vol-card flex flex-col gap-2 p-4 transition-all hover:scale-105"
-                    style={{ borderColor: "rgba(0,255,136,0.35)", background: "rgba(0,255,136,0.05)", boxShadow: "0 0 22px rgba(0,255,136,0.1), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
+                  <div key={i} className="vol-card shimmer-hover hover-lift flex flex-col gap-2 p-4 animate-fade-blur"
+                    style={{ animationDelay: `${0.9 + i * 0.1}s`, opacity: 0, borderColor: "rgba(255,255,255,0.18)", background: "rgba(255,255,255,0.03)", boxShadow: "0 0 22px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
                     <IBox icon={c.icon} size={16} boxSize={34} radius={7} />
                     <div className="font-orb text-white text-sm leading-tight">{c.t}</div>
-                    <div className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(0,255,136,0.65)" }}>{c.s}</div>
+                    <div className="font-stm text-[9px] tracking-wider" style={{ color: "rgba(255,255,255,0.5)" }}>{c.s}</div>
                   </div>
                 ))}
               </div>
 
               {/* Кому подходит */}
-              <div className="animate-fade-up d5 mt-6 vol-card p-5" style={{ animationDelay: "0.9s", opacity: 0, borderColor: "rgba(204,34,0,0.4)", background: "rgba(204,34,0,0.06)", boxShadow: "0 0 24px rgba(204,34,0,0.12)" }}>
-                <div className="font-stm text-[9px] tracking-widest mb-3" style={{ color: "rgba(255,100,80,0.85)" }}>// НАПРАВЛЕНИЯ НАБОРА</div>
-                <div className="flex flex-wrap gap-2">
+              <div className="animate-fade-blur mt-6 vol-card p-6" style={{ animationDelay: "1.2s", opacity: 0, borderColor: "rgba(220,38,38,0.3)", background: "rgba(220,38,38,0.05)", boxShadow: "0 0 24px rgba(220,38,38,0.08)" }}>
+                <div className="font-stm text-[10px] tracking-widest mb-4" style={{ color: "rgba(239,68,68,0.85)" }}>НАПРАВЛЕНИЯ НАБОРА</div>
+                <div className="flex flex-wrap gap-2.5">
                   {["OSINT-аналитик","IT-специалист","Оператор БпЛА","Мониторинг СМИ","Логистика","Сисадмин"].map((tag, i) => (
-                    <span key={i} className="font-stm text-[10px] tracking-wide px-3 py-1.5"
-                      style={{ background:"rgba(0,255,136,0.1)", border:"1px solid rgba(0,255,136,0.3)", borderRadius:2, color:"rgba(255,255,255,0.85)" }}>
+                    <span key={i} className="font-stm text-[11px] tracking-wide px-3.5 py-2 transition-all hover:scale-105"
+                      style={{ background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.18)", borderRadius:6, color:"rgba(255,255,255,0.8)" }}>
                       {tag}
                     </span>
                   ))}
@@ -440,7 +441,7 @@ export default function Index() {
                     <div className="flex items-center justify-between mb-7">
                       <div className="flex items-center gap-2.5">
                         <LogoS size={22} animated />
-                        <span className="font-stm text-[9px] tracking-[0.25em]" style={{ color: "rgba(0,255,136,0.4)" }}>ВЫПЛАТЫ / ДОХОДЫ</span>
+                        <span className="font-stm text-[9px] tracking-[0.25em]" style={{ color: "rgba(255,255,255,0.4)" }}>ВЫПЛАТЫ / ДОХОДЫ</span>
                       </div>
                       <div className="flex gap-1.5">
                         {["#f0f0f0","#003791","#cc2200"].map((c,i) => (
@@ -464,12 +465,12 @@ export default function Index() {
                     ))}
 
                     <div className="p-5 mt-5 mb-5" style={{ background: "rgba(204,34,0,0.08)", border: "1px solid rgba(204,34,0,0.2)", borderRadius: "2px" }}>
-                      <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(0,255,136,0.4)" }}>ОБЩИЙ ДОХОД · ГОД 1</div>
+                      <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>ОБЩИЙ ДОХОД · ГОД 1</div>
                       <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от 5 120 000 ₽</div>
                     </div>
 
                     <div className="flex items-center gap-3 p-3 mb-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
-                      <Icon name="Shield" size={12} style={{ color: "rgba(0,255,136,0.5)" }} />
+                      <Icon name="Shield" size={12} style={{ color: "rgba(255,255,255,0.5)" }} />
                       <span className="font-stm text-[9px] tracking-wider" style={{ color: "rgba(255,255,255,0.28)" }}>Гарантии государства РФ</span>
                     </div>
 
@@ -491,14 +492,14 @@ export default function Index() {
       </section>
 
       {/* ══ STATS BAR ═══════════════════════════════════ */}
-      <div style={{ background: "rgba(0,255,136,0.03)", borderTop: "1px solid rgba(0,255,136,0.15)", borderBottom: "1px solid rgba(0,255,136,0.12)" }}>
+      <div style={{ background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.15)", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="max-w-[1440px] mx-auto px-6 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0">
             {STATS.map((s, i) => (
               <div key={i} className={`stat-card flex items-center gap-4 px-6 animate-fade-up ${i === 0 ? "py-6 sm:col-span-2 lg:col-span-1" : "py-5"}`}
                 style={{
                   animationDelay: `${i * 0.08}s`, opacity: 0,
-                  borderLeft: i > 0 ? "1px solid rgba(0,255,136,0.1)" : "none",
+                  borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
                   ...(i === 0 ? { background: "rgba(204,34,0,0.06)", borderLeft: "3px solid rgba(204,34,0,0.6)" } : {}),
                 }}>
                 <div className="shrink-0" style={{
@@ -506,13 +507,13 @@ export default function Index() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   background: i === 0
                     ? "linear-gradient(145deg, rgba(204,34,0,0.22) 0%, rgba(204,34,0,0.06) 60%, rgba(0,0,0,0.15) 100%)"
-                    : "linear-gradient(145deg, rgba(0,255,136,0.14) 0%, rgba(0,255,136,0.04) 60%, rgba(0,0,0,0.15) 100%)",
-                  border: i === 0 ? "1px solid rgba(204,34,0,0.35)" : "1px solid rgba(0,255,136,0.22)",
-                  borderTop: i === 0 ? "1px solid rgba(204,34,0,0.5)" : "1px solid rgba(0,255,136,0.35)",
+                    : "linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 60%, rgba(0,0,0,0.15) 100%)",
+                  border: i === 0 ? "1px solid rgba(204,34,0,0.35)" : "1px solid rgba(255,255,255,0.22)",
+                  borderTop: i === 0 ? "1px solid rgba(204,34,0,0.5)" : "1px solid rgba(255,255,255,0.35)",
                   borderRadius: 14,
                   boxShadow: i === 0
                     ? "0 0 28px rgba(204,34,0,0.3), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)"
-                    : "0 0 28px rgba(0,255,136,0.2), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
+                    : "0 0 28px rgba(255,255,255,0.2), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
                   position: "relative",
                 }}>
                   <Icon name={s.icon as AnyIcon} size={i === 0 ? 30 : 26} style={{ color: i === 0 ? "rgba(255,100,80,0.95)" : "rgba(220,240,255,0.9)" }} />
@@ -534,34 +535,34 @@ export default function Index() {
       </div>
 
       {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
-      <section className="py-24 relative overflow-hidden" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
-        <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
-        <div className="max-w-[1440px] mx-auto px-6 relative">
-          <div className="label-mono mb-3">// Отзывы служащих</div>
+      <section className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-20 pointer-events-none" />
+        <div ref={reviewsRef} className="max-w-[1440px] mx-auto px-6 relative section-entry">
+          <div className="label-mono mb-3">Отзывы служащих</div>
           <div className="accent-line" />
-          <h2 className="font-orb text-white uppercase leading-tight mb-12" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-            Говорят<br /><span style={{ color: "#00ff88" }}>наши люди</span>
+          <h2 className="font-orb text-white leading-[0.95] mb-14" style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)" }}>
+            Говорят<br /><span style={{ color: "rgba(255,255,255,0.4)" }}>наши люди</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
             {REVIEWS.map((r, i) => (
-              <div key={i} className="vol-card p-7 flex flex-col gap-5"
-                style={{ borderColor: `${r.color}40`, background: `${r.color}08`, boxShadow: `0 0 30px ${r.color}15` }}>
-                <Icon name="Quote" size={28} style={{ color: `${r.color}` }} />
-                <p className="font-exo text-white/72 text-sm leading-[1.85] flex-1">{r.text}</p>
-                <div className="flex items-center gap-1 mb-1">
+              <div key={i} className="vol-card hover-lift shimmer-hover p-9 flex flex-col gap-6 animate-fade-blur"
+                style={{ animationDelay: `${0.15 + i * 0.15}s`, opacity: 0, borderColor: "rgba(255,255,255,0.1)" }}>
+                <Icon name="Quote" size={34} style={{ color: "rgba(255,255,255,0.25)" }} />
+                <p className="font-exo text-white/75 leading-[1.8] flex-1" style={{ fontSize: "1.02rem" }}>{r.text}</p>
+                <div className="flex items-center gap-1.5">
                   {[...Array(5)].map((_, s) => (
-                    <Icon key={s} name="Star" size={14} style={{ color: "#ffb800", fill: "#ffb800" }} />
+                    <Icon key={s} name="Star" size={15} style={{ color: "#ffffff", fill: "#ffffff" }} />
                   ))}
                 </div>
-                <div className="flex items-center gap-3 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <div className="shrink-0 flex items-center justify-center font-orb text-white text-sm"
-                    style={{ width: 44, height: 44, borderRadius: 10, background: `linear-gradient(135deg, ${r.color}30, ${r.color}10)`, border: `1px solid ${r.color}50`, boxShadow: `0 0 16px ${r.color}25` }}>
+                <div className="flex items-center gap-4 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  <div className="shrink-0 flex items-center justify-center font-orb text-white"
+                    style={{ width: 50, height: 50, borderRadius: 14, fontSize: "1rem", background: "linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04))", border: "1px solid rgba(255,255,255,0.18)", boxShadow: "0 0 20px rgba(255,255,255,0.06)" }}>
                     {r.initials}
                   </div>
                   <div>
-                    <div className="font-orb text-white text-sm">{r.name}</div>
-                    <div className="font-stm text-[9px] tracking-wider mt-0.5" style={{ color: `${r.color}aa` }}>{r.role}</div>
+                    <div className="font-orb text-white" style={{ fontSize: "1.05rem" }}>{r.name}</div>
+                    <div className="font-stm text-[11px] tracking-wide mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{r.role}</div>
                   </div>
                 </div>
               </div>
@@ -571,22 +572,22 @@ export default function Index() {
       </section>
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
-      <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+      <section id="osint" className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.4), transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
 
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={osintRef} className="section-entry">
             <div className="label-mono mb-3">// Что такое OSINT</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-10" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              Open Source<br /><span style={{ color: "#00ff88" }}>Intelligence</span>
+              Open Source<br /><span style={{ color: "#ffffff" }}>Intelligence</span>
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
               {/* Текст */}
               <div>
-                <div className="vol-card p-7 mb-6" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
+                <div className="vol-card p-7 mb-6" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
                   <p className="font-exo text-white/72 text-base leading-[1.95] mb-4">
                     <span className="font-orb text-white text-sm tracking-wide">OSINT</span>{" "}
                     (Open Source Intelligence) — это разведка на основе открытых источников. Специалисты собирают, проверяют и анализируют информацию из СМИ, социальных сетей, публичных баз данных, спутниковых снимков, форумов, видео и фото. Всё это — легальные, общедоступные материалы.
@@ -600,28 +601,28 @@ export default function Index() {
                       {Array.from({ length: 10 }).map((_, i) => (
                         <div key={i} className="h-2.5 rounded-sm" style={{
                           width: 20,
-                          background: i < 9 ? "rgba(0,255,136,0.85)" : "rgba(255,255,255,0.1)",
-                          boxShadow: i < 9 ? "0 0 6px rgba(0,255,136,0.5)" : "none",
+                          background: i < 9 ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.1)",
+                          boxShadow: i < 9 ? "0 0 6px rgba(255,255,255,0.5)" : "none",
                           transition: `opacity 0.3s ${i * 0.05}s`,
                         }} />
                       ))}
                     </div>
-                    <span className="font-orb text-sm" style={{ color: "#00ff88" }}>9 / 10</span>
+                    <span className="font-orb text-sm" style={{ color: "#ffffff" }}>9 / 10</span>
                   </div>
                 </div>
 
                 {/* Источники OSINT */}
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { icon:"Newspaper",    label:"СМИ и новости",        col:"rgba(0,255,136," },
-                    { icon:"MessageCircle",label:"Социальные сети",      col:"rgba(0,255,136," },
-                    { icon:"Map",          label:"Карты и геоданные",    col:"rgba(0,255,136," },
-                    { icon:"Camera",       label:"Фото и видео",         col:"rgba(0,255,136," },
-                    { icon:"Database",     label:"Публичные базы данных",col:"rgba(0,255,136," },
-                    { icon:"Globe",        label:"Открытые реестры",     col:"rgba(0,255,136," },
+                    { icon:"Newspaper",    label:"СМИ и новости",        col:"rgba(255,255,255," },
+                    { icon:"MessageCircle",label:"Социальные сети",      col:"rgba(255,255,255," },
+                    { icon:"Map",          label:"Карты и геоданные",    col:"rgba(255,255,255," },
+                    { icon:"Camera",       label:"Фото и видео",         col:"rgba(255,255,255," },
+                    { icon:"Database",     label:"Публичные базы данных",col:"rgba(255,255,255," },
+                    { icon:"Globe",        label:"Открытые реестры",     col:"rgba(255,255,255," },
                   ].map((s, i) => (
                     <div key={i} className="flex items-center gap-3 p-3 animate-fade-left"
-                      style={{ animationDelay: `${i * 0.08}s`, opacity: 0, background: "rgba(0,255,136,0.04)", border: "1px solid rgba(0,255,136,0.14)", borderRadius: 4 }}>
+                      style={{ animationDelay: `${i * 0.08}s`, opacity: 0, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.14)", borderRadius: 4 }}>
                       <IBox icon={s.icon} size={16} boxSize={34} radius={8} glow />
                       <span className="font-exo text-white/60 text-sm">{s.label}</span>
                     </div>
@@ -637,14 +638,14 @@ export default function Index() {
                     style={{ height: 340, filter: "brightness(0.75) saturate(0.8) contrast(1.1)" }} />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(5,7,13,0.9) 100%)" }} />
                   <div className="absolute bottom-5 left-5">
-                    <div className="font-stm text-[10px] tracking-widest mb-1" style={{ color: "rgba(0,255,136,0.6)" }}>// OSINT VISUALIZATION</div>
+                    <div className="font-stm text-[10px] tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>// OSINT VISUALIZATION</div>
                     <div className="font-orb text-white text-base">Разведка открытых источников</div>
                   </div>
                 </div>
                 {/* floating badge */}
                 <div className="absolute -top-4 -right-4 px-4 py-2 animate-float"
-                  style={{ background: "rgba(5,7,13,0.95)", border: "1px solid rgba(0,255,136,0.35)", borderRadius: 3, boxShadow: "0 0 20px rgba(0,255,136,0.15)" }}>
-                  <div className="font-orb text-xs" style={{ color: "#00ff88" }}>OSINT · 24/7</div>
+                  style={{ background: "rgba(5,7,13,0.95)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: 3, boxShadow: "0 0 20px rgba(255,255,255,0.15)" }}>
+                  <div className="font-orb text-xs" style={{ color: "#ffffff" }}>OSINT · 24/7</div>
                 </div>
               </div>
             </div>
@@ -657,16 +658,16 @@ export default function Index() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.85) 0%, transparent 40%, rgba(5,7,13,0.7) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-30" />
               <div className="absolute left-8 top-1/2 -translate-y-1/2">
-                <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>// LIVE MONITORING</div>
+                <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>// LIVE MONITORING</div>
                 <div className="font-orb text-white text-xl uppercase mb-2">Аналитики за работой</div>
                 <div className="font-exo text-white/50 text-sm max-w-xs">Круглосуточный мониторинг открытых источников в защищённом контуре</div>
               </div>
               <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
                 {["СМИ активны", "Telegram · 847 каналов", "Соцсети · мониторинг"].map((t, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5"
-                    style={{ background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 2 }}>
-                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88", animationDelay: `${i * 0.4}s` }} />
-                    <span className="font-stm text-[10px] tracking-wider" style={{ color: "rgba(0,255,136,0.7)" }}>{t}</span>
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2 }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff", animationDelay: `${i * 0.4}s` }} />
+                    <span className="font-stm text-[10px] tracking-wider" style={{ color: "rgba(255,255,255,0.7)" }}>{t}</span>
                   </div>
                 ))}
               </div>
@@ -679,7 +680,7 @@ export default function Index() {
       <section id="rer" className="py-28 relative overflow-hidden">
         {/* cyber bg accent */}
         <div className="absolute inset-0 grid-cyber opacity-50 pointer-events-none" />
-        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.3), transparent)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.3), transparent)" }} />
 
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={rerRef} className="section-entry">
@@ -689,12 +690,12 @@ export default function Index() {
               <span className="animate-fade-left d0">Радиоэлектронная разведка</span>
             </h2>
             {/* Главное описание */}
-            <div className="max-w-2xl mb-8 p-6 vol-card" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
+            <div className="max-w-2xl mb-8 p-6 vol-card" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
               {/* Animated header row */}
-              <div className="flex items-center gap-3 mb-4 pb-3" style={{ borderBottom: "1px solid rgba(0,255,136,0.1)" }}>
-                <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#00ff88", boxShadow: "0 0 8px #00ff88" }} />
+              <div className="flex items-center gap-3 mb-4 pb-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#ffffff", boxShadow: "0 0 8px #ffffff" }} />
                 <span className="font-stm text-xs tracking-widest text-scan-green">СИСТЕМА РАДИОЭЛЕКТРОННОЙ РАЗВЕДКИ</span>
-                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.3), transparent)" }} />
+                <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.3), transparent)" }} />
               </div>
               <p className="font-exo text-white/70 text-base leading-[1.95] mb-4 animate-text-reveal">
                 <span className="font-orb text-white text-sm tracking-wide">РЭР — радиоэлектронная разведка.</span>{" "}
@@ -710,12 +711,12 @@ export default function Index() {
                   {Array.from({ length: 10 }).map((_, i) => (
                     <div key={i} className="h-2 rounded-sm transition-all" style={{
                       width: 18,
-                      background: i < 9 ? "rgba(0,255,136,0.85)" : "rgba(255,255,255,0.1)",
-                      boxShadow: i < 9 ? "0 0 6px rgba(0,255,136,0.5)" : "none",
+                      background: i < 9 ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.1)",
+                      boxShadow: i < 9 ? "0 0 6px rgba(255,255,255,0.5)" : "none",
                     }} />
                   ))}
                 </div>
-                <span className="font-orb text-xs" style={{ color: "rgba(0,255,136,0.7)" }}>9 / 10</span>
+                <span className="font-orb text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>9 / 10</span>
               </div>
             </div>
 
@@ -734,8 +735,8 @@ export default function Index() {
               <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
                 {["Диапазон · активен", "Перехват · идёт", "Анализ · выполняется"].map((t, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5"
-                    style={{ background: "rgba(0,255,136,0.07)", border: "1px solid rgba(0,255,136,0.22)", borderRadius: 2 }}>
-                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88", animationDelay: `${i * 0.35}s` }} />
+                    style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.22)", borderRadius: 2 }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff", animationDelay: `${i * 0.35}s` }} />
                     <span className="font-stm text-[10px] tracking-wider text-scan-green">{t}</span>
                   </div>
                 ))}
@@ -749,7 +750,7 @@ export default function Index() {
                     <IBox icon={t.icon} size={26} boxSize={58} radius={14} glow />
                   </div>
                   <div className="font-orb text-white text-sm uppercase mb-3 tracking-wide group-hover:text-scan-green transition-all">{t.title}</div>
-                  <div className="h-px mb-3" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.25), transparent)", width: 28 }} />
+                  <div className="h-px mb-3" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.25), transparent)", width: 28 }} />
                   <div className="font-exo text-white/50 text-sm leading-[1.75]">{t.desc}</div>
                 </div>
               ))}
@@ -759,7 +760,7 @@ export default function Index() {
       </section>
 
       {/* ══ ABOUT ═══════════════════════════════════════ */}
-      <section id="about" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+      <section id="about" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={aboutRef} className="section-entry">
@@ -774,7 +775,7 @@ export default function Index() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
               {/* OSINT блок */}
-              <div className="vol-card p-7" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
+              <div className="vol-card p-7" style={{ borderColor: "rgba(255,255,255,0.2)" }}>
                 <div className="flex items-center gap-3 mb-5">
                   <div className="animate-icon-float">
                     <IBox icon="Search" size={24} boxSize={52} radius={12} glow />
@@ -782,17 +783,17 @@ export default function Index() {
                   <div>
                     <span className="font-orb text-white text-sm uppercase tracking-wide">OSINT-подразделение</span>
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
-                      <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>АКТИВНО · 24/7</span>
+                      <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff" }} />
+                      <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>АКТИВНО · 24/7</span>
                     </div>
                   </div>
                 </div>
-                <div className="h-px mb-4" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.3), transparent)" }} />
+                <div className="h-px mb-4" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.3), transparent)" }} />
                 <p className="font-exo text-white/65 text-sm leading-[1.95] mb-4 animate-text-reveal">
                   <span className="font-orb text-white/90 text-xs tracking-wide">OSINT-подразделение</span> — это команда специалистов, которая занимается сбором, проверкой и анализом информации из открытых источников: СМИ, социальных сетей, карт, публичных баз данных, фото, видео и других доступных материалов. Такая работа помогает быстрее понимать обстановку, выявлять важные события, отслеживать изменения и готовить аналитические материалы для командования.
                 </p>
                 <p className="font-exo text-white/50 text-sm leading-[1.85] mb-5 animate-text-reveal" style={{ animationDelay: "0.2s" }}>
-                  <span className="font-orb text-xs" style={{ color: "#00ff88" }}>Польза OSINT в армии — очень высокая: 9/10.</span>{" "}
+                  <span className="font-orb text-xs" style={{ color: "#ffffff" }}>Польза OSINT в армии — очень высокая: 9/10.</span>{" "}
                   OSINT помогает принимать более точные решения, дополняет данные разведки, снижает неопределённость, ускоряет анализ ситуации и поддерживает работу других направлений: РЭР, БпЛА, связи, IT и штабной аналитики.
                 </p>
                 <div className="flex items-center gap-3">
@@ -800,12 +801,12 @@ export default function Index() {
                     {Array.from({ length: 10 }).map((_, i) => (
                       <div key={i} className="h-2 rounded-sm" style={{
                         width: 16,
-                        background: i < 9 ? "rgba(0,255,136,0.85)" : "rgba(255,255,255,0.1)",
-                        boxShadow: i < 9 ? "0 0 6px rgba(0,255,136,0.5)" : "none",
+                        background: i < 9 ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.1)",
+                        boxShadow: i < 9 ? "0 0 6px rgba(255,255,255,0.5)" : "none",
                       }} />
                     ))}
                   </div>
-                  <span className="font-orb text-xs" style={{ color: "rgba(0,255,136,0.7)" }}>9 / 10</span>
+                  <span className="font-orb text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>9 / 10</span>
                 </div>
               </div>
 
@@ -820,8 +821,8 @@ export default function Index() {
                   "Поддержка операторов БпЛА актуальными данными",
                 ].map((t, i) => (
                   <div key={i} className="flex items-start gap-3 animate-fade-right" style={{ animationDelay: `${0.1 + i * 0.07}s`, opacity: 0 }}>
-                    <div className="ibox mt-0.5 shrink-0" style={{ width: 20, height: 20, background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 5 }}>
-                      <Icon name="ChevronRight" size={11} style={{ color: "rgba(0,255,136,0.7)" }} />
+                    <div className="ibox mt-0.5 shrink-0" style={{ width: 20, height: 20, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 5 }}>
+                      <Icon name="ChevronRight" size={11} style={{ color: "rgba(255,255,255,0.7)" }} />
                     </div>
                     <span className="font-exo text-white/55 text-sm leading-relaxed">{t}</span>
                   </div>
@@ -837,16 +838,16 @@ export default function Index() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.92) 0%, transparent 45%, rgba(5,7,13,0.75) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-25" />
               <div className="absolute left-8 top-1/2 -translate-y-1/2">
-                <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>// ОПЕРАТОРЫ БпЛА</div>
+                <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>// ОПЕРАТОРЫ БпЛА</div>
                 <div className="font-orb text-white text-xl uppercase mb-2">Воздушная разведка</div>
                 <div className="font-exo text-white/50 text-sm max-w-xs">Управление беспилотниками, аэрофотосъёмка и корректировка данных в реальном времени</div>
               </div>
               <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
                 {["БпЛА · в воздухе", "Съёмка · активна", "Связь · защищена"].map((t, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5"
-                    style={{ background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 2 }}>
-                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88", animationDelay: `${i * 0.3}s` }} />
-                    <span className="font-stm text-[10px] tracking-wider" style={{ color: "rgba(0,255,136,0.7)" }}>{t}</span>
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2 }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff", animationDelay: `${i * 0.3}s` }} />
+                    <span className="font-stm text-[10px] tracking-wider" style={{ color: "rgba(255,255,255,0.7)" }}>{t}</span>
                   </div>
                 ))}
               </div>
@@ -858,7 +859,7 @@ export default function Index() {
                 <div className="animate-icon-float"><IBox icon="ShieldCheck" size={26} boxSize={60} radius={14} glow /></div>
                 <div>
                   <div className="font-orb text-white text-base uppercase tracking-wide mb-0.5">О командирах</div>
-                  <div className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.4)" }}>ПРОФЕССИОНАЛЬНЫЙ СОСТАВ</div>
+                  <div className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>ПРОФЕССИОНАЛЬНЫЙ СОСТАВ</div>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -882,7 +883,7 @@ export default function Index() {
             </div>
 
             {/* ── О солдатах ── */}
-            <div className="vol-card p-8 cyber-frame" style={{ borderColor: "rgba(0,255,136,0.2)", background: "rgba(0,255,136,0.02)" }}>
+            <div className="vol-card p-8 cyber-frame" style={{ borderColor: "rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.02)" }}>
               <div className="flex items-center gap-4 mb-8">
                 <div className="animate-icon-float"><IBox icon="Users" size={26} boxSize={60} radius={14} glow /></div>
                 <div>
@@ -898,7 +899,7 @@ export default function Index() {
                   { icon:"Handshake",    title:"Командная работа",         desc:"Слаженность — наш главный инструмент. Каждый знает свою роль и доверяет товарищу рядом." },
                 ].map((c, i) => (
                   <div key={i} className="flex flex-col gap-3 p-5 animate-scale-in group cursor-default"
-                    style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0, background: "rgba(0,255,136,0.03)", border: "1px solid rgba(0,255,136,0.12)", borderRadius: "3px", transition: "all 0.3s" }}
+                    style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "3px", transition: "all 0.3s" }}
                     onMouseEnter={snd.hover}>
                     <div className="transition-transform group-hover:scale-110 group-hover:rotate-3">
                       <IBox icon={c.icon} size={22} boxSize={50} radius={12} glow />
@@ -915,7 +916,7 @@ export default function Index() {
       </section>
 
       {/* ══ VACANCIES ═══════════════════════════════════ */}
-      <section id="vacancies" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+      <section id="vacancies" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={vacRef} className="section-entry">
@@ -938,14 +939,14 @@ export default function Index() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.95) 0%, transparent 50%, rgba(2,8,24,0.9) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-8">
                 <div>
-                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; НАБОР ОТКРЫТ · 2026</div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; НАБОР ОТКРЫТ · 2026</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}>Профессиональный<br />коллектив ждёт тебя</div>
                 </div>
                 <div className="hidden md:flex gap-6 ml-auto">
                   {[{n:"6", l:"Вакансий"},{n:"24ч", l:"Ответ"},{n:"100%", l:"Поддержка"}].map((s,i)=>(
                     <div key={i} className="text-center">
                       <div className="font-orb text-white font-black" style={{ fontSize:"1.6rem", color: i===0?"#ff2200":"#fff" }}>{s.n}</div>
-                      <div className="font-stm text-[9px] tracking-widest" style={{ color:"rgba(0,255,136,0.45)" }}>{s.l}</div>
+                      <div className="font-stm text-[9px] tracking-widest" style={{ color:"rgba(255,255,255,0.45)" }}>{s.l}</div>
                     </div>
                   ))}
                 </div>
@@ -968,13 +969,13 @@ export default function Index() {
                         </div>
                         <div className="flex flex-col items-end gap-1">
                           <span className="font-stm text-[8px] tracking-widest px-2 py-0.5"
-                            style={{ background: "rgba(0,255,136,0.07)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 2, color: "rgba(0,255,136,0.6)" }}>
+                            style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2, color: "rgba(255,255,255,0.6)" }}>
                             {v.level}
                           </span>
                           {/* animated dot */}
                           <div className="flex items-center gap-1">
-                            <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
-                            <span className="font-stm text-[8px]" style={{ color: "rgba(0,255,136,0.35)" }}>активна</span>
+                            <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff" }} />
+                            <span className="font-stm text-[8px]" style={{ color: "rgba(255,255,255,0.35)" }}>активна</span>
                           </div>
                         </div>
                       </div>
@@ -983,7 +984,7 @@ export default function Index() {
                         style={{ lineHeight: 1.2 }}>{v.title}</h3>
 
                       {/* thin colored accent under title */}
-                      <div className="h-px mb-3 transition-all duration-500 group-hover:w-full" style={{ width: 32, background: "linear-gradient(90deg, #00ff88, rgba(0,255,136,0.1))" }} />
+                      <div className="h-px mb-3 transition-all duration-500 group-hover:w-full" style={{ width: 32, background: "linear-gradient(90deg, #ffffff, rgba(255,255,255,0.1))" }} />
 
                       <p className="font-exo text-white/45 text-sm leading-[1.8] mb-5">{v.desc}</p>
 
@@ -996,10 +997,10 @@ export default function Index() {
                         ))}
                       </div>
 
-                      <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+                      <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
                         <div>
                           <div className="money text-lg">от 210 000 ₽</div>
-                          <div className="font-stm text-[8px] mt-0.5" style={{ color: "rgba(0,255,136,0.4)" }}>в месяц</div>
+                          <div className="font-stm text-[8px] mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>в месяц</div>
                         </div>
                         <a href="#contacts" className="btn-red-animated px-5 py-2.5" style={{ borderRadius: "2px" }} onClick={snd.submit} onMouseEnter={snd.hover}>
                           <Icon name="Send" size={12} />
@@ -1015,9 +1016,9 @@ export default function Index() {
       </section>
 
       {/* ══ BENEFITS ════════════════════════════════════ */}
-      <section id="benefits" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.12)" }}>
+      <section id="benefits" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
-        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.4), transparent)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={benRef} className="section-entry">
             <div className="label-mono mb-3">// Социальный пакет</div>
@@ -1034,13 +1035,13 @@ export default function Index() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.85) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-6">
                 <div>
-                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; ГАРАНТИИ ГОСУДАРСТВА РФ</div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; ГАРАНТИИ ГОСУДАРСТВА РФ</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.1rem, 2.3vw, 1.7rem)" }}>8 видов льгот<br />с первого дня службы</div>
                 </div>
                 <div className="hidden md:flex gap-5 ml-auto">
                   {[{n:"до 10 млн", l:"Списание долгов"},{n:"до 3.9 млн", l:"Военная ипотека"},{n:"50%", l:"Скидка ЖКХ"}].map((s,i)=>(
                     <div key={i} className="text-center">
-                      <div className="font-orb font-black whitespace-nowrap" style={{ fontSize:"1.2rem", color: i===0?"#ff2200":"#00ff88" }}>{s.n}</div>
+                      <div className="font-orb font-black whitespace-nowrap" style={{ fontSize:"1.2rem", color: i===0?"#ff2200":"#ffffff" }}>{s.n}</div>
                       <div className="font-stm text-[9px] tracking-widest whitespace-nowrap" style={{ color:"rgba(255,255,255,0.4)" }}>{s.l}</div>
                     </div>
                   ))}
@@ -1061,13 +1062,13 @@ export default function Index() {
                       {/* Title + sum in one row */}
                       <div className="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
                         <div className="font-orb text-white text-sm uppercase tracking-wide leading-tight whitespace-nowrap">{b.title}</div>
-                        <div className="font-orb text-sm whitespace-nowrap shrink-0" style={{ color: "#00ff88", textShadow: "0 0 12px rgba(0,255,136,0.5)" }}>{b.sum}</div>
+                        <div className="font-orb text-sm whitespace-nowrap shrink-0" style={{ color: "#ffffff", textShadow: "0 0 12px rgba(255,255,255,0.5)" }}>{b.sum}</div>
                       </div>
                       <div className="font-exo text-white/50 text-sm leading-[1.75]">{b.desc}</div>
                     </div>
                   </div>
                   {/* bottom accent line */}
-                  <div className="h-px mx-6" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.2), transparent)" }} />
+                  <div className="h-px mx-6" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.2), transparent)" }} />
                 </div>
               ))}
             </div>
@@ -1079,7 +1080,7 @@ export default function Index() {
                 <IBox icon="ShieldCheck" size={36} boxSize={80} radius={20} glow />
               </div>
               <div className="flex-1">
-                <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.5)" }}>СПЕЦИАЛЬНАЯ ГАРАНТИЯ ГОСУДАРСТВА</div>
+                <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>СПЕЦИАЛЬНАЯ ГАРАНТИЯ ГОСУДАРСТВА</div>
                 <div className="font-orb text-white uppercase mb-2 flex flex-wrap items-baseline gap-3" style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.6rem)" }}>
                   Списание задолженностей до
                   <span className="money-red whitespace-nowrap" style={{ fontSize: "clamp(1.3rem, 3vw, 2rem)" }}>10 000 000 ₽</span>
@@ -1094,7 +1095,7 @@ export default function Index() {
       </section>
 
       {/* ══ STEPS ═══════════════════════════════════════ */}
-      <section id="steps" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+      <section id="steps" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute inset-0 grid-cyber opacity-25 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={stepsRef} className="section-entry">
@@ -1107,12 +1108,12 @@ export default function Index() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 60%, rgba(2,8,24,0.85) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10">
                 <div>
-                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; ОТ ЗАЯВКИ ДО ЗАЧИСЛЕНИЯ</div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; ОТ ЗАЯВКИ ДО ЗАЧИСЛЕНИЯ</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.1rem, 2.3vw, 1.7rem)" }}>5 простых шагов —<br />и вы в команде</div>
                 </div>
                 <div className="hidden sm:flex items-center gap-2 ml-auto">
                   {["01","02","03","04","05"].map((n,i)=>(
-                    <div key={i} className="w-10 h-10 flex items-center justify-center font-orb text-xs font-black" style={{ background:"rgba(0,255,136,0.08)", border:"1px solid rgba(0,255,136,0.2)", borderRadius:"50%", color:"rgba(0,255,136,0.7)" }}>{n}</div>
+                    <div key={i} className="w-10 h-10 flex items-center justify-center font-orb text-xs font-black" style={{ background:"rgba(255,255,255,0.08)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:"50%", color:"rgba(255,255,255,0.7)" }}>{n}</div>
                   ))}
                 </div>
               </div>
@@ -1122,9 +1123,9 @@ export default function Index() {
               {STEPS.map((s, i) => (
                 <div key={i} className="flex flex-col items-center text-center group animate-fade-up" style={{ animationDelay: `${i * 0.12}s`, opacity: 0 }} onMouseEnter={snd.hover}>
                   <div className="relative mb-5">
-                    <div className="absolute inset-0 rounded-full opacity-20 animate-pulse-red" style={{ background: "radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%)", transform: "scale(1.5)" }} />
+                    <div className="absolute inset-0 rounded-full opacity-20 animate-pulse-red" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)", transform: "scale(1.5)" }} />
                     <div className="relative w-24 h-24 flex flex-col items-center justify-center gap-1.5 transition-all group-hover:scale-105 cyber-frame"
-                      style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)", border: "1px solid rgba(0,255,136,0.18)", borderRadius: "50%", boxShadow: "0 0 30px rgba(0,255,136,0.08), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+                      style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "50%", boxShadow: "0 0 30px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
                       <Icon name={s.icon as AnyIcon} size={22} style={{ color: "rgba(220,230,245,0.7)" }} />
                       <span className="step-num">{s.n}</span>
                     </div>
@@ -1139,7 +1140,7 @@ export default function Index() {
       </section>
 
       {/* ══ FAQ ═════════════════════════════════════════ */}
-      <section id="faq" className="py-28" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+      <section id="faq" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={faqRef} className="section-entry">
             <div className="label-mono mb-3">// База знаний</div>
@@ -1151,7 +1152,7 @@ export default function Index() {
               {FAQ.map((item, i) => (
                 <div key={i} className={`vol-card overflow-hidden faq-item ${openFaq===i?"open":""} animate-fade-up`} style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
                   <button className="w-full flex items-center justify-between p-5 text-left gap-4"
-                    style={{ background: openFaq===i ? "rgba(0,255,136,0.03)" : "transparent" }}
+                    style={{ background: openFaq===i ? "rgba(255,255,255,0.03)" : "transparent" }}
                     onClick={() => { setOpenFaq(openFaq===i ? null : i); snd.open(); }}
                     onMouseEnter={snd.hover}>
                     <span className="font-exo text-white font-semibold text-sm leading-relaxed">{item.q}</span>
@@ -1166,7 +1167,7 @@ export default function Index() {
                   </button>
                   {openFaq===i && (
                     <div className="px-5 pb-5 animate-fade-in" style={{ opacity: 0 }}>
-                      <div className="pt-4" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+                      <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                         <p className="font-exo text-white/48 text-sm leading-[1.9]">{item.a}</p>
                       </div>
                     </div>
@@ -1177,11 +1178,11 @@ export default function Index() {
 
               {/* FAQ sidebar image */}
               <div className="hidden lg:block sticky top-20">
-                <div className="relative overflow-hidden" style={{ borderRadius: "3px", border: "1px solid rgba(0,255,136,0.15)" }}>
+                <div className="relative overflow-hidden" style={{ borderRadius: "3px", border: "1px solid rgba(255,255,255,0.15)" }}>
                   <img src={FAQ_IMG} alt="FAQ" className="w-full h-72 object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(2,8,24,0.97) 100%)" }} />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(0,255,136,0.5)" }}>&gt; ОСТАЛИСЬ ВОПРОСЫ?</div>
+                    <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>&gt; ОСТАЛИСЬ ВОПРОСЫ?</div>
                     <div className="font-orb text-white text-sm uppercase mb-3">Свяжитесь с нами напрямую</div>
                     <a href="#contacts" className="btn-red py-2.5 px-4 text-xs w-full justify-center" style={{ borderRadius: "2px" }}>
                       <Icon name="Phone" size={12} />
@@ -1196,9 +1197,9 @@ export default function Index() {
       </section>
 
       {/* ══ CONTACTS ════════════════════════════════════ */}
-      <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+      <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
-        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.5), transparent)" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.5), transparent)" }} />
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.4), transparent)" }} />
 
         <div className="max-w-[1440px] mx-auto px-6">
@@ -1217,7 +1218,7 @@ export default function Index() {
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.9) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-8">
                 <div>
-                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(0,255,136,0.6)" }}>&gt; СВЯЗЬ 24/7</div>
+                  <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; СВЯЗЬ 24/7</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)" }}>Ответим в течение<br />24 часов</div>
                 </div>
                 <div className="hidden sm:flex gap-6 ml-auto">
@@ -1235,7 +1236,7 @@ export default function Index() {
 
               {/* ── Контакты ── */}
               <div>
-                <div className="font-stm text-xs tracking-widest mb-6" style={{ color: "rgba(0,255,136,0.5)" }}>// ПРЯМЫЕ КОНТАКТЫ</div>
+                <div className="font-stm text-xs tracking-widest mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>// ПРЯМЫЕ КОНТАКТЫ</div>
 
                 <div className="space-y-4 mb-10">
                   {[
@@ -1258,11 +1259,11 @@ export default function Index() {
                       sub:"Telegram — онлайн 24/7",
                       href:"https://t.me/Ares_deavel7",
                       badge:"TELEGRAM",
-                      color:"rgba(0,255,136,",
+                      color:"rgba(255,255,255,",
                     },
                   ].map((c, i) => (
                     <a key={i} href={c.href} target="_blank" rel="noreferrer"
-                      className="vol-card flex items-center gap-5 p-5 group cursor-pointer animate-fade-left"
+                      className="vol-card shimmer-hover hover-lift flex items-center gap-5 p-5 group cursor-pointer animate-fade-left"
                       style={{ animationDelay: `${0.1 + i * 0.15}s`, opacity: 0, textDecoration: "none", borderColor: `${c.color}0.15)` }}
                       onClick={snd.click} onMouseEnter={snd.hover}>
 
@@ -1294,7 +1295,7 @@ export default function Index() {
                           style={{ background: `${c.color}0.12)`, border: `1px solid ${c.color}0.3)`, borderRadius: 2, color: "rgba(255,255,255,0.7)" }}>
                           {c.badge}
                         </span>
-                        <Icon name="ChevronRight" size={16} style={{ color: "rgba(0,255,136,0.4)" }} className="group-hover:translate-x-1 transition-transform" />
+                        <Icon name="ChevronRight" size={16} style={{ color: "rgba(255,255,255,0.4)" }} className="group-hover:translate-x-1 transition-transform" />
                       </div>
                     </a>
                   ))}
@@ -1320,25 +1321,25 @@ export default function Index() {
                     <div className="font-stm text-[9px] tracking-widest text-scan-green">ЗАЩИЩЁННЫЙ КАНАЛ</div>
                   </div>
                 </div>
-                <div className="h-px mb-7 mt-4" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.4), rgba(204,34,0,0.3), transparent)" }} />
+                <div className="h-px mb-7 mt-4" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.4), rgba(204,34,0,0.3), transparent)" }} />
 
                 {formState === "success" ? (
                   <div className="flex flex-col items-center justify-center py-12 gap-4 animate-scale-in">
                     <div className="w-20 h-20 flex items-center justify-center"
-                      style={{ background: "rgba(0,255,136,0.1)", border: "2px solid rgba(0,255,136,0.4)", borderRadius: "50%", boxShadow: "0 0 40px rgba(0,255,136,0.2)" }}>
-                      <Icon name="CheckCheck" size={36} style={{ color: "#00ff88" }} />
+                      style={{ background: "rgba(255,255,255,0.1)", border: "2px solid rgba(255,255,255,0.4)", borderRadius: "50%", boxShadow: "0 0 40px rgba(255,255,255,0.2)" }}>
+                      <Icon name="CheckCheck" size={36} style={{ color: "#ffffff" }} />
                     </div>
                     <div className="font-orb text-white text-lg uppercase tracking-wide text-center">Заявка отправлена!</div>
                     <div className="font-exo text-white/50 text-sm text-center">Свяжемся с вами в течение 24 часов</div>
                     <div className="flex items-center gap-2 mt-2">
-                      <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#00ff88" }} />
+                      <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#ffffff" }} />
                       <span className="font-stm text-[10px] tracking-widest text-scan-green">ПОЛУЧЕНО · ОБРАБАТЫВАЕТСЯ</span>
                     </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>ВАШ ПОЗЫВНОЙ / ИМЯ *</label>
+                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>ВАШ ПОЗЫВНОЙ / ИМЯ *</label>
                       <input
                         type="text"
                         placeholder="Иванов Иван Иванович"
@@ -1349,7 +1350,7 @@ export default function Index() {
                       />
                     </div>
                     <div>
-                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>ТЕЛЕФОН ДЛЯ СВЯЗИ *</label>
+                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>ТЕЛЕФОН ДЛЯ СВЯЗИ *</label>
                       <input
                         type="tel"
                         placeholder="+7 (___) ___-__-__"
@@ -1360,7 +1361,7 @@ export default function Index() {
                       />
                     </div>
                     <div>
-                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>НАПРАВЛЕНИЕ СЛУЖБЫ</label>
+                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>НАПРАВЛЕНИЕ СЛУЖБЫ</label>
                       <select
                         className="form-input"
                         style={{ appearance: "none" }}
@@ -1404,7 +1405,7 @@ export default function Index() {
                     </button>
 
                     <div className="flex items-center gap-2 pt-1">
-                      <Icon name="Lock" size={11} style={{ color: "rgba(0,255,136,0.35)" }} />
+                      <Icon name="Lock" size={11} style={{ color: "rgba(255,255,255,0.35)" }} />
                       <span className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(255,255,255,0.22)" }}>
                         Данные передаются по защищённому каналу. Конфиденциально.
                       </span>
@@ -1419,20 +1420,20 @@ export default function Index() {
       </section>
 
       {/* ══ FOOTER ══════════════════════════════════════ */}
-      <footer style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
-        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.4), rgba(204,34,0,0.3), transparent)" }} />
+      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <LogoS size={28} animated />
             <div>
               <div className="font-orb text-white text-xs tracking-widest">OSINT-РЭР</div>
-              <div className="font-stm text-[8px] tracking-[0.2em]" style={{ color: "rgba(0,255,136,0.3)" }}>РАДИОЭЛЕКТРОННАЯ РАЗВЕДКА</div>
+              <div className="font-stm text-[8px] tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.3)" }}>РАДИОЭЛЕКТРОННАЯ РАЗВЕДКА</div>
             </div>
           </div>
           <div className="font-stm text-[9px] text-center tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>© 2026 OSINT-РЭР — Все права защищены</div>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
-            <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>НАБОР ОТКРЫТ</span>
+            <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#ffffff" }} />
+            <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>НАБОР ОТКРЫТ</span>
           </div>
         </div>
       </footer>
