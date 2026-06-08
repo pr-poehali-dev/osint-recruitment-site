@@ -45,6 +45,8 @@ const OSINT_VIZ_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a958d524-268e-4fbf-a68e-81b630c18e7d.jpg";
 const BPLA_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8e748e04-f308-4462-a51e-341ca5da8cec.jpg";
+const RER_IMG =
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/31f5937d-f408-41ec-961e-c5b319d3ac3a.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
 const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
@@ -223,12 +225,39 @@ export default function Index() {
   const [openFaq, setOpenFaq] = useState<number|null>(null);
   const [menu,    setMenu]    = useState(false);
 
+  // Form state
+  const [form, setForm] = useState({ name: "", phone: "", specialty: "" });
+  const [formState, setFormState] = useState<"idle"|"loading"|"success"|"error">("idle");
+
   const filtered = VACANCIES.filter(v =>
     (spec  === "all" || v.specialty === spec) &&
     (level === "all" || v.level     === level)
   );
 
   const snd = useSound();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.phone.trim()) return;
+    snd.submit();
+    setFormState("loading");
+    try {
+      const res = await fetch("https://functions.poehali.dev/3081148f-f070-40ab-b559-f959613dae1d", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setFormState("success");
+        setForm({ name: "", phone: "", specialty: "" });
+      } else {
+        setFormState("error");
+      }
+    } catch {
+      setFormState("error");
+    }
+    setTimeout(() => setFormState("idle"), 5000);
+  };
   const osintRef    = useReveal();
   const rerRef      = useReveal();
   const aboutRef    = useReveal();
@@ -584,14 +613,38 @@ export default function Index() {
               </div>
             </div>
 
+            {/* Картинка РЭР */}
+            <div className="relative overflow-hidden cyber-frame mb-8 animate-fade-up" style={{ opacity: 0, animationDelay: "0.25s", borderRadius: 4 }}>
+              <img src={RER_IMG} alt="Радиоэлектронная разведка"
+                className="w-full object-cover"
+                style={{ height: 300, objectPosition: "center 30%", filter: "brightness(0.45) saturate(0.6) contrast(1.2)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.95) 0%, transparent 40%, rgba(5,7,13,0.8) 100%)" }} />
+              <div className="absolute inset-0 grid-cyber opacity-30" />
+              <div className="absolute left-8 top-1/2 -translate-y-1/2 max-w-xs">
+                <div className="font-stm text-[10px] tracking-[0.3em] mb-2 text-scan-green">// РЭР · ОПЕРАТОР · LIVE</div>
+                <div className="font-orb text-white text-xl uppercase mb-2 leading-tight">Радиоэлектронная<br />разведка</div>
+                <div className="font-exo text-white/50 text-sm">Перехват и анализ сигналов противника в реальном времени</div>
+              </div>
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+                {["Диапазон · активен", "Перехват · идёт", "Анализ · выполняется"].map((t, i) => (
+                  <div key={i} className="flex items-center gap-2 px-3 py-1.5"
+                    style={{ background: "rgba(0,255,136,0.07)", border: "1px solid rgba(0,255,136,0.22)", borderRadius: 2 }}>
+                    <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88", animationDelay: `${i * 0.35}s` }} />
+                    <span className="font-stm text-[10px] tracking-wider text-scan-green">{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {RER_TASKS.map((t, i) => (
-                <div key={i} className="vol-card p-6 cyber-frame animate-scale-in" style={{ animationDelay: `${i * 0.09}s`, opacity: 0 }}>
-                  <div className="mb-5">
-                    <IBox icon={t.icon} size={24} boxSize={54} radius={12} glow />
+                <div key={i} className="vol-card p-6 cyber-frame animate-scale-in group" style={{ animationDelay: `${i * 0.09}s`, opacity: 0 }} onMouseEnter={snd.hover}>
+                  <div className="mb-5 transition-transform group-hover:scale-110 group-hover:rotate-3">
+                    <IBox icon={t.icon} size={26} boxSize={58} radius={14} glow />
                   </div>
-                  <div className="font-orb text-white text-sm uppercase mb-3 tracking-wide">{t.title}</div>
-                  <div className="font-exo text-white/42 text-sm leading-[1.75]">{t.desc}</div>
+                  <div className="font-orb text-white text-sm uppercase mb-3 tracking-wide group-hover:text-scan-green transition-all">{t.title}</div>
+                  <div className="h-px mb-3" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.25), transparent)", width: 28 }} />
+                  <div className="font-exo text-white/50 text-sm leading-[1.75]">{t.desc}</div>
                 </div>
               ))}
             </div>
@@ -961,75 +1014,204 @@ export default function Index() {
       </section>
 
       {/* ══ CONTACTS ════════════════════════════════════ */}
-      <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
-        <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
+      <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.5), transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.4), transparent)" }} />
+
         <div className="max-w-[1440px] mx-auto px-6">
-          <div ref={contactsRef} className="section-entry grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-            <div>
-              <div className="label-mono mb-3">// Инициировать контакт</div>
-              <div className="accent-line" />
-              <h2 className="font-orb text-white uppercase leading-tight mb-5" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-                Готов стать<br /><span style={{ color: "#cc2200" }}>частью команды?</span>
-              </h2>
-              <p className="font-exo text-white/40 text-sm leading-[1.9] mb-10 max-w-sm">
-                Оставьте заявку — свяжемся в течение 24 часов. Все данные защищены.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { icon:"Phone", label:"+7 (949) 091-44-68",  sub:"Звонки — каждый день",          href:"tel:+79490914468" },
-                  { icon:"Mail",  label:"titan200@gmail.com",   sub:"Ответ в течение 24 часов",      href:"mailto:titan200@gmail.com" },
-                  { icon:"Send",  label:"@Ares_deavel7",        sub:"Telegram — 24/7",               href:"https://t.me/Ares_deavel7" },
-                ].map((c, i) => (
-                  <a key={i} href={c.href} target="_blank" rel="noreferrer"
-                    className="flex items-center gap-4 animate-fade-left group cursor-pointer"
-                    style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0, textDecoration: "none" }}
-                    onClick={snd.click} onMouseEnter={snd.hover}>
-                    <div className="transition-all group-hover:scale-110 group-hover:rotate-3">
-                      <IBox icon={c.icon} size={20} boxSize={52} radius={12} glow />
+          <div ref={contactsRef} className="section-entry">
+            <div className="label-mono mb-3">// Инициировать контакт</div>
+            <div className="accent-line" />
+            <h2 className="font-orb text-white uppercase leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+              Готов стать<br /><span style={{ color: "#cc2200" }}>частью команды?</span>
+            </h2>
+            <p className="font-exo text-white/42 text-base leading-relaxed mb-12 max-w-xl">
+              Оставьте заявку — свяжемся в течение 24 часов. Всё конфиденциально.
+            </p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+              {/* ── Контакты ── */}
+              <div>
+                <div className="font-stm text-xs tracking-widest mb-6" style={{ color: "rgba(0,255,136,0.5)" }}>// ПРЯМЫЕ КОНТАКТЫ</div>
+
+                <div className="space-y-4 mb-10">
+                  {[
+                    {
+                      icon:"Phone", label:"+7 (949) 091-44-68",
+                      sub:"Звонки принимаются каждый день",
+                      href:"tel:+79490914468",
+                      badge:"ЗВОНИТЬ",
+                      color:"rgba(34,197,94,",
+                    },
+                    {
+                      icon:"Mail",  label:"titanzver200@gmail.com",
+                      sub:"Email — ответ в течение 24 часов",
+                      href:"mailto:titanzver200@gmail.com",
+                      badge:"НАПИСАТЬ",
+                      color:"rgba(37,99,235,",
+                    },
+                    {
+                      icon:"Send",  label:"@Ares_deavel7",
+                      sub:"Telegram — онлайн 24/7",
+                      href:"https://t.me/Ares_deavel7",
+                      badge:"TELEGRAM",
+                      color:"rgba(0,255,136,",
+                    },
+                  ].map((c, i) => (
+                    <a key={i} href={c.href} target="_blank" rel="noreferrer"
+                      className="vol-card flex items-center gap-5 p-5 group cursor-pointer animate-fade-left"
+                      style={{ animationDelay: `${0.1 + i * 0.15}s`, opacity: 0, textDecoration: "none", borderColor: `${c.color}0.15)` }}
+                      onClick={snd.click} onMouseEnter={snd.hover}>
+
+                      {/* Icon */}
+                      <div className="shrink-0 transition-all group-hover:scale-115 group-hover:-rotate-6"
+                        style={{
+                          width: 64, height: 64,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          background: `linear-gradient(135deg, ${c.color}0.18) 0%, ${c.color}0.05) 100%)`,
+                          border: `1px solid ${c.color}0.3)`,
+                          borderRadius: 14,
+                          boxShadow: `0 0 24px ${c.color}0.2), inset 0 1px 0 rgba(255,255,255,0.1)`,
+                          position: "relative",
+                        }}>
+                        <div className="ibox" style={{ width: 64, height: 64, background: "transparent", border: "none", boxShadow: "none" }}>
+                          <Icon name={c.icon as AnyIcon} size={26} style={{ color: "rgba(220,235,255,0.9)" }} />
+                        </div>
+                      </div>
+
+                      {/* Text */}
+                      <div className="flex-1 min-w-0">
+                        <div className="font-orb text-white text-base mb-0.5 group-hover:text-scan-green transition-all truncate">{c.label}</div>
+                        <div className="font-exo text-white/45 text-sm">{c.sub}</div>
+                      </div>
+
+                      {/* Badge */}
+                      <div className="shrink-0 flex items-center gap-2">
+                        <span className="font-stm text-[9px] tracking-widest px-2.5 py-1 opacity-0 group-hover:opacity-100 transition-all"
+                          style={{ background: `${c.color}0.12)`, border: `1px solid ${c.color}0.3)`, borderRadius: 2, color: "rgba(255,255,255,0.7)" }}>
+                          {c.badge}
+                        </span>
+                        <Icon name="ChevronRight" size={16} style={{ color: "rgba(0,255,136,0.4)" }} className="group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                {/* Info card */}
+                <div className="p-5 vol-card animate-fade-up" style={{ opacity: 0, animationDelay: "0.5s", borderColor: "rgba(204,34,0,0.2)" }}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#cc2200" }} />
+                    <span className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(204,34,0,0.7)" }}>РЕЖИМ РАБОТЫ</span>
+                  </div>
+                  <div className="font-orb text-white text-sm mb-1">Пн — Вс · Без выходных</div>
+                  <div className="font-exo text-white/40 text-xs">Заявки принимаются круглосуточно. Ответ в течение 24 часов.</div>
+                </div>
+              </div>
+
+              {/* ── Форма ── */}
+              <div className="vol-card p-8 cyber-frame animate-fade-right" style={{ opacity: 0, animationDelay: "0.2s" }}>
+                <div className="flex items-center gap-3 mb-2">
+                  <LogoS size={26} animated />
+                  <div>
+                    <div className="font-orb text-white text-sm tracking-wide">ФОРМА ЗАЯВКИ</div>
+                    <div className="font-stm text-[9px] tracking-widest text-scan-green">ЗАЩИЩЁННЫЙ КАНАЛ</div>
+                  </div>
+                </div>
+                <div className="h-px mb-7 mt-4" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.4), rgba(204,34,0,0.3), transparent)" }} />
+
+                {formState === "success" ? (
+                  <div className="flex flex-col items-center justify-center py-12 gap-4 animate-scale-in">
+                    <div className="w-20 h-20 flex items-center justify-center"
+                      style={{ background: "rgba(0,255,136,0.1)", border: "2px solid rgba(0,255,136,0.4)", borderRadius: "50%", boxShadow: "0 0 40px rgba(0,255,136,0.2)" }}>
+                      <Icon name="CheckCheck" size={36} style={{ color: "#00ff88" }} />
+                    </div>
+                    <div className="font-orb text-white text-lg uppercase tracking-wide text-center">Заявка отправлена!</div>
+                    <div className="font-exo text-white/50 text-sm text-center">Свяжемся с вами в течение 24 часов</div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#00ff88" }} />
+                      <span className="font-stm text-[10px] tracking-widest text-scan-green">ПОЛУЧЕНО · ОБРАБАТЫВАЕТСЯ</span>
+                    </div>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>ВАШ ПОЗЫВНОЙ / ИМЯ *</label>
+                      <input
+                        type="text"
+                        placeholder="Иванов Иван Иванович"
+                        className="form-input"
+                        required
+                        value={form.name}
+                        onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
+                      />
                     </div>
                     <div>
-                      <div className="font-orb text-white text-sm group-hover:text-scan-green transition-all">{c.label}</div>
-                      <div className="font-stm text-[9px] mt-0.5 tracking-wider" style={{ color: "rgba(0,255,136,0.4)" }}>{c.sub}</div>
+                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>ТЕЛЕФОН ДЛЯ СВЯЗИ *</label>
+                      <input
+                        type="tel"
+                        placeholder="+7 (___) ___-__-__"
+                        className="form-input"
+                        required
+                        value={form.phone}
+                        onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
+                      />
                     </div>
-                    <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Icon name="ExternalLink" size={14} style={{ color: "rgba(0,255,136,0.6)" }} />
+                    <div>
+                      <label className="font-stm text-[9px] block mb-2 tracking-widest" style={{ color: "rgba(0,255,136,0.5)" }}>НАПРАВЛЕНИЕ СЛУЖБЫ</label>
+                      <select
+                        className="form-input"
+                        style={{ appearance: "none" }}
+                        value={form.specialty}
+                        onChange={e => setForm(p => ({ ...p, specialty: e.target.value }))}
+                      >
+                        <option value="" style={{ background:"#05070d" }}>Выберите специальность</option>
+                        <option value="OSINT-аналитик" style={{ background:"#05070d" }}>OSINT-аналитик</option>
+                        <option value="IT-специалист" style={{ background:"#05070d" }}>IT-специалист</option>
+                        <option value="Оператор БпЛА" style={{ background:"#05070d" }}>Оператор БпЛА</option>
+                        <option value="Водитель / Логистика" style={{ background:"#05070d" }}>Водитель / Логистика</option>
+                        <option value="Мониторинг СМИ" style={{ background:"#05070d" }}>Мониторинг СМИ</option>
+                      </select>
                     </div>
-                  </a>
-                ))}
-              </div>
-            </div>
 
-            <div className="vol-card p-10 cyber-frame animate-fade-right" style={{ opacity: 0, animationDelay: "0.2s" }}>
-              <div className="flex items-center gap-3 mb-7">
-                <LogoS size={24} />
-                <span className="font-stm text-[9px] tracking-[0.25em]" style={{ color: "rgba(0,255,136,0.4)" }}>ФОРМА ЗАЯВКИ</span>
+                    {formState === "error" && (
+                      <div className="flex items-center gap-2 p-3" style={{ background: "rgba(204,34,0,0.1)", border: "1px solid rgba(204,34,0,0.3)", borderRadius: 3 }}>
+                        <Icon name="AlertTriangle" size={14} style={{ color: "#cc2200" }} />
+                        <span className="font-exo text-sm" style={{ color: "rgba(255,100,80,0.9)" }}>Ошибка отправки. Напишите напрямую в Telegram.</span>
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={formState === "loading"}
+                      className="btn-red-animated w-full py-4 mt-2"
+                      style={{ borderRadius: "3px", opacity: formState === "loading" ? 0.7 : 1 }}
+                      onMouseEnter={snd.hover}
+                    >
+                      {formState === "loading" ? (
+                        <>
+                          <Icon name="Loader" size={16} className="animate-spin" />
+                          Отправляем...
+                        </>
+                      ) : (
+                        <>
+                          <Icon name="Send" size={16} />
+                          Отправить заявку
+                        </>
+                      )}
+                    </button>
+
+                    <div className="flex items-center gap-2 pt-1">
+                      <Icon name="Lock" size={11} style={{ color: "rgba(0,255,136,0.35)" }} />
+                      <span className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(255,255,255,0.22)" }}>
+                        Данные передаются по защищённому каналу. Конфиденциально.
+                      </span>
+                    </div>
+                  </form>
+                )}
               </div>
-              <div className="space-y-5">
-                {[{label:"Ваше имя",type:"text",placeholder:"Иванов Иван Иванович"},{label:"Телефон",type:"tel",placeholder:"+7 (___) ___-__-__"}].map(f => (
-                  <div key={f.label}>
-                    <label className="font-stm text-[8px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.28)" }}>{f.label.toUpperCase()}</label>
-                    <input type={f.type} placeholder={f.placeholder} className="form-input" />
-                  </div>
-                ))}
-                <div>
-                  <label className="font-stm text-[8px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.28)" }}>СПЕЦИАЛЬНОСТЬ</label>
-                  <select className="form-input" style={{ appearance: "none" }}>
-                    <option value="" style={{ background:"#05070d" }}>Выберите направление</option>
-                    <option value="osint" style={{ background:"#05070d" }}>OSINT-аналитик</option>
-                    <option value="it" style={{ background:"#05070d" }}>IT-специалист</option>
-                    <option value="bpla" style={{ background:"#05070d" }}>Оператор БпЛА</option>
-                    <option value="logistics" style={{ background:"#05070d" }}>Водитель / Логистика</option>
-                  </select>
-                </div>
-                <button className="btn-red w-full py-4 text-xs mt-2 animate-pulse-red" style={{ borderRadius: "2px" }} onClick={snd.submit} onMouseEnter={snd.hover}>
-                  <Icon name="Send" size={15} />
-                  Оставить заявку
-                </button>
-              </div>
-              <div className="mt-5 flex items-center gap-2">
-                <Icon name="Lock" size={11} style={{ color: "rgba(0,255,136,0.3)" }} />
-                <span className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>Данные защищены. Конфиденциально.</span>
-              </div>
+
             </div>
           </div>
         </div>

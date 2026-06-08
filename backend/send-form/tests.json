@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Missing fields",
+      "method": "POST",
+      "path": "/",
+      "body": {"specialty": "OSINT"},
+      "expectedStatus": 422,
+      "bodyMatcher": "partial",
+      "expectedBody": {"error": "string"}
+    },
+    {
+      "name": "Valid submission (no secrets)",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Иван Иванов", "phone": "+79001234567", "specialty": "OSINT-аналитик"},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial",
+      "expectedBody": {"ok": true}
+    }
+  ]
+}
