@@ -72,9 +72,8 @@ def handler(event: dict, context) -> dict:
         else:
             cur.execute("SELECT id, name, role, text, rating, status, created_at FROM reviews WHERE status = 'approved' ORDER BY created_at DESC")
         rows = cur.fetchall()
-        cur.execute("SELECT value FROM settings WHERE key = 'applications_count'")
-        cnt_row = cur.fetchone()
-        applications_count = int(cnt_row[0]) if cnt_row and str(cnt_row[0]).isdigit() else 1247
+        cur.execute("SELECT key, value FROM settings")
+        settings = {k: v for k, v in cur.fetchall()}
         cur.close()
         conn.close()
         reviews = [
@@ -84,7 +83,13 @@ def handler(event: dict, context) -> dict:
             }
             for r in rows
         ]
-        return {"statusCode": 200, "headers": cors, "body": json.dumps({"reviews": reviews, "applications_count": applications_count})}
+        cnt = settings.get("applications_count", "1247")
+        applications_count = int(cnt) if str(cnt).isdigit() else 1247
+        return {"statusCode": 200, "headers": cors, "body": json.dumps({
+            "reviews": reviews,
+            "applications_count": applications_count,
+            "settings": settings,
+        })}
 
     if method == "POST":
         try:
@@ -135,6 +140,25 @@ def handler(event: dict, context) -> dict:
             cur.close()
             conn.close()
             return {"statusCode": 200, "headers": cors, "body": json.dumps({"ok": True, "count": count})}
+
+        if action == "set_settings":
+            allowed = {"deadline_date", "pay_once", "pay_monthly", "pay_federal", "pay_year_total", "applications_count"}
+            updates = body.get("settings") or {}
+            conn = get_conn()
+            cur = conn.cursor()
+            for key, val in updates.items():
+                if key not in allowed:
+                    continue
+                k = str(key).replace("'", "''")
+                v = str(val).strip()[:50].replace("'", "''")
+                cur.execute(
+                    f"INSERT INTO settings (key, value) VALUES ('{k}', '{v}') "
+                    f"ON CONFLICT (key) DO UPDATE SET value = '{v}'"
+                )
+            conn.commit()
+            cur.close()
+            conn.close()
+            return {"statusCode": 200, "headers": cors, "body": json.dumps({"ok": True})}
 
         review_id = int(body.get("id") or 0)
         if review_id <= 0:

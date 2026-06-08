@@ -11,7 +11,7 @@ function getTarget() {
 }
 
 export default function UrgencyBar() {
-  const [target] = useState(getTarget);
+  const [target, setTarget] = useState(getTarget);
   const [left, setLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
   const [count, setCount] = useState(0);
 
@@ -36,12 +36,17 @@ export default function UrgencyBar() {
       .then(r => r.json())
       .then(data => {
         if (cancelled) return;
-        const target = Number(data.applications_count) || 1247;
-        let cur = Math.max(0, target - 40);
+        const s = data.settings || {};
+        if (s.deadline_date) {
+          const d = new Date(s.deadline_date + "T23:59:59");
+          if (!isNaN(d.getTime())) setTarget(d.getTime());
+        }
+        const total = Number(data.applications_count) || 1247;
+        let cur = Math.max(0, total - 40);
         const id = setInterval(() => {
           cur += 1;
           setCount(cur);
-          if (cur >= target) clearInterval(id);
+          if (cur >= total) clearInterval(id);
         }, 35);
       })
       .catch(() => setCount(1247));

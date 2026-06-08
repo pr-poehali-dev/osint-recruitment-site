@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
+const REVIEWS_URL = "https://functions.poehali.dev/089447e4-e2ac-479d-b710-5eb8cb862516";
+
+// надбавка к базовой ставке по должности
 const ROLES = [
-  { id: "osint", label: "OSINT-аналитик", monthly: 210000, bonus: 2600000, icon: "Search" },
-  { id: "it", label: "IT-специалист", monthly: 230000, bonus: 2600000, icon: "Monitor" },
-  { id: "bpla", label: "Оператор БпЛА", monthly: 220000, bonus: 2600000, icon: "Plane" },
-  { id: "logistics", label: "Логистика", monthly: 195000, bonus: 2600000, icon: "Truck" },
-  { id: "smi", label: "Мониторинг СМИ", monthly: 200000, bonus: 2600000, icon: "Rss" },
+  { id: "osint", label: "OSINT-аналитик", add: 0, icon: "Search" },
+  { id: "it", label: "IT-специалист", add: 20000, icon: "Monitor" },
+  { id: "bpla", label: "Оператор БпЛА", add: 10000, icon: "Plane" },
+  { id: "logistics", label: "Логистика", add: -15000, icon: "Truck" },
+  { id: "smi", label: "Мониторинг СМИ", add: -10000, icon: "Rss" },
 ];
 
 const fmt = (n: number) => n.toLocaleString("ru-RU") + " ₽";
@@ -14,8 +17,25 @@ const fmt = (n: number) => n.toLocaleString("ru-RU") + " ₽";
 export default function IncomeCalculator() {
   const [roleId, setRoleId] = useState("osint");
   const [months, setMonths] = useState(12);
+  const [pay, setPay] = useState({ once: 2600000, monthly: 210000, federal: 400000 });
+
+  useEffect(() => {
+    fetch(REVIEWS_URL)
+      .then(r => r.json())
+      .then(data => {
+        const s = data.settings || {};
+        setPay({
+          once: Number(s.pay_once) || 2600000,
+          monthly: Number(s.pay_monthly) || 210000,
+          federal: Number(s.pay_federal) || 400000,
+        });
+      })
+      .catch(() => { /* defaults */ });
+  }, []);
+
   const role = ROLES.find(r => r.id === roleId)!;
-  const total = role.monthly * months + role.bonus + 400000;
+  const monthly = Math.max(0, pay.monthly + role.add);
+  const total = monthly * months + pay.once + pay.federal;
 
   return (
     <section className="py-28 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
@@ -67,15 +87,15 @@ export default function IncomeCalculator() {
           <div className="vol-card cyber-frame p-8 flex flex-col justify-center gap-6" style={{ borderRadius: 16, background: "rgba(255,255,255,0.025)" }}>
             <div className="flex items-center justify-between py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
               <span className="font-exo text-white/55">Ежемесячно</span>
-              <span className="money text-xl">{fmt(role.monthly)}</span>
+              <span className="money text-xl">{fmt(monthly)}</span>
             </div>
             <div className="flex items-center justify-between py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
               <span className="font-exo text-white/55">За {months} мес.</span>
-              <span className="money text-xl">{fmt(role.monthly * months)}</span>
+              <span className="money text-xl">{fmt(monthly * months)}</span>
             </div>
             <div className="flex items-center justify-between py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
               <span className="font-exo text-white/55">Единовременно + фед.</span>
-              <span className="money text-xl">{fmt(role.bonus + 400000)}</span>
+              <span className="money text-xl">{fmt(pay.once + pay.federal)}</span>
             </div>
             <div className="mt-2 p-5" style={{ background: "rgba(220,38,38,0.08)", border: "1px solid rgba(220,38,38,0.25)", borderRadius: 12 }}>
               <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(239,68,68,0.85)" }}>ИТОГО ДОХОД</div>

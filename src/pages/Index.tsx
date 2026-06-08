@@ -139,20 +139,6 @@ const RER_TASKS = [
   { icon: "Database",  title: "Аналитика и доклады",     desc: "Структурирование полученных данных и подготовка разведывательных докладов для командования." },
 ];
 
-const PAYMENTS = [
-  { label: "Единовременно", value: "2 600 000 ₽", icon: "Banknote" },
-  { label: "Ежемесячно от", value: "210 000 ₽",   icon: "CalendarDays" },
-  { label: "Фед. выплата",  value: "400 000 ₽",   icon: "Landmark" },
-];
-
-const STATS = [
-  { icon: "Banknote",    val: "2 600 000 ₽",    sub: "Единовременная выплата" },
-  { icon: "Clock",       val: "24 / 7",          sub: "Аналитическая работа" },
-  { icon: "BarChart3",   val: "1000+",           sub: "Выполненных задач" },
-  { icon: "ShieldCheck", val: "100%",            sub: "Конфиденциальность" },
-  { icon: "MapPin",      val: "Тыловые районы",  sub: "Без боевых действий" },
-];
-
 const VACANCIES = [
   { id:1, specialty:"osint",     level:"опыт",      icon:"Search",  title:"OSINT-аналитик",
     desc:"Разведка по открытым источникам. Формирование досье объектов, мониторинг цифровых следов, подготовка аналитических докладов.", tags:["Аналитика","OSINT","Отчётность"] },
@@ -243,6 +229,24 @@ export default function Index() {
   // Form state
   const [form, setForm] = useState({ name: "", phone: "", specialty: "" });
   const [formState, setFormState] = useState<"idle"|"loading"|"success"|"error">("idle");
+
+  // Денежные суммы из настроек
+  const [pay, setPay] = useState({ once: 2600000, monthly: 210000, federal: 400000, year: 5120000 });
+  useEffect(() => {
+    fetch("https://functions.poehali.dev/089447e4-e2ac-479d-b710-5eb8cb862516")
+      .then(r => r.json())
+      .then(d => {
+        const s = d.settings || {};
+        setPay({
+          once: Number(s.pay_once) || 2600000,
+          monthly: Number(s.pay_monthly) || 210000,
+          federal: Number(s.pay_federal) || 400000,
+          year: Number(s.pay_year_total) || 5120000,
+        });
+      })
+      .catch(() => { /* defaults */ });
+  }, []);
+  const rub = (n: number) => n.toLocaleString("ru-RU") + " ₽";
 
   const filtered = VACANCIES.filter(v =>
     (spec  === "all" || v.specialty === spec) &&
@@ -406,8 +410,8 @@ export default function Index() {
 
               <div className="animate-fade-up d5 mt-14 flex flex-wrap gap-8">
                 {[
-                  { val:"5 120 000 ₽", sub:"Доход за 1-й год", color:"#ff4422" },
-                  { val:"210 000 ₽",   sub:"В месяц",          color:"#ffffff" },
+                  { val:rub(pay.year), sub:"Доход за 1-й год", color:"#ff4422" },
+                  { val:rub(pay.monthly), sub:"В месяц",        color:"#ffffff" },
                   { val:"1000+",       sub:"Задач выполнено",   color:"#ffffff" },
                 ].map((s, i) => (
                   <div key={i} className="animate-fade-up" style={{ animationDelay: `${0.5 + i * 0.1}s`, opacity: 0 }}>
@@ -466,7 +470,11 @@ export default function Index() {
                       </div>
                     </div>
 
-                    {PAYMENTS.map((p, i) => (
+                    {[
+                      { label: "Единовременно", value: rub(pay.once), icon: "Banknote" },
+                      { label: "Ежемесячно от", value: rub(pay.monthly), icon: "CalendarDays" },
+                      { label: "Фед. выплата",  value: rub(pay.federal), icon: "Landmark" },
+                    ].map((p, i) => (
                       <div key={i} className={`flex justify-between items-center animate-fade-up ${i === 0 ? "py-5" : "py-3"}`}
                         style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", animationDelay: `${0.3 + i*0.1}s`, opacity: 0 }}>
                         <div className="flex items-center gap-2.5">
@@ -482,7 +490,7 @@ export default function Index() {
 
                     <div className="p-5 mt-5 mb-5" style={{ background: "rgba(204,34,0,0.08)", border: "1px solid rgba(204,34,0,0.2)", borderRadius: "2px" }}>
                       <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>ОБЩИЙ ДОХОД · ГОД 1</div>
-                      <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от 5 120 000 ₽</div>
+                      <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от {rub(pay.year)}</div>
                     </div>
 
                     <div className="flex items-center gap-3 p-3 mb-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
@@ -511,7 +519,13 @@ export default function Index() {
       <div style={{ background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.15)", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="max-w-[1440px] mx-auto px-6 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-0">
-            {STATS.map((s, i) => (
+            {[
+              { icon: "Banknote",    val: rub(pay.once),    sub: "Единовременная выплата" },
+              { icon: "Clock",       val: "24 / 7",          sub: "Аналитическая работа" },
+              { icon: "BarChart3",   val: "1000+",           sub: "Выполненных задач" },
+              { icon: "ShieldCheck", val: "100%",            sub: "Конфиденциальность" },
+              { icon: "MapPin",      val: "Тыловые районы",  sub: "Без боевых действий" },
+            ].map((s, i) => (
               <div key={i} className={`stat-card flex items-center gap-4 px-6 animate-fade-up ${i === 0 ? "py-6 sm:col-span-2 lg:col-span-1" : "py-5"}`}
                 style={{
                   animationDelay: `${i * 0.08}s`, opacity: 0,

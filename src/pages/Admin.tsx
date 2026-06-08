@@ -19,8 +19,11 @@ export default function Admin() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [count, setCount] = useState("");
-  const [countSaved, setCountSaved] = useState(false);
+  const [cfg, setCfg] = useState({
+    applications_count: "", deadline_date: "",
+    pay_once: "", pay_monthly: "", pay_federal: "", pay_year_total: "",
+  });
+  const [cfgSaved, setCfgSaved] = useState(false);
 
   const load = useCallback(async (pwd: string) => {
     setLoading(true);
@@ -31,7 +34,15 @@ export default function Admin() {
       });
       const data = await res.json();
       setReviews(data.reviews || []);
-      setCount(String(data.applications_count ?? ""));
+      const s = data.settings || {};
+      setCfg({
+        applications_count: String(data.applications_count ?? s.applications_count ?? ""),
+        deadline_date: s.deadline_date || "",
+        pay_once: s.pay_once || "2600000",
+        pay_monthly: s.pay_monthly || "210000",
+        pay_federal: s.pay_federal || "400000",
+        pay_year_total: s.pay_year_total || "5120000",
+      });
       setAuthed(true);
     } catch {
       setError("Ошибка загрузки");
@@ -39,17 +50,15 @@ export default function Admin() {
     setLoading(false);
   }, []);
 
-  const saveCount = async () => {
-    const n = parseInt(count, 10);
-    if (isNaN(n) || n < 0) return;
+  const saveCfg = async () => {
     try {
       await fetch(REVIEWS_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Admin-Password": password },
-        body: JSON.stringify({ action: "set_count", count: n }),
+        body: JSON.stringify({ action: "set_settings", settings: cfg }),
       });
-      setCountSaved(true);
-      setTimeout(() => setCountSaved(false), 2500);
+      setCfgSaved(true);
+      setTimeout(() => setCfgSaved(false), 2500);
     } catch { /* ignore */ }
   };
 
@@ -149,22 +158,38 @@ export default function Admin() {
           </button>
         </div>
 
-        {/* Счётчик заявок */}
-        <div className="vol-card p-6 mb-10 flex flex-col sm:flex-row sm:items-center gap-4" style={{ borderRadius: 12, borderColor: "rgba(255,255,255,0.12)" }}>
-          <div className="flex items-center gap-3 flex-1">
-            <Icon name="Users" size={22} style={{ color: "#fff" }} />
+        {/* Настройки сайта */}
+        <div className="vol-card p-7 mb-10" style={{ borderRadius: 14, borderColor: "rgba(255,255,255,0.12)" }}>
+          <div className="flex items-center gap-3 mb-6">
+            <Icon name="SlidersHorizontal" size={22} style={{ color: "#fff" }} />
             <div>
-              <div className="font-orb text-white text-sm">Счётчик «Уже подали заявку»</div>
-              <div className="font-stm text-[10px] tracking-wide mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Это число показывается на главной странице</div>
+              <div className="font-orb text-white text-base">Настройки сайта</div>
+              <div className="font-stm text-[10px] tracking-wide mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Числа отображаются на главной странице</div>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <input type="number" min={0} className="form-input" style={{ width: 160 }}
-              value={count} onChange={e => setCount(e.target.value)} />
-            <button onClick={saveCount} className="btn-red-animated px-6 py-3 text-xs" style={{ borderRadius: 8, whiteSpace: "nowrap" }}>
-              {countSaved ? <><Icon name="Check" size={15} />Сохранено</> : <><Icon name="Save" size={15} />Сохранить</>}
-            </button>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { k: "deadline_date", l: "Дата окончания набора", hint: "Когда таймер дойдёт до нуля", type: "date" },
+              { k: "applications_count", l: "Счётчик «Уже подали»", hint: "Число заявок", type: "number" },
+              { k: "pay_once", l: "Единовременная выплата ₽", hint: "При заключении контракта", type: "number" },
+              { k: "pay_monthly", l: "Ежемесячная выплата ₽", hint: "Базовая зарплата в месяц", type: "number" },
+              { k: "pay_federal", l: "Федеральная выплата ₽", hint: "Доп. выплата от государства", type: "number" },
+              { k: "pay_year_total", l: "Доход за 1-й год ₽", hint: "Итоговая цифра в баннере", type: "number" },
+            ].map(f => (
+              <div key={f.k}>
+                <label className="font-stm text-[10px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.55)" }}>{f.l}</label>
+                <input type={f.type} min={0} className="form-input"
+                  value={cfg[f.k as keyof typeof cfg]}
+                  onChange={e => setCfg(p => ({ ...p, [f.k]: e.target.value }))} />
+                <div className="font-stm text-[9px] mt-1.5" style={{ color: "rgba(255,255,255,0.3)" }}>{f.hint}</div>
+              </div>
+            ))}
           </div>
+
+          <button onClick={saveCfg} className="btn-red-animated px-7 py-3.5 text-xs mt-6" style={{ borderRadius: 8 }}>
+            {cfgSaved ? <><Icon name="Check" size={15} />Сохранено</> : <><Icon name="Save" size={15} />Сохранить настройки</>}
+          </button>
         </div>
 
         {pending.length > 0 && (
