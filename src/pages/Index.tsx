@@ -5,47 +5,55 @@ import Icon from "@/components/ui/icon";
 type AnyIcon = any;
 
 const HERO_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a267d7bd-fe76-4959-acd1-d2ff2683158f.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/6658d0b3-e1a3-4ae6-bbe4-09cd1625f5c1.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
 const LogoS = ({ size = 36 }: { size?: number }) => (
   <div style={{
     width: size, height: size,
     display: "flex", alignItems: "center", justifyContent: "center",
-    background: "linear-gradient(140deg, #CC2200 0%, #6b1000 100%)",
+    background: "linear-gradient(140deg, #cc2200 0%, #5a0f00 100%)",
     borderRadius: "3px",
-    boxShadow: "0 0 20px rgba(204,34,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)",
-    fontFamily: "'Russo One', sans-serif",
-    fontSize: size * 0.52,
+    boxShadow: "0 0 20px rgba(204,34,0,0.4), 0 2px 0 rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.3)",
+    fontFamily: "'Orbitron', sans-serif",
+    fontSize: size * 0.48,
     color: "#fff",
-    letterSpacing: "-0.03em",
     fontWeight: 900,
+    letterSpacing: "-0.02em",
   }}>
     S
   </div>
 );
 
-/* ── ICON BOX — строгий белый ───────────────────────────── */
-function IBox({ icon, size = 22, boxSize = 48, radius = 10 }: { icon: string; size?: number; boxSize?: number; radius?: number }) {
+/* ── VOLUMETRIC ICON BOX ────────────────────────────────── */
+function IBox({ icon, size = 22, boxSize = 48, radius = 10, glow = false }: {
+  icon: string; size?: number; boxSize?: number; radius?: number; glow?: boolean;
+}) {
   return (
-    <div className="ibox shrink-0" style={{
+    <div className={`ibox shrink-0 ${glow ? "animate-icon-glow" : ""}`} style={{
       width: boxSize, height: boxSize,
-      background: "rgba(255,255,255,0.06)",
-      border: "1px solid rgba(255,255,255,0.12)",
+      background: "linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 60%, rgba(0,0,0,0.1) 100%)",
+      border: "1px solid rgba(255,255,255,0.1)",
       borderRadius: radius,
-      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 16px rgba(0,0,0,0.4)"
+      borderTop: "1px solid rgba(255,255,255,0.16)",
+      borderLeft: "1px solid rgba(255,255,255,0.1)",
+      borderBottom: "1px solid rgba(0,0,0,0.4)",
+      borderRight: "1px solid rgba(0,0,0,0.2)",
     }}>
-      <Icon name={icon as AnyIcon} size={size} style={{ color: "rgba(255,255,255,0.82)" }} />
+      <Icon name={icon as AnyIcon} size={size} style={{ color: "rgba(220,230,245,0.85)" }} />
     </div>
   );
 }
 
-/* ── SECTION REVEAL HOOK ────────────────────────────────── */
+/* ── SECTION REVEAL ─────────────────────────────────────── */
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } }, { threshold: 0.1 });
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
@@ -54,76 +62,78 @@ function useReveal() {
 
 /* ── DATA ───────────────────────────────────────────────── */
 const NAV = [
-  { label: "О подразделении", href: "#about" },
-  { label: "Вакансии",        href: "#vacancies" },
-  { label: "Требования",      href: "#requirements" },
-  { label: "Льготы",          href: "#benefits" },
-  { label: "Этапы",           href: "#steps" },
-  { label: "FAQ",             href: "#faq" },
-  { label: "Контакты",        href: "#contacts" },
+  { label: "Что такое РЭР", href: "#rer" },
+  { label: "О команде",     href: "#about" },
+  { label: "Вакансии",      href: "#vacancies" },
+  { label: "Льготы",        href: "#benefits" },
+  { label: "Этапы",         href: "#steps" },
+  { label: "FAQ",           href: "#faq" },
+  { label: "Контакты",      href: "#contacts" },
+];
+
+const RER_TASKS = [
+  { icon: "Radio",         title: "Радиоперехват",           desc: "Обнаружение, перехват и дешифровка радиосигналов противника на всех частотных диапазонах." },
+  { icon: "Search",        title: "OSINT-разведка",          desc: "Системный сбор и анализ данных из открытых источников: СМИ, соцсети, цифровые следы объектов." },
+  { icon: "Wifi",          title: "РЭП — Подавление",        desc: "Радиоэлектронное подавление систем связи и навигации противника с применением средств РЭБ." },
+  { icon: "Satellite",     title: "Техническая разведка",    desc: "Мониторинг электромагнитного спектра, анализ излучений объектов и средств связи." },
+  { icon: "Map",           title: "Геолокация целей",        desc: "Определение координат источников излучения и формирование разведывательных карт." },
+  { icon: "Database",      title: "Аналитика данных",        desc: "Обработка и структурирование разведывательной информации, подготовка докладов для командования." },
 ];
 
 const PAYMENTS = [
-  { label: "Единовременно",    value: "2 600 000 ₽", icon: "Banknote" },
-  { label: "Ежемесячно от",   value: "210 000 ₽",   icon: "CalendarDays" },
-  { label: "Фед. выплата",    value: "400 000 ₽",   icon: "Landmark" },
+  { label: "Единовременно", value: "2 600 000 ₽", icon: "Banknote" },
+  { label: "Ежемесячно от", value: "210 000 ₽",   icon: "CalendarDays" },
+  { label: "Фед. выплата",  value: "400 000 ₽",   icon: "Landmark" },
 ];
 
 const STATS = [
-  { icon: "Banknote",    val: "> 2,6 млн ₽",     sub: "Единовременная выплата" },
-  { icon: "Clock",       val: "24 / 7",           sub: "Аналитическая поддержка" },
-  { icon: "BarChart3",   val: "1000+",            sub: "Выполненных задач" },
-  { icon: "ShieldCheck", val: "Конфиденциально",  sub: "Полная защита личности" },
-  { icon: "MapPin",      val: "Тыловые районы",   sub: "Без боевых действий" },
+  { icon: "Banknote",    val: "> 2,6 млн ₽",    sub: "Единовременная выплата" },
+  { icon: "Clock",       val: "24 / 7",          sub: "Аналитическая работа" },
+  { icon: "BarChart3",   val: "1000+",           sub: "Выполненных задач" },
+  { icon: "ShieldCheck", val: "100%",            sub: "Конфиденциальность" },
+  { icon: "MapPin",      val: "Тыловые районы",  sub: "Без боевых действий" },
 ];
 
 const VACANCIES = [
   { id:1, specialty:"osint",     level:"опыт",      icon:"Search",  title:"OSINT-аналитик",
-    desc:"Поиск и верификация данных в открытых источниках. Подготовка аналитических докладов для командования. Работа с цифровыми следами и профилями.", tags:["Аналитика","OSINT","Отчётность"] },
+    desc:"Разведка по открытым источникам. Формирование досье объектов, мониторинг цифровых следов, подготовка аналитических докладов.", tags:["Аналитика","OSINT","Отчётность"] },
   { id:2, specialty:"it",        level:"опыт",      icon:"Monitor", title:"IT-специалист",
-    desc:"Администрирование защищённых систем, настройка сетевой инфраструктуры, обеспечение информационной безопасности подразделения.", tags:["Сети","Безопасность","Системы"] },
+    desc:"Поддержка защищённой инфраструктуры. Настройка VPN-туннелей, шифрование каналов, администрирование серверов.", tags:["Безопасность","Сети","Linux"] },
   { id:3, specialty:"bpla",      level:"без опыта", icon:"Plane",   title:"Оператор БпЛА",
-    desc:"Управление беспилотными летательными аппаратами, воздушная разведка, аэрофотосъёмка объектов. Обучение с нуля.", tags:["БпЛА","Разведка","Навигация"] },
+    desc:"Управление беспилотниками для воздушной разведки. Аэрофотосъёмка объектов, корректировка данных. Обучение с нуля.", tags:["БпЛА","Разведка","Навигация"] },
   { id:4, specialty:"logistics", level:"без опыта", icon:"Truck",   title:"Водитель-логист",
-    desc:"Обеспечение перемещения личного состава и снаряжения. Техническое обслуживание автопарка. Работа в тыловом обеспечении.", tags:["Логистика","Кат. C","Тыл"] },
+    desc:"Тыловое обеспечение подразделения. Перевозка личного состава и грузов, техническое обслуживание автопарка.", tags:["Логистика","Кат. C","Тыл"] },
   { id:5, specialty:"osint",     level:"без опыта", icon:"Rss",     title:"Мониторинг СМИ",
-    desc:"Непрерывный мониторинг открытых СМИ, Telegram-каналов и социальных сетей. Формирование информационных дайджестов.", tags:["Медиа","Мониторинг","OSINT"] },
+    desc:"Непрерывный мониторинг открытых СМИ, Telegram-каналов и соцсетей. Формирование ежедневных информационных дайджестов.", tags:["Медиа","Мониторинг","OSINT"] },
   { id:6, specialty:"it",        level:"опыт",      icon:"Server",  title:"Системный администратор",
-    desc:"Поддержка серверного оборудования, управление VPN и защищёнными каналами связи, резервное копирование данных.", tags:["Linux","Сети","Защита"] },
+    desc:"Поддержка серверного оборудования. Управление защищёнными каналами связи, резервное копирование, контроль доступа.", tags:["Серверы","Сети","Защита"] },
 ];
 
-const SPEC_FILTERS  = [{v:"all",l:"Все направления"},{v:"osint",l:"OSINT"},{v:"it",l:"IT"},{v:"bpla",l:"БпЛА"},{v:"logistics",l:"Логистика"}];
+const SPEC_FILTERS  = [{v:"all",l:"Все"},{v:"osint",l:"OSINT"},{v:"it",l:"IT"},{v:"bpla",l:"БпЛА"},{v:"logistics",l:"Логистика"}];
 const LEVEL_FILTERS = [{v:"all",l:"Любой опыт"},{v:"без опыта",l:"Без опыта"},{v:"опыт",l:"С опытом"}];
 
-const TEAM_ROLES = [
-  { icon:"Search",     title:"Аналитики OSINT",     desc:"Специалисты по разведке открытых источников. Работают с цифровыми данными, картами и профилями объектов." },
-  { icon:"Monitor",    title:"IT-инженеры",          desc:"Поддерживают инфраструктуру, обеспечивают безопасность каналов связи и защиту данных подразделения." },
-  { icon:"Plane",      title:"Операторы БпЛА",       desc:"Управляют беспилотниками для воздушной разведки и аэрофотосъёмки в интересах подразделения." },
-  { icon:"Truck",      title:"Специалисты тыла",     desc:"Обеспечивают логистику, снабжение и техническое обслуживание. Основа устойчивой работы команды." },
-];
-
 const BENEFITS = [
-  { icon:"HeartPulse",     title:"Медицинское обеспечение",  desc:"Полная страховка и лечение за счёт государства" },
-  { icon:"Home",           title:"Ипотечное обеспечение",    desc:"Льготная ипотека и жилищные субсидии" },
-  { icon:"Zap",            title:"Льготы по ЖКХ",            desc:"Скидки на коммунальные услуги и жильё" },
-  { icon:"CreditCard",     title:"Кредитные каникулы",       desc:"Налоговые и кредитные каникулы на период службы" },
-  { icon:"GraduationCap",  title:"Образование",              desc:"Бесплатное обучение и повышение квалификации" },
-  { icon:"ShieldCheck",    title:"Списание долгов",          desc:"Списание задолженностей до 10 000 000 ₽" },
-  { icon:"Award",          title:"Статус ветерана",          desc:"Полный льготный пакет ветерана боевых действий" },
-  { icon:"Baby",           title:"Льготы семье",             desc:"Поддержка детей, питание в школах, детсады" },
+  { icon:"HeartPulse",   title:"Медицинское обеспечение",  desc:"Полная страховка и лечение за счёт государства" },
+  { icon:"Home",         title:"Ипотека",                  desc:"Льготная ипотека и жилищные субсидии" },
+  { icon:"Zap",          title:"Льготы по ЖКХ",            desc:"Скидки на коммунальные услуги и жильё" },
+  { icon:"CreditCard",   title:"Кредитные каникулы",       desc:"Налоговые и кредитные каникулы на период службы" },
+  { icon:"GraduationCap",title:"Образование",              desc:"Бесплатное обучение и профессиональный рост" },
+  { icon:"ShieldCheck",  title:"Списание долгов",          desc:"Списание задолженностей до 10 000 000 ₽" },
+  { icon:"Award",        title:"Статус ветерана",          desc:"Полный льготный пакет ветерана боевых действий" },
+  { icon:"Baby",         title:"Льготы семье",             desc:"Поддержка детей, питание в школах, детсады" },
 ];
 
 const STEPS = [
-  { n:"01", t:"Заявка",       d:"Оставляете заявку онлайн или по телефону",    icon:"Send" },
-  { n:"02", t:"Консультация", d:"Связываемся с вами в течение 24 часов",       icon:"Phone" },
-  { n:"03", t:"Оформление",   d:"Документы и медицинское освидетельствование", icon:"FileCheck" },
-  { n:"04", t:"Прибытие",     d:"Проезд до места формирования за наш счёт",    icon:"MapPin" },
-  { n:"05", t:"Служба",       d:"Зачисление в подразделение и начало работы",  icon:"ShieldCheck" },
+  { n:"01", t:"Заявка",       d:"Оставляете имя и телефон в форме на сайте", icon:"Send" },
+  { n:"02", t:"Консультация", d:"Связываемся с вами в течение 24 часов",     icon:"Phone" },
+  { n:"03", t:"Оформление",   d:"Документы и медицинское освидетельствование",icon:"FileCheck" },
+  { n:"04", t:"Прибытие",     d:"Проезд до места формирования за наш счёт",  icon:"MapPin" },
+  { n:"05", t:"Служба",       d:"Зачисление в подразделение и начало работы", icon:"ShieldCheck" },
 ];
 
 const FAQ = [
   { q:"Кто может подать заявку?",        a:"Граждане РФ от 18 до 49 лет. Для IT-специальностей — до 55 лет. Воинский опыт необязателен." },
-  { q:"Какие требования к кандидатам?",  a:"Гражданство РФ, отсутствие серьёзных судимостей, прохождение медкомиссии. Специфика — в зависимости от должности." },
+  { q:"Какие требования к кандидатам?",  a:"Гражданство РФ, отсутствие серьёзных судимостей, прохождение медкомиссии. Специфика зависит от должности." },
   { q:"Где проходит формирование?",      a:"Формирование и подготовка проходят в г. Чита — столице Забайкальского края." },
   { q:"Где проходит служба?",            a:"Служба проходит в Донецке и Мариуполе." },
   { q:"Нужно ли покупать экипировку?",   a:"Нет. Вся необходимая экипировка и техника предоставляются подразделением." },
@@ -144,9 +154,9 @@ export default function Index() {
     (level === "all" || v.level     === level)
   );
 
+  const rerRef      = useReveal();
   const aboutRef    = useReveal();
   const vacRef      = useReveal();
-  const reqRef      = useReveal();
   const benRef      = useReveal();
   const stepsRef    = useReveal();
   const faqRef      = useReveal();
@@ -157,18 +167,20 @@ export default function Index() {
 
       {/* ══ NAV ═════════════════════════════════════════ */}
       <nav className="fixed top-0 inset-x-0 z-50 h-14 flex items-center"
-        style={{ background: "rgba(8,10,16,0.96)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-        <div className="max-w-[1440px] w-full mx-auto px-6 flex items-center justify-between">
+        style={{ background: "rgba(5,7,13,0.97)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(0,255,136,0.1)" }}>
+        {/* top green line */}
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.6), rgba(204,34,0,0.4), transparent)" }} />
 
+        <div className="max-w-[1440px] w-full mx-auto px-6 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 shrink-0">
             <LogoS size={34} />
             <div>
-              <div className="font-russo text-[13px] tracking-[0.16em] text-white leading-none">OSINT-РЭР</div>
-              <div className="font-stm text-[8px] tracking-[0.2em] text-white/30 uppercase leading-none mt-0.5">Служба · Аналитика</div>
+              <div className="font-orb text-[12px] tracking-[0.18em] text-white leading-none">OSINT-РЭР</div>
+              <div className="font-stm text-[8px] tracking-[0.2em] text-green-400/40 uppercase leading-none mt-0.5">Служба · Аналитика</div>
             </div>
           </a>
 
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5">
             {NAV.map(n => <a key={n.href} href={n.href} className="nav-link">{n.label}</a>)}
           </div>
 
@@ -177,7 +189,7 @@ export default function Index() {
               <Icon name="Send" size={13} />
               Оставить заявку
             </a>
-            <button className="lg:hidden text-white/50 hover:text-white transition-colors" onClick={() => setMenu(!menu)}>
+            <button className="lg:hidden" style={{ color: "rgba(255,255,255,0.5)" }} onClick={() => setMenu(!menu)}>
               <Icon name={menu ? "X" : "Menu"} size={20} />
             </button>
           </div>
@@ -185,7 +197,7 @@ export default function Index() {
 
         {menu && (
           <div className="absolute top-14 inset-x-0 px-6 py-5 flex flex-col gap-4 z-50"
-            style={{ background: "rgba(8,10,16,0.99)", borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+            style={{ background: "rgba(5,7,13,0.99)", borderTop: "1px solid rgba(0,255,136,0.1)" }}>
             {NAV.map(n => <a key={n.href} href={n.href} className="nav-link py-1" onClick={() => setMenu(false)}>{n.label}</a>)}
             <a href="#contacts" className="btn-red py-3 text-xs" style={{ borderRadius: "2px" }}>Оставить заявку</a>
           </div>
@@ -193,11 +205,17 @@ export default function Index() {
       </nav>
 
       {/* ══ HERO ════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-14">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-14 scanlines">
+        {/* BG layers */}
         <div className="absolute inset-0">
-          <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover" style={{ filter: "brightness(0.22) saturate(0.35)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(8,10,16,0.98) 30%, rgba(8,10,16,0.6) 65%, rgba(8,10,16,0.88) 100%)" }} />
-          <div className="absolute inset-0 grid-bg opacity-60" />
+          <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover"
+            style={{ filter: "brightness(0.18) saturate(0.2) contrast(1.1)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(5,7,13,0.99) 28%, rgba(5,7,13,0.65) 60%, rgba(5,7,13,0.92) 100%)" }} />
+          <div className="absolute inset-0 grid-cyber" />
+          <div className="absolute inset-0 circuit-lines" />
+          {/* Corner accents */}
+          <div className="absolute top-20 left-0 w-px h-32" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.4), transparent)" }} />
+          <div className="absolute top-20 right-0 w-px h-32" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.4), transparent)" }} />
           <div className="scan-beam" />
         </div>
 
@@ -206,34 +224,33 @@ export default function Index() {
 
             {/* LEFT */}
             <div>
-              <div className="animate-fade-up d0 inline-flex items-center gap-2.5 mb-7 px-4 py-2"
-                style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: "2px", background: "rgba(255,255,255,0.03)" }}>
-                <div className="w-1.5 h-1.5 rounded-full bg-white animate-blink" />
-                <span className="font-stm text-[10px] tracking-[0.25em] text-white/40">НАБОР ОТКРЫТ · 2024</span>
+              <div className="animate-fade-up d0 inline-flex items-center gap-2.5 mb-7 px-4 py-2 cyber-frame"
+                style={{ border: "1px solid rgba(0,255,136,0.18)", borderRadius: "2px", background: "rgba(0,255,136,0.03)" }}>
+                <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
+                <span className="font-stm text-[10px] tracking-[0.28em]" style={{ color: "rgba(0,255,136,0.6)" }}>НАБОР ОТКРЫТ · 2024</span>
               </div>
 
-              <h1 className="animate-fade-up d1 font-russo text-white leading-[0.88] mb-6"
-                style={{ fontSize: "clamp(3.2rem, 7.5vw, 6.2rem)", textTransform: "uppercase", letterSpacing: "-0.025em" }}>
-                OSINT-<span className="text-white-shimmer">РЭР</span><br />
-                <span style={{ color: "#CC2200" }}>Служба</span><br />
-                <span style={{ fontSize: "55%", color: "rgba(255,255,255,0.55)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.02em" }}>и аналитика</span>
+              <h1 className="animate-fade-up d1 font-orb text-white leading-[0.88] mb-6 animate-glitch"
+                style={{ fontSize: "clamp(2.8rem, 7vw, 5.8rem)", textTransform: "uppercase", letterSpacing: "-0.02em" }}>
+                OSINT-<span style={{ color: "#cc2200", textShadow: "0 0 30px rgba(204,34,0,0.6)" }}>РЭР</span><br />
+                <span style={{ fontSize: "45%", color: "rgba(255,255,255,0.5)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.06em" }}>Радиоэлектронная разведка</span>
               </h1>
 
-              <p className="animate-fade-up d2 text-white/50 text-base leading-relaxed max-w-[480px] mb-3">
+              <p className="animate-fade-up d2 text-white/48 text-base leading-relaxed max-w-[480px] mb-2">
                 Анализ открытых источников, IT, операторы БпЛА, логистика.
               </p>
-              <p className="animate-fade-up d3 font-stm text-sm mb-10 tracking-wider" style={{ color: "rgba(255,255,255,0.28)" }}>
-                БЕЗ УЧАСТИЯ В БОЕВЫХ ДЕЙСТВИЯХ
+              <p className="animate-fade-up d3 font-stm text-xs mb-10 tracking-widest" style={{ color: "rgba(0,255,136,0.35)" }}>
+                &gt; БЕЗ УЧАСТИЯ В БОЕВЫХ ДЕЙСТВИЯХ_<span className="cursor" />
               </p>
 
               <div className="animate-fade-up d4 flex flex-wrap gap-4">
-                <a href="#contacts" className="btn-red px-10 py-4 text-sm animate-pulse-red" style={{ borderRadius: "2px" }}>
-                  <Icon name="Send" size={16} />
+                <a href="#contacts" className="btn-red px-10 py-4 text-xs animate-pulse-red" style={{ borderRadius: "2px" }}>
+                  <Icon name="Send" size={15} />
                   Оставить заявку
                 </a>
-                <a href="#vacancies" className="btn-ghost px-10 py-4 text-sm" style={{ borderRadius: "2px" }}>
-                  <Icon name="ChevronDown" size={16} />
-                  Вакансии
+                <a href="#rer" className="btn-ghost px-10 py-4 text-xs" style={{ borderRadius: "2px" }}>
+                  <Icon name="ChevronDown" size={15} />
+                  Что такое РЭР
                 </a>
               </div>
 
@@ -244,8 +261,8 @@ export default function Index() {
                   { val:"1000+",        sub:"Задач выполнено" },
                 ].map((s, i) => (
                   <div key={i} className="animate-fade-up" style={{ animationDelay: `${0.5 + i * 0.1}s`, opacity: 0 }}>
-                    <div className="font-russo text-white leading-none mb-1" style={{ fontSize: "1.5rem" }}>{s.val}</div>
-                    <div className="font-stm text-[9px] text-white/28 tracking-widest">{s.sub}</div>
+                    <div className="font-orb text-white leading-none mb-1.5" style={{ fontSize: "1.4rem" }}>{s.val}</div>
+                    <div className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.35)" }}>{s.sub}</div>
                   </div>
                 ))}
               </div>
@@ -253,49 +270,49 @@ export default function Index() {
 
             {/* RIGHT: Payment card */}
             <div className="animate-fade-right d3 animate-float">
-              <div style={{ filter: "drop-shadow(0 0 40px rgba(204,34,0,0.15)) drop-shadow(0 40px 80px rgba(0,0,0,0.7))" }}>
+              <div className="cyber-frame" style={{ filter: "drop-shadow(0 0 30px rgba(204,34,0,0.18)) drop-shadow(0 40px 80px rgba(0,0,0,0.8))" }}>
                 <div className="red-card" style={{ borderRadius: "3px" }}>
-                  <div style={{ background: "linear-gradient(155deg, rgba(10,12,20,0.99), rgba(7,9,16,1))", padding: "2rem" }}>
+                  <div style={{ background: "linear-gradient(155deg, rgba(8,10,18,0.99), rgba(5,7,13,1))", padding: "2rem" }}>
 
                     <div className="flex items-center justify-between mb-7">
                       <div className="flex items-center gap-2.5">
                         <LogoS size={22} />
-                        <span className="font-stm text-[10px] tracking-[0.22em] text-white/35">ВЫПЛАТЫ И ДОХОДЫ</span>
+                        <span className="font-stm text-[9px] tracking-[0.25em]" style={{ color: "rgba(0,255,136,0.4)" }}>ВЫПЛАТЫ / ДОХОДЫ</span>
                       </div>
                       <div className="flex gap-1.5">
-                        {["#f0f0f0","#003791","#CC2200"].map((c,i) => <div key={i} className="w-2 h-2 rounded-full" style={{ background: c }} />)}
+                        {["#f0f0f0","#003791","#cc2200"].map((c,i) => (
+                          <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, boxShadow: `0 0 6px ${c}88` }} />
+                        ))}
                       </div>
                     </div>
 
-                    <div className="space-y-3 mb-7">
-                      {PAYMENTS.map((p, i) => (
-                        <div key={i} className="flex justify-between items-center py-3 animate-fade-up"
-                          style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", animationDelay: `${0.3 + i*0.1}s`, opacity: 0 }}>
-                          <div className="flex items-center gap-2.5">
-                            <IBox icon={p.icon} size={14} boxSize={30} radius={6} />
-                            <span className="font-exo text-sm text-white/45">{p.label}</span>
-                          </div>
-                          <span className="money text-xl">{p.value}</span>
+                    {PAYMENTS.map((p, i) => (
+                      <div key={i} className="flex justify-between items-center py-3 animate-fade-up"
+                        style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", animationDelay: `${0.3 + i*0.1}s`, opacity: 0 }}>
+                        <div className="flex items-center gap-2.5">
+                          <IBox icon={p.icon} size={14} boxSize={30} radius={6} />
+                          <span className="font-exo text-sm text-white/42">{p.label}</span>
                         </div>
-                      ))}
+                        <span className="money text-lg">{p.value}</span>
+                      </div>
+                    ))}
+
+                    <div className="p-5 mt-5 mb-5" style={{ background: "rgba(204,34,0,0.08)", border: "1px solid rgba(204,34,0,0.2)", borderRadius: "2px" }}>
+                      <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(0,255,136,0.4)" }}>ОБЩИЙ ДОХОД · ГОД 1</div>
+                      <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от 5 120 000 ₽</div>
                     </div>
 
-                    <div className="p-5 mb-5" style={{ background: "rgba(204,34,0,0.1)", border: "1px solid rgba(204,34,0,0.22)", borderRadius: "2px" }}>
-                      <div className="font-stm text-[9px] text-white/30 tracking-widest mb-1.5">ОБЩИЙ ДОХОД ЗА ПЕРВЫЙ ГОД</div>
-                      <div className="money-red leading-none" style={{ fontSize: "2.4rem" }}>от 5 120 000 ₽</div>
+                    <div className="flex items-center gap-3 p-3 mb-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
+                      <Icon name="Shield" size={12} style={{ color: "rgba(0,255,136,0.5)" }} />
+                      <span className="font-stm text-[9px] tracking-wider" style={{ color: "rgba(255,255,255,0.28)" }}>Гарантии государства РФ</span>
                     </div>
 
-                    <div className="flex items-center gap-3 p-3 mb-5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "2px" }}>
-                      <Icon name="Shield" size={13} style={{ color: "rgba(255,255,255,0.4)" }} />
-                      <span className="font-stm text-[9px] text-white/30 tracking-wider">Выплаты гарантированы Государством РФ</span>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-3 gap-1.5">
                       {[{ icon:"HeartPulse", label:"Медицина" },{ icon:"Home", label:"Ипотека" },{ icon:"GraduationCap", label:"Льготы" }].map((q, i) => (
-                        <div key={i} className="flex flex-col items-center gap-1.5 p-3 cursor-pointer transition-all hover:scale-105"
-                          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "2px" }}>
-                          <IBox icon={q.icon} size={14} boxSize={30} radius={6} />
-                          <span className="font-stm text-[9px] text-white/30">{q.label}</span>
+                        <div key={i} className="flex flex-col items-center gap-1.5 p-2.5 cursor-pointer transition-all hover:scale-105"
+                          style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
+                          <IBox icon={q.icon} size={13} boxSize={28} radius={5} />
+                          <span className="font-stm text-[8px]" style={{ color: "rgba(255,255,255,0.28)" }}>{q.label}</span>
                         </div>
                       ))}
                     </div>
@@ -308,16 +325,16 @@ export default function Index() {
       </section>
 
       {/* ══ STATS BAR ═══════════════════════════════════ */}
-      <div style={{ background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <div style={{ background: "rgba(0,255,136,0.02)", borderTop: "1px solid rgba(0,255,136,0.1)", borderBottom: "1px solid rgba(0,255,136,0.08)" }}>
         <div className="max-w-[1440px] mx-auto px-6 py-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             {STATS.map((s, i) => (
               <div key={i} className="stat-card flex items-center gap-3.5 px-5 py-3 animate-fade-up"
-                style={{ animationDelay: `${i * 0.08}s`, opacity: 0, borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
-                <IBox icon={s.icon} size={18} boxSize={42} radius={10} />
+                style={{ animationDelay: `${i * 0.08}s`, opacity: 0, borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                <IBox icon={s.icon} size={18} boxSize={42} radius={10} glow />
                 <div>
-                  <div className="font-russo text-white text-sm leading-tight">{s.val}</div>
-                  <div className="font-exo text-white/35 text-[11px]">{s.sub}</div>
+                  <div className="font-orb text-white text-sm leading-tight">{s.val}</div>
+                  <div className="font-exo text-white/32 text-[11px]">{s.sub}</div>
                 </div>
               </div>
             ))}
@@ -325,39 +342,90 @@ export default function Index() {
         </div>
       </div>
 
+      {/* ══ ЧТО ТАКОЕ РЭР ══════════════════════════════ */}
+      <section id="rer" className="py-28 relative overflow-hidden">
+        {/* cyber bg accent */}
+        <div className="absolute inset-0 grid-cyber opacity-50 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(0,255,136,0.3), transparent)" }} />
+
+        <div className="max-w-[1440px] mx-auto px-6">
+          <div ref={rerRef} className="section-entry">
+            <div className="label-mono mb-3">// Что такое РЭР</div>
+            <div className="accent-line" />
+            <h2 className="font-orb text-white uppercase leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+              Радиоэлектронная<br /><span style={{ color: "#cc2200" }}>разведка</span>
+            </h2>
+            <p className="font-exo text-white/55 text-base leading-[1.9] max-w-2xl mb-12">
+              <strong className="text-white/80">РЭР (Радиоэлектронная разведка)</strong> — специализированный вид военной разведки,
+              направленный на обнаружение, перехват и анализ электромагнитных излучений противника.
+              Подразделение работает с радиосигналами, данными телеметрии, открытыми источниками (OSINT)
+              и цифровой средой, формируя полную разведывательную картину для принятия решений командованием.
+              Личный состав не участвует в прямых боевых столкновениях — это интеллектуальная, техническая работа
+              на защищённых объектах.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {RER_TASKS.map((t, i) => (
+                <div key={i} className="vol-card p-6 cyber-frame animate-scale-in" style={{ animationDelay: `${i * 0.09}s`, opacity: 0 }}>
+                  <div className="mb-5">
+                    <IBox icon={t.icon} size={24} boxSize={54} radius={12} glow />
+                  </div>
+                  <div className="font-orb text-white text-sm uppercase mb-3 tracking-wide">{t.title}</div>
+                  <div className="font-exo text-white/42 text-sm leading-[1.75]">{t.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══ ABOUT ═══════════════════════════════════════ */}
-      <section id="about" className="py-28">
+      <section id="about" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={aboutRef} className="section-entry grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
             <div>
-              <div className="label-mono mb-3">// О подразделении</div>
+              <div className="label-mono mb-3">// Команда</div>
               <div className="accent-line" />
-              <h2 className="font-russo text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-                Команда <span style={{ color: "#CC2200" }}>OSINT-РЭР</span>
+              <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+                Команда <span style={{ color: "#cc2200" }}>OSINT-РЭР</span>
               </h2>
-              <p className="font-exo text-white/52 leading-[1.9] mb-5 text-[0.93rem]">
-                Каждый специалист становится частью слаженной команды аналитиков, технических инженеров, операторов и специалистов тылового обеспечения. Новобранцев встречают опытные командиры и закреплённые наставники.
+              <p className="font-exo text-white/50 leading-[1.9] mb-5 text-[0.92rem]">
+                Слаженная команда аналитиков, инженеров, операторов БпЛА и специалистов тылового обеспечения.
+                Каждый новобранец проходит подготовку под руководством опытных наставников.
               </p>
-              <p className="font-russo text-sm text-white/25 tracking-widest mb-10">
-                СИЛЬНАЯ КОМАНДА · НАДЁЖНЫЕ КОМАНДИРЫ · ЯСНЫЕ ЗАДАЧИ
+              <p className="font-stm text-xs mb-10 tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>
+                &gt; СИЛЬНАЯ КОМАНДА · НАДЁЖНЫЕ КОМАНДИРЫ · ЯСНЫЕ ЗАДАЧИ
               </p>
               <div className="space-y-3.5">
-                {["Сбор и верификация данных из открытых источников","Мониторинг СМИ, Telegram-каналов и социальных сетей","Подготовка аналитических докладов и отчётов","Поддержка принятия решений командованием","Использование легальных OSINT-методов и инструментов"].map((t, i) => (
-                  <div key={i} className="flex items-start gap-3 animate-fade-left" style={{ animationDelay: `${0.1 + i * 0.08}s`, opacity: 0 }}>
-                    <div className="ibox mt-0.5 shrink-0" style={{ width: 20, height: 20, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 5 }}>
-                      <Icon name="Check" size={11} style={{ color: "rgba(255,255,255,0.6)" }} />
+                {[
+                  "Перехват и анализ радиосигналов противника",
+                  "Сбор данных из открытых источников (OSINT)",
+                  "Мониторинг СМИ, Telegram и социальных сетей",
+                  "Подготовка аналитических докладов",
+                  "Поддержка принятия решений командованием",
+                  "Радиоэлектронное подавление (РЭП) систем связи",
+                ].map((t, i) => (
+                  <div key={i} className="flex items-start gap-3 animate-fade-left" style={{ animationDelay: `${0.1 + i * 0.07}s`, opacity: 0 }}>
+                    <div className="ibox mt-0.5 shrink-0" style={{ width: 20, height: 20, background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 5 }}>
+                      <Icon name="ChevronRight" size={11} style={{ color: "rgba(0,255,136,0.7)" }} />
                     </div>
-                    <span className="font-exo text-white/58 text-sm leading-relaxed">{t}</span>
+                    <span className="font-exo text-white/55 text-sm leading-relaxed">{t}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              {TEAM_ROLES.map((c, i) => (
-                <div key={i} className="vol-card p-6 animate-scale-in" style={{ animationDelay: `${i * 0.1}s`, opacity: 0 }}>
-                  <IBox icon={c.icon} size={22} boxSize={52} radius={12} />
-                  <div className="font-russo text-white text-sm uppercase mt-5 mb-2">{c.title}</div>
+              {[
+                { icon:"Radio",      title:"Радиоперехват",    desc:"Обнаружение сигналов на всех частотных диапазонах" },
+                { icon:"Search",     title:"OSINT",            desc:"Разведка по открытым источникам данных" },
+                { icon:"Plane",      title:"Операторы БпЛА",  desc:"Воздушная разведка и аэрофотосъёмка" },
+                { icon:"Database",   title:"Аналитика",        desc:"Обработка данных и подготовка докладов" },
+              ].map((c, i) => (
+                <div key={i} className="vol-card p-6 cyber-frame animate-scale-in" style={{ animationDelay: `${i * 0.1}s`, opacity: 0 }}>
+                  <IBox icon={c.icon} size={22} boxSize={52} radius={12} glow />
+                  <div className="font-orb text-white text-xs uppercase mt-5 mb-2 tracking-wide">{c.title}</div>
                   <div className="font-exo text-white/38 text-xs leading-[1.75]">{c.desc}</div>
                 </div>
               ))}
@@ -367,43 +435,45 @@ export default function Index() {
       </section>
 
       {/* ══ VACANCIES ═══════════════════════════════════ */}
-      <section id="vacancies" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section id="vacancies" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={vacRef} className="section-entry">
-            <div className="label-mono mb-3">// Открытые вакансии</div>
+            <div className="label-mono mb-3">// Открытые позиции</div>
             <div className="accent-line" />
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
-              <h2 className="font-russo text-white uppercase leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-                Требуемые<br /><span style={{ color: "#CC2200" }}>специалисты</span>
+              <h2 className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+                Требуемые<br /><span style={{ color: "#cc2200" }}>специалисты</span>
               </h2>
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-wrap gap-2">
-                  {SPEC_FILTERS.map(f => <button key={f.v} className={`tag-filter ${spec===f.v?"active":""}`} onClick={() => setSpec(f.v)}>{f.l}</button>)}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {LEVEL_FILTERS.map(f => <button key={f.v} className={`tag-filter ${level===f.v?"active":""}`} onClick={() => setLevel(f.v)}>{f.l}</button>)}
-                </div>
+              <div className="flex flex-col gap-2.5">
+                <div className="flex flex-wrap gap-2">{SPEC_FILTERS.map(f => <button key={f.v} className={`tag-filter ${spec===f.v?"active":""}`} onClick={() => setSpec(f.v)}>{f.l}</button>)}</div>
+                <div className="flex flex-wrap gap-2">{LEVEL_FILTERS.map(f => <button key={f.v} className={`tag-filter ${level===f.v?"active":""}`} onClick={() => setLevel(f.v)}>{f.l}</button>)}</div>
               </div>
             </div>
 
             {filtered.length === 0
-              ? <div className="text-center py-24 font-stm text-white/25 tracking-widest">Вакансий по выбранным фильтрам не найдено</div>
+              ? <div className="text-center py-24 font-stm text-white/22 tracking-widest">Позиций по фильтрам не найдено</div>
               : <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {filtered.map((v, vi) => (
-                    <div key={v.id} className="vol-card p-7 group animate-fade-up" style={{ animationDelay: `${vi * 0.08}s`, opacity: 0 }}>
+                    <div key={v.id} className="vol-card p-7 group cyber-frame animate-fade-up" style={{ animationDelay: `${vi * 0.08}s`, opacity: 0 }}>
                       <div className="flex items-start justify-between mb-5">
-                        <IBox icon={v.icon} size={24} boxSize={56} radius={12} />
-                        <span className="font-stm text-[9px] text-white/22 tracking-widest uppercase">{v.level}</span>
+                        <IBox icon={v.icon} size={24} boxSize={56} radius={12} glow />
+                        <span className="font-stm text-[8px] tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>{v.level}</span>
                       </div>
-                      <h3 className="font-russo text-white text-lg uppercase mb-3 group-hover:text-white/80 transition-colors">{v.title}</h3>
-                      <p className="font-exo text-white/45 text-sm leading-[1.8] mb-5">{v.desc}</p>
+                      <h3 className="font-orb text-white text-base uppercase mb-3 group-hover:text-white/70 transition-colors tracking-wide">{v.title}</h3>
+                      <p className="font-exo text-white/42 text-sm leading-[1.8] mb-5">{v.desc}</p>
                       <div className="flex flex-wrap gap-1.5 mb-6">
-                        {v.tags.map(tag => <span key={tag} className="font-stm text-[9px] px-2.5 py-1" style={{ background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.32)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>{tag}</span>)}
+                        {v.tags.map(tag => (
+                          <span key={tag} className="font-stm text-[8px] px-2.5 py-1"
+                            style={{ background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.28)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
+                            {tag}
+                          </span>
+                        ))}
                       </div>
-                      <div className="flex items-center justify-between pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                      <div className="flex items-center justify-between pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                         <div>
-                          <div className="money text-xl">от 210 000 ₽</div>
-                          <div className="font-stm text-[9px] text-white/25 mt-0.5">в месяц</div>
+                          <div className="money text-lg">от 210 000 ₽</div>
+                          <div className="font-stm text-[8px] mt-0.5" style={{ color: "rgba(0,255,136,0.3)" }}>в месяц</div>
                         </div>
                         <a href="#contacts" className="btn-red text-xs px-5 py-2.5" style={{ borderRadius: "2px" }}>Подать заявку</a>
                       </div>
@@ -415,68 +485,32 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ══ REQUIREMENTS ════════════════════════════════ */}
-      <section id="requirements" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="max-w-[1440px] mx-auto px-6">
-          <div ref={reqRef} className="section-entry">
-            <div className="label-mono mb-3">// Кто может служить</div>
-            <div className="accent-line" />
-            <h2 className="font-russo text-white uppercase leading-tight mb-14" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>Требования</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {[
-                { icon:"CheckCircle", title:"Обязательно", chk:"Check",
-                  items:["Гражданство Российской Федерации","Возраст от 18 до 49 лет (IT — до 55)","Отсутствие серьёзных судимостей","Медицинское освидетельствование","Готовность к переезду"] },
-                { icon:"Star", title:"Преимущество", chk:"ChevronRight",
-                  items:["Опыт в IT, аналитике, журналистике","Знание иностранных языков","Навыки работы с OSINT-инструментами","Опыт управления БпЛА или служба в ВС","Водительское удостоверение B/C"] },
-              ].map((card, ci) => (
-                <div key={ci} className="vol-card p-8 animate-fade-up" style={{ animationDelay: `${ci * 0.15}s`, opacity: 0 }}>
-                  <div className="flex items-center gap-4 mb-8">
-                    <IBox icon={card.icon} size={26} boxSize={56} radius={12} />
-                    <span className="font-russo text-white text-lg uppercase tracking-wider">{card.title}</span>
-                  </div>
-                  <div className="space-y-4">
-                    {card.items.map((item, i) => (
-                      <div key={i} className="flex items-start gap-3 animate-fade-left" style={{ animationDelay: `${0.1 + i * 0.07}s`, opacity: 0 }}>
-                        <div className="ibox mt-0.5 shrink-0" style={{ width: 22, height: 22, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 5 }}>
-                          <Icon name={card.chk as AnyIcon} size={12} style={{ color: "rgba(255,255,255,0.55)" }} />
-                        </div>
-                        <span className="font-exo text-white/58 text-sm leading-relaxed">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ══ BENEFITS ════════════════════════════════════ */}
-      <section id="benefits" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section id="benefits" className="py-28" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={benRef} className="section-entry">
             <div className="label-mono mb-3">// Социальный пакет</div>
             <div className="accent-line" />
-            <h2 className="font-russo text-white uppercase leading-tight mb-14" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>Льготы и гарантии</h2>
+            <h2 className="font-orb text-white uppercase leading-tight mb-14" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Льготы и гарантии</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {BENEFITS.map((b, i) => (
-                <div key={i} className="vol-card p-6 group cursor-default animate-scale-in" style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
-                  <div className="mb-5 transition-transform group-hover:scale-105">
-                    <IBox icon={b.icon} size={24} boxSize={56} radius={14} />
+                <div key={i} className="vol-card p-6 group animate-scale-in" style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
+                  <div className="mb-5 transition-transform group-hover:scale-110">
+                    <IBox icon={b.icon} size={24} boxSize={56} radius={14} glow />
                   </div>
-                  <div className="font-russo text-white text-sm uppercase mb-2 leading-snug">{b.title}</div>
-                  <div className="font-exo text-white/40 text-sm leading-[1.7]">{b.desc}</div>
+                  <div className="font-orb text-white text-xs uppercase mb-2 tracking-wide leading-snug">{b.title}</div>
+                  <div className="font-exo text-white/38 text-sm leading-[1.7]">{b.desc}</div>
                 </div>
               ))}
             </div>
-
-            <div className="mt-6 vol-card p-8 flex flex-col sm:flex-row items-center gap-8" style={{ borderColor: "rgba(204,34,0,0.2)", background: "rgba(204,34,0,0.04)" }}>
-              <IBox icon="ShieldCheck" size={32} boxSize={72} radius={18} />
+            <div className="mt-6 vol-card p-8 flex flex-col sm:flex-row items-center gap-8 cyber-frame"
+              style={{ borderColor: "rgba(204,34,0,0.2)", background: "rgba(204,34,0,0.04)" }}>
+              <IBox icon="ShieldCheck" size={32} boxSize={72} radius={18} glow />
               <div>
-                <div className="font-russo text-white text-2xl uppercase mb-2">
+                <div className="font-orb text-white text-xl uppercase mb-2 tracking-wide">
                   Списание задолженностей до <span className="money-red">10 000 000 ₽</span>
                 </div>
-                <div className="font-exo text-white/45 text-sm">Полное списание кредитов, штрафов и задолженностей при выполнении условий контракта.</div>
+                <div className="font-exo text-white/42 text-sm">Полное списание кредитов, штрафов и задолженностей при выполнении условий контракта.</div>
               </div>
             </div>
           </div>
@@ -484,24 +518,26 @@ export default function Index() {
       </section>
 
       {/* ══ STEPS ═══════════════════════════════════════ */}
-      <section id="steps" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section id="steps" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-25 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={stepsRef} className="section-entry">
-            <div className="label-mono mb-3">// Как вступить</div>
+            <div className="label-mono mb-3">// Алгоритм вступления</div>
             <div className="accent-line" />
-            <h2 className="font-russo text-white uppercase leading-tight mb-16" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>Этапы поступления</h2>
+            <h2 className="font-orb text-white uppercase leading-tight mb-16" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
               {STEPS.map((s, i) => (
                 <div key={i} className="flex flex-col items-center text-center group animate-fade-up" style={{ animationDelay: `${i * 0.12}s`, opacity: 0 }}>
                   <div className="relative mb-5">
-                    <div className="relative w-24 h-24 flex flex-col items-center justify-center gap-1 transition-all group-hover:scale-105"
-                      style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "50%", boxShadow: "0 0 40px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                      <Icon name={s.icon as AnyIcon} size={22} style={{ color: "rgba(255,255,255,0.65)" }} />
-                      <span className="step-num text-sm">{s.n}</span>
+                    <div className="absolute inset-0 rounded-full opacity-20 animate-pulse-red" style={{ background: "radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%)", transform: "scale(1.5)" }} />
+                    <div className="relative w-24 h-24 flex flex-col items-center justify-center gap-1.5 transition-all group-hover:scale-105 cyber-frame"
+                      style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)", border: "1px solid rgba(0,255,136,0.18)", borderRadius: "50%", boxShadow: "0 0 30px rgba(0,255,136,0.08), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+                      <Icon name={s.icon as AnyIcon} size={22} style={{ color: "rgba(220,230,245,0.7)" }} />
+                      <span className="step-num">{s.n}</span>
                     </div>
                   </div>
-                  <div className="font-russo text-white uppercase text-sm mb-2">{s.t}</div>
-                  <div className="font-exo text-white/38 text-xs leading-[1.75]">{s.d}</div>
+                  <div className="font-orb text-white uppercase text-xs mb-2 tracking-wide">{s.t}</div>
+                  <div className="font-exo text-white/35 text-xs leading-[1.75]">{s.d}</div>
                 </div>
               ))}
             </div>
@@ -510,27 +546,32 @@ export default function Index() {
       </section>
 
       {/* ══ FAQ ═════════════════════════════════════════ */}
-      <section id="faq" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section id="faq" className="py-28" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={faqRef} className="section-entry">
-            <div className="label-mono mb-3">// Частые вопросы</div>
+            <div className="label-mono mb-3">// База знаний</div>
             <div className="accent-line" />
-            <h2 className="font-russo text-white uppercase leading-tight mb-12" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>Вопросы и ответы</h2>
+            <h2 className="font-orb text-white uppercase leading-tight mb-12" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Вопросы и ответы</h2>
             <div className="max-w-3xl space-y-1.5">
               {FAQ.map((item, i) => (
                 <div key={i} className={`vol-card overflow-hidden faq-item ${openFaq===i?"open":""} animate-fade-up`} style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
-                  <button className="w-full flex items-center justify-between p-6 text-left gap-4"
-                    style={{ background: openFaq===i ? "rgba(255,255,255,0.025)" : "transparent" }}
+                  <button className="w-full flex items-center justify-between p-5 text-left gap-4"
+                    style={{ background: openFaq===i ? "rgba(0,255,136,0.03)" : "transparent" }}
                     onClick={() => setOpenFaq(openFaq===i ? null : i)}>
                     <span className="font-exo text-white font-semibold text-sm leading-relaxed">{item.q}</span>
-                    <div className="ibox shrink-0" style={{ width: 34, height: 34, background: openFaq===i ? "rgba(204,34,0,0.15)" : "rgba(255,255,255,0.04)", border: openFaq===i ? "1px solid rgba(204,34,0,0.4)" : "1px solid rgba(255,255,255,0.09)", borderRadius: "8px" }}>
-                      <Icon name={openFaq===i ? "Minus" : "Plus"} size={15} style={{ color: openFaq===i ? "#CC2200" : "rgba(255,255,255,0.4)" }} />
+                    <div className="ibox shrink-0" style={{ width: 32, height: 32,
+                      background: openFaq===i ? "rgba(204,34,0,0.15)" : "rgba(255,255,255,0.04)",
+                      border: openFaq===i ? "1px solid rgba(204,34,0,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: "6px",
+                      boxShadow: openFaq===i ? "0 0 12px rgba(204,34,0,0.25)" : "none"
+                    }}>
+                      <Icon name={openFaq===i ? "Minus" : "Plus"} size={14} style={{ color: openFaq===i ? "#cc2200" : "rgba(255,255,255,0.38)" }} />
                     </div>
                   </button>
                   {openFaq===i && (
-                    <div className="px-6 pb-6 animate-fade-in" style={{ opacity: 0 }}>
-                      <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                        <p className="font-exo text-white/50 text-sm leading-[1.9]">{item.a}</p>
+                    <div className="px-5 pb-5 animate-fade-in" style={{ opacity: 0 }}>
+                      <div className="pt-4" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+                        <p className="font-exo text-white/48 text-sm leading-[1.9]">{item.a}</p>
                       </div>
                     </div>
                   )}
@@ -542,17 +583,18 @@ export default function Index() {
       </section>
 
       {/* ══ CONTACTS ════════════════════════════════════ */}
-      <section id="contacts" className="py-28" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(0,255,136,0.08)" }}>
+        <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={contactsRef} className="section-entry grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
             <div>
-              <div className="label-mono mb-3">// Начни сейчас</div>
+              <div className="label-mono mb-3">// Инициировать контакт</div>
               <div className="accent-line" />
-              <h2 className="font-russo text-white uppercase leading-tight mb-5" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-                Готов стать<br /><span style={{ color: "#CC2200" }}>частью команды?</span>
+              <h2 className="font-orb text-white uppercase leading-tight mb-5" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
+                Готов стать<br /><span style={{ color: "#cc2200" }}>частью команды?</span>
               </h2>
-              <p className="font-exo text-white/42 text-sm leading-[1.9] mb-10 max-w-sm">
-                Оставьте заявку — свяжемся в течение 24 часов. Все обращения конфиденциальны.
+              <p className="font-exo text-white/40 text-sm leading-[1.9] mb-10 max-w-sm">
+                Оставьте заявку — свяжемся в течение 24 часов. Все данные защищены.
               </p>
               <div className="space-y-5">
                 {[
@@ -561,46 +603,46 @@ export default function Index() {
                   { icon:"Send",  label:"@OSINT_RER",         sub:"Telegram — 24/7" },
                 ].map((c, i) => (
                   <div key={i} className="flex items-center gap-4 animate-fade-left" style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0 }}>
-                    <IBox icon={c.icon} size={20} boxSize={48} radius={10} />
+                    <IBox icon={c.icon} size={20} boxSize={48} radius={10} glow />
                     <div>
                       <div className="font-exo text-white/82 text-sm font-semibold">{c.label}</div>
-                      <div className="font-stm text-[9px] text-white/28 tracking-wider mt-0.5">{c.sub}</div>
+                      <div className="font-stm text-[9px] mt-0.5 tracking-wider" style={{ color: "rgba(0,255,136,0.3)" }}>{c.sub}</div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="vol-card p-10 animate-fade-right" style={{ opacity: 0, animationDelay: "0.2s" }}>
+            <div className="vol-card p-10 cyber-frame animate-fade-right" style={{ opacity: 0, animationDelay: "0.2s" }}>
               <div className="flex items-center gap-3 mb-7">
                 <LogoS size={24} />
-                <span className="font-stm text-[10px] tracking-[0.22em] text-white/30">ФОРМА ЗАЯВКИ</span>
+                <span className="font-stm text-[9px] tracking-[0.25em]" style={{ color: "rgba(0,255,136,0.4)" }}>ФОРМА ЗАЯВКИ</span>
               </div>
               <div className="space-y-5">
                 {[{label:"Ваше имя",type:"text",placeholder:"Иванов Иван Иванович"},{label:"Телефон",type:"tel",placeholder:"+7 (___) ___-__-__"}].map(f => (
                   <div key={f.label}>
-                    <label className="font-stm text-[9px] text-white/28 block mb-2 tracking-widest">{f.label.toUpperCase()}</label>
+                    <label className="font-stm text-[8px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.28)" }}>{f.label.toUpperCase()}</label>
                     <input type={f.type} placeholder={f.placeholder} className="form-input" />
                   </div>
                 ))}
                 <div>
-                  <label className="font-stm text-[9px] text-white/28 block mb-2 tracking-widest">СПЕЦИАЛЬНОСТЬ</label>
+                  <label className="font-stm text-[8px] block mb-2 tracking-widest" style={{ color: "rgba(255,255,255,0.28)" }}>СПЕЦИАЛЬНОСТЬ</label>
                   <select className="form-input" style={{ appearance: "none" }}>
-                    <option value="" style={{ background:"#080a10" }}>Выберите направление</option>
-                    <option value="osint" style={{ background:"#080a10" }}>OSINT-аналитик</option>
-                    <option value="it" style={{ background:"#080a10" }}>IT-специалист</option>
-                    <option value="bpla" style={{ background:"#080a10" }}>Оператор БпЛА</option>
-                    <option value="logistics" style={{ background:"#080a10" }}>Водитель / Логистика</option>
+                    <option value="" style={{ background:"#05070d" }}>Выберите направление</option>
+                    <option value="osint" style={{ background:"#05070d" }}>OSINT-аналитик</option>
+                    <option value="it" style={{ background:"#05070d" }}>IT-специалист</option>
+                    <option value="bpla" style={{ background:"#05070d" }}>Оператор БпЛА</option>
+                    <option value="logistics" style={{ background:"#05070d" }}>Водитель / Логистика</option>
                   </select>
                 </div>
-                <button className="btn-red w-full py-4 text-sm mt-2 animate-pulse-red" style={{ borderRadius: "2px" }}>
-                  <Icon name="Send" size={16} />
+                <button className="btn-red w-full py-4 text-xs mt-2 animate-pulse-red" style={{ borderRadius: "2px" }}>
+                  <Icon name="Send" size={15} />
                   Оставить заявку
                 </button>
               </div>
               <div className="mt-5 flex items-center gap-2">
-                <Icon name="Lock" size={11} style={{ color: "rgba(255,255,255,0.18)" }} />
-                <span className="font-stm text-[9px] text-white/18 tracking-wider">Данные защищены и конфиденциальны</span>
+                <Icon name="Lock" size={11} style={{ color: "rgba(0,255,136,0.3)" }} />
+                <span className="font-stm text-[8px] tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>Данные защищены. Конфиденциально.</span>
               </div>
             </div>
           </div>
@@ -608,19 +650,20 @@ export default function Index() {
       </section>
 
       {/* ══ FOOTER ══════════════════════════════════════ */}
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <footer style={{ borderTop: "1px solid rgba(0,255,136,0.1)" }}>
+        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.4), rgba(204,34,0,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <LogoS size={30} />
+            <LogoS size={28} />
             <div>
-              <div className="font-russo text-white text-xs tracking-widest">OSINT-РЭР</div>
-              <div className="font-stm text-[8px] text-white/22 tracking-[0.18em]">СЛУЖБА · АНАЛИТИКА</div>
+              <div className="font-orb text-white text-xs tracking-widest">OSINT-РЭР</div>
+              <div className="font-stm text-[8px] tracking-[0.2em]" style={{ color: "rgba(0,255,136,0.3)" }}>СЛУЖБА · АНАЛИТИКА</div>
             </div>
           </div>
-          <div className="font-stm text-[9px] text-white/18 text-center tracking-wider">© 2024 OSINT-РЭР — Все права защищены</div>
+          <div className="font-stm text-[9px] text-center tracking-wider" style={{ color: "rgba(255,255,255,0.18)" }}>© 2024 OSINT-РЭР — Все права защищены</div>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-white/40 animate-blink" />
-            <span className="font-stm text-[9px] text-white/22 tracking-widest">НАБОР ОТКРЫТ</span>
+            <div className="w-1.5 h-1.5 rounded-full animate-blink" style={{ background: "#00ff88" }} />
+            <span className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.3)" }}>НАБОР ОТКРЫТ</span>
           </div>
         </div>
       </footer>

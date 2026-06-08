@@ -19,10 +19,11 @@ export default {
 			}
 		},
 		fontFamily: {
-			russo: ['Russo One', 'sans-serif'],
+			orb: ['Orbitron', 'sans-serif'],
 			exo: ['Exo 2', 'sans-serif'],
 			stm: ['Share Tech Mono', 'monospace'],
-			oswald: ['Russo One', 'sans-serif'],
+			russo: ['Orbitron', 'sans-serif'],
+			oswald: ['Orbitron', 'sans-serif'],
 			ibm: ['Exo 2', 'sans-serif'],
 			mono: ['Share Tech Mono', 'monospace'],
 		},
