@@ -38,7 +38,7 @@ function useSound() {
 type AnyIcon = any;
 
 const HERO_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/6658d0b3-e1a3-4ae6-bbe4-09cd1625f5c1.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/05889d9a-b9a8-4eff-8c2a-42f98dd7acee.jpg";
 const OSINT_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8eb5e63c-ad19-4f06-a754-0ea7ae356fb8.jpg";
 const OSINT_VIZ_IMG =
@@ -324,8 +324,8 @@ export default function Index() {
         {/* BG layers */}
         <div className="absolute inset-0">
           <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.28) saturate(0.35) contrast(1.15)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(5,7,13,0.95) 25%, rgba(5,7,13,0.55) 58%, rgba(5,7,13,0.88) 100%)" }} />
+            style={{ filter: "brightness(0.6) saturate(0.85) contrast(1.1)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(5,7,13,0.9) 20%, rgba(5,7,13,0.3) 60%, rgba(5,7,13,0.75) 100%)" }} />
           <div className="absolute inset-0 grid-cyber opacity-80" />
           <div className="absolute inset-0 circuit-lines" />
           {/* Corner accents */}
