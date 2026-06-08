@@ -48,15 +48,15 @@ const BPLA_IMG =
 const RER_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/31f5937d-f408-41ec-961e-c5b319d3ac3a.jpg";
 const VAC_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8ebf8acf-06bb-4e89-b33a-6e61130e8b7c.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/810d6141-dda0-462b-af3b-c433a6c3ff1b.jpg";
 const BEN_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/5e6dbee0-17c3-43af-8cd6-192ebd6f0cd4.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a667be9c-4a5b-448a-975d-3aedc2ee39b3.jpg";
 const STEPS_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/d9ba618b-cbdb-40ba-a7c5-2025c4577e2d.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/93937d75-6e4f-4d1c-a47b-24b5e2216231.jpg";
 const FAQ_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/57741d90-9675-45fe-b1fd-72cb000c7d57.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/02080dfa-f5d0-43f6-9b10-801e6e33fd2c.jpg";
 const CONTACTS_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/4ae49e59-ac35-4a63-acb8-f448d55b919c.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/61ad5beb-bfc8-4fca-8b38-3d50a3196b4e.jpg";
 
 /* ── LOGO S ─────────────────────────────────────────────── */
 const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
