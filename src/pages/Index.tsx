@@ -579,8 +579,7 @@ export default function Index() {
             <div className="label-mono mb-3">// Что такое РЭР</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              <span className="animate-fade-left d0">Радиоэлектронная </span>
-              <span className="text-scan-green animate-fade-left d1">разведка</span>
+              <span className="animate-fade-left d0">Радиоэлектронная разведка</span>
             </h2>
             {/* Главное описание */}
             <div className="max-w-2xl mb-8 p-6 vol-card" style={{ borderColor: "rgba(0,255,136,0.2)" }}>
