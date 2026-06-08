@@ -24,8 +24,18 @@ function initials(name: string) {
   return name.trim().split(/\s+/).slice(0, 2).map(w => w[0]?.toUpperCase() || "").join("");
 }
 
+const FILTERS = [
+  { v: "all", l: "Все" },
+  { v: "OSINT", l: "OSINT" },
+  { v: "IT", l: "IT" },
+  { v: "БпЛА", l: "БпЛА" },
+  { v: "Логист", l: "Логистика" },
+  { v: "СМИ", l: "СМИ" },
+];
+
 export default function ReviewsCarousel() {
-  const [reviews, setReviews] = useState<Review[]>(FALLBACK);
+  const [allReviews, setAllReviews] = useState<Review[]>(FALLBACK);
+  const [filter, setFilter] = useState("all");
   const [index, setIndex] = useState(0);
   const [perView, setPerView] = useState(3);
   const [showForm, setShowForm] = useState(false);
@@ -38,7 +48,7 @@ export default function ReviewsCarousel() {
     try {
       const res = await fetch(REVIEWS_URL);
       const data = await res.json();
-      if (data.reviews && data.reviews.length) setReviews(data.reviews);
+      if (data.reviews && data.reviews.length) setAllReviews(data.reviews);
     } catch { /* keep fallback */ }
   }, []);
 
@@ -50,6 +60,12 @@ export default function ReviewsCarousel() {
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
   }, []);
+
+  const reviews = filter === "all"
+    ? allReviews
+    : allReviews.filter(r => r.role.toLowerCase().includes(filter.toLowerCase()));
+
+  useEffect(() => { setIndex(0); }, [filter]);
 
   const maxIndex = Math.max(0, reviews.length - perView);
 
@@ -112,6 +128,28 @@ export default function ReviewsCarousel() {
           </div>
         </div>
 
+        {/* Фильтры */}
+        <div className="flex flex-wrap gap-2.5 mb-10">
+          {FILTERS.map(f => (
+            <button key={f.v} onClick={() => setFilter(f.v)}
+              className="font-stm text-[11px] tracking-wide px-4 py-2 transition-all hover:scale-105"
+              style={{
+                borderRadius: 8,
+                background: filter === f.v ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.03)",
+                border: filter === f.v ? "1px solid rgba(255,255,255,0.4)" : "1px solid rgba(255,255,255,0.1)",
+                color: filter === f.v ? "#fff" : "rgba(255,255,255,0.5)",
+              }}>
+              {f.l}
+            </button>
+          ))}
+        </div>
+
+        {reviews.length === 0 ? (
+          <div className="vol-card p-12 text-center" style={{ borderRadius: 16 }}>
+            <Icon name="MessageSquareOff" size={36} style={{ color: "rgba(255,255,255,0.3)" }} className="mx-auto mb-4" />
+            <p className="font-exo text-white/50">По этой специальности пока нет отзывов</p>
+          </div>
+        ) : (
         <div className="overflow-hidden">
           <div className="flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{ transform: `translateX(-${index * (100 / perView)}%)` }}>
@@ -142,18 +180,21 @@ export default function ReviewsCarousel() {
             ))}
           </div>
         </div>
+        )}
 
         {/* Dots */}
-        <div className="flex items-center justify-center gap-2 mt-10">
-          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-            <button key={i} onClick={() => setIndex(i)} aria-label={`Слайд ${i + 1}`}
-              className="transition-all duration-300"
-              style={{
-                width: i === index ? 28 : 8, height: 8, borderRadius: 4,
-                background: i === index ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.2)",
-              }} />
-          ))}
-        </div>
+        {reviews.length > perView && (
+          <div className="flex items-center justify-center gap-2 mt-10">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button key={i} onClick={() => setIndex(i)} aria-label={`Слайд ${i + 1}`}
+                className="transition-all duration-300"
+                style={{
+                  width: i === index ? 28 : 8, height: 8, borderRadius: 4,
+                  background: i === index ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.2)",
+                }} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Модалка формы */}

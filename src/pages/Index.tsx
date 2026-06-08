@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Icon from "@/components/ui/icon";
 import ReviewsCarousel from "@/components/ReviewsCarousel";
+import FloatingContact from "@/components/FloatingContact";
+import UrgencyBar from "@/components/UrgencyBar";
+import IncomeCalculator from "@/components/IncomeCalculator";
+import LocationsBlock from "@/components/LocationsBlock";
 
 /* ── SOUND ENGINE ────────────────────────────────────────── */
 function useSound() {
@@ -300,6 +304,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen font-exo" style={{ background: "var(--bg)" }}>
+      <FloatingContact />
 
       {/* ══ NAV ═════════════════════════════════════════ */}
       <nav className="fixed top-0 inset-x-0 z-50 h-14 flex items-center"
@@ -544,6 +549,9 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* ══ СРОЧНОСТЬ ═══════════════════════════════════ */}
+      <UrgencyBar />
 
       {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
       <ReviewsCarousel />
@@ -1173,6 +1181,12 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ══ КАЛЬКУЛЯТОР ДОХОДА ══════════════════════════ */}
+      <IncomeCalculator />
+
+      {/* ══ ГЕОГРАФИЯ ═══════════════════════════════════ */}
+      <LocationsBlock />
+
       {/* ══ CONTACTS ════════════════════════════════════ */}
       <section id="contacts" className="py-28 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
@@ -1398,9 +1412,15 @@ export default function Index() {
 
                     <button
                       type="submit"
-                      disabled={formState === "loading"}
+                      disabled={formState === "loading" || !form.name.trim() || form.phone.replace(/\D/g, "").length !== 11}
                       className="btn-red-animated w-full py-4 mt-2 animate-fade-blur"
-                      style={{ borderRadius: "10px", opacity: formState === "loading" ? 0.7 : 1, animationDelay: "0.6s" }}
+                      style={{
+                        borderRadius: "10px",
+                        animationDelay: "0.6s",
+                        ...((!form.name.trim() || form.phone.replace(/\D/g, "").length !== 11) && formState !== "loading"
+                          ? { opacity: 0.45, cursor: "not-allowed", filter: "grayscale(0.6)" }
+                          : { opacity: formState === "loading" ? 0.7 : 1 }),
+                      }}
                       onMouseEnter={snd.hover}
                     >
                       {formState === "loading" ? (
