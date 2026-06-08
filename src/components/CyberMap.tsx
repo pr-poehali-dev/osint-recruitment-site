@@ -9,17 +9,24 @@ interface Point {
   icon: string;
   desc: string;
   count: string;
+  specialty: string;
 }
 
 const POINTS: Point[] = [
-  { x: 820, y: 235, city: "Чита", role: "Формирование", icon: "GraduationCap", desc: "Учебный центр и оформление контрактов. Подготовка специалистов с нуля.", count: "320+ на обучении" },
-  { x: 300, y: 300, city: "Донецк", role: "Служба", icon: "Building2", desc: "Аналитическая работа в тыловых районах. OSINT и мониторинг.", count: "540+ специалистов" },
-  { x: 285, y: 320, city: "Мариуполь", role: "Служба", icon: "Building2", desc: "Защищённая инфраструктура и обеспечение. Без боевых действий.", count: "280+ специалистов" },
-  { x: 360, y: 250, city: "Москва", role: "Координация", icon: "Network", desc: "Центр управления и координации подразделений. Связь 24/7.", count: "Штаб" },
+  { x: 820, y: 235, city: "Чита", role: "Формирование", icon: "GraduationCap", desc: "Учебный центр и оформление контрактов. Подготовка специалистов с нуля.", count: "320+ на обучении", specialty: "Оператор БпЛА" },
+  { x: 300, y: 300, city: "Донецк", role: "Служба", icon: "Building2", desc: "Аналитическая работа в тыловых районах. OSINT и мониторинг.", count: "540+ специалистов", specialty: "OSINT-аналитик" },
+  { x: 285, y: 320, city: "Мариуполь", role: "Служба", icon: "Building2", desc: "Защищённая инфраструктура и обеспечение. Без боевых действий.", count: "280+ специалистов", specialty: "IT-специалист" },
+  { x: 360, y: 250, city: "Москва", role: "Координация", icon: "Network", desc: "Центр управления и координации подразделений. Связь 24/7.", count: "Штаб", specialty: "Мониторинг СМИ" },
 ];
 
 export default function CyberMap() {
   const [hover, setHover] = useState<number | null>(null);
+
+  const goToForm = (specialty: string) => {
+    window.dispatchEvent(new CustomEvent("select-specialty", { detail: specialty }));
+    const el = document.getElementById("contacts");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section className="py-28 relative overflow-hidden sect-texture t-red" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
@@ -69,7 +76,8 @@ export default function CyberMap() {
 
             {POINTS.map((p, i) => (
               <g key={i} className="map-point" style={{ animationDelay: `${i * 0.3}s`, cursor: "pointer" }}
-                onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>
+                onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}
+                onClick={() => goToForm(p.specialty)}>
                 {/* увеличенная зона наведения */}
                 <circle cx={p.x} cy={p.y} r="40" fill="transparent" />
                 <circle cx={p.x} cy={p.y} r="26" fill="url(#dotGlow)" className="map-pulse" style={{ transformOrigin: `${p.x}px ${p.y}px`, animationDelay: `${i * 0.5}s` }} />
@@ -102,9 +110,13 @@ export default function CyberMap() {
                   </div>
                 </div>
                 <p className="font-exo text-white/65 text-sm leading-snug mb-2.5">{POINTS[hover].desc}</p>
-                <div className="flex items-center gap-2 pt-2.5" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="flex items-center gap-2 pt-2.5 mb-2.5" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                   <Icon name="Users" size={13} style={{ color: "rgba(255,255,255,0.5)" }} />
                   <span className="font-stm text-[11px] tracking-wide text-white/80">{POINTS[hover].count}</span>
+                </div>
+                <div className="flex items-center gap-1.5" style={{ color: "rgba(239,68,68,0.9)" }}>
+                  <Icon name="MousePointerClick" size={12} />
+                  <span className="font-stm text-[10px] tracking-wide">Нажмите — оставить заявку</span>
                 </div>
               </div>
               <div style={{ width: 0, height: 0, margin: "0 auto", borderLeft: "8px solid transparent", borderRight: "8px solid transparent", borderTop: "8px solid rgba(220,38,38,0.3)" }} />

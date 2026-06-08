@@ -235,6 +235,16 @@ export default function Index() {
   const [form, setForm] = useState({ name: "", phone: "", specialty: "", email: "" });
   const [formState, setFormState] = useState<"idle"|"loading"|"success"|"error">("idle");
 
+  // Подстановка специальности из кибер-карты
+  useEffect(() => {
+    const onSelect = (e: Event) => {
+      const spec = (e as CustomEvent).detail;
+      if (typeof spec === "string") setForm(p => ({ ...p, specialty: spec }));
+    };
+    window.addEventListener("select-specialty", onSelect);
+    return () => window.removeEventListener("select-specialty", onSelect);
+  }, []);
+
   // Денежные суммы из настроек
   const [pay, setPay] = useState({ once: 2600000, monthly: 210000, federal: 400000, year: 5120000 });
   useEffect(() => {
