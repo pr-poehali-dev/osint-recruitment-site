@@ -1,5 +1,38 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Icon from "@/components/ui/icon";
+
+/* ── SOUND ENGINE ────────────────────────────────────────── */
+function useSound() {
+  const ctx = useRef<AudioContext | null>(null);
+  const getCtx = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!ctx.current) ctx.current = new (window.AudioContext || (window as unknown as any).webkitAudioContext)();
+    return ctx.current;
+  };
+  const playTone = useCallback((freq: number, dur: number, type: OscillatorType = "sine", vol = 0.12) => {
+    try {
+      const ac = getCtx();
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.connect(gain); gain.connect(ac.destination);
+      osc.type = type; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, ac.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + dur);
+      osc.start(ac.currentTime); osc.stop(ac.currentTime + dur);
+    } catch (_e) { /* audio unavailable */ }
+  }, []);
+
+  const click  = useCallback(() => { playTone(800, 0.08, "square", 0.08); }, [playTone]);
+  const hover  = useCallback(() => { playTone(600, 0.05, "sine",   0.04); }, [playTone]);
+  const submit = useCallback(() => {
+    playTone(440, 0.1, "sine", 0.1);
+    setTimeout(() => playTone(550, 0.1, "sine", 0.1), 100);
+    setTimeout(() => playTone(660, 0.15, "sine", 0.1), 200);
+  }, [playTone]);
+  const open   = useCallback(() => { playTone(320, 0.12, "triangle", 0.07); playTone(480, 0.08, "sine", 0.05); }, [playTone]);
+
+  return { click, hover, submit, open };
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyIcon = any;
@@ -195,6 +228,7 @@ export default function Index() {
     (level === "all" || v.level     === level)
   );
 
+  const snd = useSound();
   const osintRef    = useReveal();
   const rerRef      = useReveal();
   const aboutRef    = useReveal();
@@ -223,7 +257,7 @@ export default function Index() {
           </a>
 
           <div className="hidden lg:flex items-center gap-5">
-            {NAV.map(n => <a key={n.href} href={n.href} className="nav-link">{n.label}</a>)}
+            {NAV.map(n => <a key={n.href} href={n.href} className="nav-link" onClick={snd.click} onMouseEnter={snd.hover}>{n.label}</a>)}
           </div>
 
           <div className="flex items-center gap-3">
@@ -290,11 +324,11 @@ export default function Index() {
               </p>
 
               <div className="animate-fade-up d4 flex flex-wrap gap-4">
-                <a href="#contacts" className="btn-red px-10 py-4 text-xs animate-pulse-red" style={{ borderRadius: "2px" }}>
+                <a href="#contacts" className="btn-red px-10 py-4 text-xs animate-pulse-red" style={{ borderRadius: "2px" }} onClick={snd.submit} onMouseEnter={snd.hover}>
                   <Icon name="Send" size={15} />
                   Оставить заявку
                 </a>
-                <a href="#rer" className="btn-ghost px-10 py-4 text-xs" style={{ borderRadius: "2px" }}>
+                <a href="#rer" className="btn-ghost px-10 py-4 text-xs" style={{ borderRadius: "2px" }} onClick={snd.click} onMouseEnter={snd.hover}>
                   <Icon name="ChevronDown" size={15} />
                   Что такое РЭР
                 </a>
@@ -659,10 +693,10 @@ export default function Index() {
               </div>
             </div>
 
-            {/* ── Вкладка «О командирах» ── */}
-            <div className="vol-card p-8 cyber-frame" style={{ borderColor: "rgba(204,34,0,0.2)", background: "rgba(204,34,0,0.03)" }}>
+            {/* ── О командирах ── */}
+            <div className="vol-card p-8 cyber-frame mb-6" style={{ borderColor: "rgba(204,34,0,0.25)", background: "rgba(204,34,0,0.04)" }}>
               <div className="flex items-center gap-4 mb-8">
-                <IBox icon="ShieldCheck" size={24} boxSize={56} radius={14} glow />
+                <div className="animate-icon-float"><IBox icon="ShieldCheck" size={26} boxSize={60} radius={14} glow /></div>
                 <div>
                   <div className="font-orb text-white text-base uppercase tracking-wide mb-0.5">О командирах</div>
                   <div className="font-stm text-[9px] tracking-widest" style={{ color: "rgba(0,255,136,0.4)" }}>ПРОФЕССИОНАЛЬНЫЙ СОСТАВ</div>
@@ -670,16 +704,48 @@ export default function Index() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { icon:"Star",       title:"Боевой опыт",           desc:"Каждый командир прошёл реальные операции и знает, как действовать в условиях неопределённости." },
-                  { icon:"GraduationCap", title:"Профессиональная подготовка", desc:"Специализированное военное образование, курсы разведки и технических дисциплин." },
-                  { icon:"Users",      title:"Наставничество",         desc:"Каждый новобранец закрепляется за опытным офицером, который помогает на всех этапах службы." },
-                  { icon:"Target",     title:"Результат — главное",    desc:"Командиры ставят чёткие задачи, обеспечивают ресурсами и несут ответственность за итог." },
+                  { icon:"Star",          title:"Боевой опыт",              desc:"Каждый командир прошёл реальные операции и знает, как действовать в условиях неопределённости и стресса." },
+                  { icon:"GraduationCap", title:"Военное образование",      desc:"Специализированные курсы разведки, технических дисциплин и управления личным составом." },
+                  { icon:"Users",         title:"Наставничество",           desc:"Каждый новобранец закрепляется за опытным офицером, который сопровождает его на всех этапах службы." },
+                  { icon:"Target",        title:"Результат — главное",      desc:"Чёткие задачи, полное обеспечение ресурсами и личная ответственность за итог операции." },
                 ].map((c, i) => (
-                  <div key={i} className="flex flex-col gap-3 p-5 animate-scale-in"
-                    style={{ animationDelay: `${i * 0.1}s`, opacity: 0, background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "3px" }}>
-                    <IBox icon={c.icon} size={20} boxSize={46} radius={10} glow />
+                  <div key={i} className="flex flex-col gap-3 p-5 animate-scale-in group cursor-default"
+                    style={{ animationDelay: `${i * 0.1}s`, opacity: 0, background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "3px", transition: "all 0.3s" }}
+                    onMouseEnter={snd.hover}>
+                    <div className="transition-transform group-hover:scale-110 group-hover:-rotate-3">
+                      <IBox icon={c.icon} size={22} boxSize={50} radius={12} glow />
+                    </div>
                     <div className="font-orb text-white text-xs uppercase tracking-wide leading-snug">{c.title}</div>
-                    <div className="font-exo text-white/42 text-xs leading-[1.75]">{c.desc}</div>
+                    <div className="font-exo text-white/50 text-xs leading-[1.75]">{c.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── О солдатах ── */}
+            <div className="vol-card p-8 cyber-frame" style={{ borderColor: "rgba(0,255,136,0.2)", background: "rgba(0,255,136,0.02)" }}>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="animate-icon-float"><IBox icon="Users" size={26} boxSize={60} radius={14} glow /></div>
+                <div>
+                  <div className="font-orb text-white text-base uppercase tracking-wide mb-0.5">О солдатах</div>
+                  <div className="font-stm text-[9px] tracking-widest text-scan-green">ПРОФЕССИОНАЛЬНЫЙ СОСТАВ</div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { icon:"Cpu",          title:"Технически подготовлены",  desc:"Каждый боец владеет современной техникой: компьютерами, антеннами, системами перехвата и анализа сигналов." },
+                  { icon:"Brain",        title:"Аналитический склад ума",  desc:"Наши специалисты умеют читать данные, выявлять закономерности и делать точные выводы под давлением." },
+                  { icon:"ShieldCheck",  title:"Физически и морально готовы", desc:"Регулярные тренировки, психологическая устойчивость и готовность действовать в сложных условиях." },
+                  { icon:"Handshake",    title:"Командная работа",         desc:"Слаженность — наш главный инструмент. Каждый знает свою роль и доверяет товарищу рядом." },
+                ].map((c, i) => (
+                  <div key={i} className="flex flex-col gap-3 p-5 animate-scale-in group cursor-default"
+                    style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0, background: "rgba(0,255,136,0.03)", border: "1px solid rgba(0,255,136,0.12)", borderRadius: "3px", transition: "all 0.3s" }}
+                    onMouseEnter={snd.hover}>
+                    <div className="transition-transform group-hover:scale-110 group-hover:rotate-3">
+                      <IBox icon={c.icon} size={22} boxSize={50} radius={12} glow />
+                    </div>
+                    <div className="font-orb text-white text-xs uppercase tracking-wide leading-snug">{c.title}</div>
+                    <div className="font-exo text-white/50 text-xs leading-[1.75]">{c.desc}</div>
                   </div>
                 ))}
               </div>
@@ -701,8 +767,8 @@ export default function Index() {
                 Требуемые<br /><span style={{ color: "#cc2200" }}>специалисты</span>
               </h2>
               <div className="flex flex-col gap-2.5">
-                <div className="flex flex-wrap gap-2">{SPEC_FILTERS.map(f => <button key={f.v} className={`tag-filter ${spec===f.v?"active":""}`} onClick={() => setSpec(f.v)}>{f.l}</button>)}</div>
-                <div className="flex flex-wrap gap-2">{LEVEL_FILTERS.map(f => <button key={f.v} className={`tag-filter ${level===f.v?"active":""}`} onClick={() => setLevel(f.v)}>{f.l}</button>)}</div>
+                <div className="flex flex-wrap gap-2">{SPEC_FILTERS.map(f => <button key={f.v} className={`tag-filter ${spec===f.v?"active":""}`} onClick={() => { setSpec(f.v); snd.click(); }} onMouseEnter={snd.hover}>{f.l}</button>)}</div>
+                <div className="flex flex-wrap gap-2">{LEVEL_FILTERS.map(f => <button key={f.v} className={`tag-filter ${level===f.v?"active":""}`} onClick={() => { setLevel(f.v); snd.click(); }} onMouseEnter={snd.hover}>{f.l}</button>)}</div>
               </div>
             </div>
 
@@ -755,7 +821,7 @@ export default function Index() {
                           <div className="money text-lg">от 210 000 ₽</div>
                           <div className="font-stm text-[8px] mt-0.5" style={{ color: "rgba(0,255,136,0.4)" }}>в месяц</div>
                         </div>
-                        <a href="#contacts" className="btn-red-animated px-5 py-2.5" style={{ borderRadius: "2px" }}>
+                        <a href="#contacts" className="btn-red-animated px-5 py-2.5" style={{ borderRadius: "2px" }} onClick={snd.submit} onMouseEnter={snd.hover}>
                           <Icon name="Send" size={12} />
                           Подать заявку
                         </a>
@@ -838,7 +904,7 @@ export default function Index() {
             <h2 className="font-orb text-white uppercase leading-tight mb-16" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
               {STEPS.map((s, i) => (
-                <div key={i} className="flex flex-col items-center text-center group animate-fade-up" style={{ animationDelay: `${i * 0.12}s`, opacity: 0 }}>
+                <div key={i} className="flex flex-col items-center text-center group animate-fade-up" style={{ animationDelay: `${i * 0.12}s`, opacity: 0 }} onMouseEnter={snd.hover}>
                   <div className="relative mb-5">
                     <div className="absolute inset-0 rounded-full opacity-20 animate-pulse-red" style={{ background: "radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%)", transform: "scale(1.5)" }} />
                     <div className="relative w-24 h-24 flex flex-col items-center justify-center gap-1.5 transition-all group-hover:scale-105 cyber-frame"
@@ -868,7 +934,8 @@ export default function Index() {
                 <div key={i} className={`vol-card overflow-hidden faq-item ${openFaq===i?"open":""} animate-fade-up`} style={{ animationDelay: `${i * 0.07}s`, opacity: 0 }}>
                   <button className="w-full flex items-center justify-between p-5 text-left gap-4"
                     style={{ background: openFaq===i ? "rgba(0,255,136,0.03)" : "transparent" }}
-                    onClick={() => setOpenFaq(openFaq===i ? null : i)}>
+                    onClick={() => { setOpenFaq(openFaq===i ? null : i); snd.open(); }}
+                    onMouseEnter={snd.hover}>
                     <span className="font-exo text-white font-semibold text-sm leading-relaxed">{item.q}</span>
                     <div className="ibox shrink-0" style={{ width: 32, height: 32,
                       background: openFaq===i ? "rgba(204,34,0,0.15)" : "rgba(255,255,255,0.04)",
@@ -907,19 +974,27 @@ export default function Index() {
               <p className="font-exo text-white/40 text-sm leading-[1.9] mb-10 max-w-sm">
                 Оставьте заявку — свяжемся в течение 24 часов. Все данные защищены.
               </p>
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {[
-                  { icon:"Phone", label:"+7 (3022) 55-42-10", sub:"Звонки Пн–Пт 09:00–18:00" },
-                  { icon:"Mail",  label:"info@osint-rer.ru",  sub:"Ответ в течение 24 часов" },
-                  { icon:"Send",  label:"@OSINT_RER",         sub:"Telegram — 24/7" },
+                  { icon:"Phone", label:"+7 (949) 091-44-68",  sub:"Звонки — каждый день",          href:"tel:+79490914468" },
+                  { icon:"Mail",  label:"titan200@gmail.com",   sub:"Ответ в течение 24 часов",      href:"mailto:titan200@gmail.com" },
+                  { icon:"Send",  label:"@Ares_deavel7",        sub:"Telegram — 24/7",               href:"https://t.me/Ares_deavel7" },
                 ].map((c, i) => (
-                  <div key={i} className="flex items-center gap-4 animate-fade-left" style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0 }}>
-                    <IBox icon={c.icon} size={20} boxSize={48} radius={10} glow />
-                    <div>
-                      <div className="font-exo text-white/82 text-sm font-semibold">{c.label}</div>
-                      <div className="font-stm text-[9px] mt-0.5 tracking-wider" style={{ color: "rgba(0,255,136,0.3)" }}>{c.sub}</div>
+                  <a key={i} href={c.href} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-4 animate-fade-left group cursor-pointer"
+                    style={{ animationDelay: `${0.1 + i * 0.1}s`, opacity: 0, textDecoration: "none" }}
+                    onClick={snd.click} onMouseEnter={snd.hover}>
+                    <div className="transition-all group-hover:scale-110 group-hover:rotate-3">
+                      <IBox icon={c.icon} size={20} boxSize={52} radius={12} glow />
                     </div>
-                  </div>
+                    <div>
+                      <div className="font-orb text-white text-sm group-hover:text-scan-green transition-all">{c.label}</div>
+                      <div className="font-stm text-[9px] mt-0.5 tracking-wider" style={{ color: "rgba(0,255,136,0.4)" }}>{c.sub}</div>
+                    </div>
+                    <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Icon name="ExternalLink" size={14} style={{ color: "rgba(0,255,136,0.6)" }} />
+                    </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -946,7 +1021,7 @@ export default function Index() {
                     <option value="logistics" style={{ background:"#05070d" }}>Водитель / Логистика</option>
                   </select>
                 </div>
-                <button className="btn-red w-full py-4 text-xs mt-2 animate-pulse-red" style={{ borderRadius: "2px" }}>
+                <button className="btn-red w-full py-4 text-xs mt-2 animate-pulse-red" style={{ borderRadius: "2px" }} onClick={snd.submit} onMouseEnter={snd.hover}>
                   <Icon name="Send" size={15} />
                   Оставить заявку
                 </button>
