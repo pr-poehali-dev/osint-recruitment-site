@@ -327,7 +327,7 @@ export default function Index() {
         </div>
 
         <div className="relative max-w-[1440px] w-full mx-auto px-6 py-24">
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-14 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_420px] gap-10 xl:gap-14 items-start">
 
             {/* LEFT */}
             <div>
@@ -381,7 +381,7 @@ export default function Index() {
             <div className="animate-fade-right d3 animate-float">
               <div className="cyber-frame" style={{ filter: "drop-shadow(0 0 30px rgba(204,34,0,0.18)) drop-shadow(0 40px 80px rgba(0,0,0,0.8))" }}>
                 <div className="red-card" style={{ borderRadius: "3px" }}>
-                  <div style={{ background: "linear-gradient(155deg, rgba(8,10,18,0.99), rgba(5,7,13,1))", padding: "2rem" }}>
+                  <div className="p-5 sm:p-8">
 
                     <div className="flex items-center justify-between mb-7">
                       <div className="flex items-center gap-2.5">
@@ -396,13 +396,16 @@ export default function Index() {
                     </div>
 
                     {PAYMENTS.map((p, i) => (
-                      <div key={i} className="flex justify-between items-center py-3 animate-fade-up"
+                      <div key={i} className={`flex justify-between items-center animate-fade-up ${i === 0 ? "py-5" : "py-3"}`}
                         style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", animationDelay: `${0.3 + i*0.1}s`, opacity: 0 }}>
                         <div className="flex items-center gap-2.5">
-                          <IBox icon={p.icon} size={14} boxSize={30} radius={6} />
-                          <span className="font-exo text-sm text-white/42">{p.label}</span>
+                          <IBox icon={p.icon} size={i === 0 ? 18 : 14} boxSize={i === 0 ? 38 : 30} radius={6} glow={i === 0} />
+                          <span className={`font-exo ${i === 0 ? "text-base font-semibold text-white/70" : "text-sm text-white/42"}`}>{p.label}</span>
                         </div>
-                        <span className="money text-lg">{p.value}</span>
+                        {i === 0
+                          ? <span className="font-orb font-black leading-none" style={{ fontSize: "clamp(1.6rem, 4vw, 2.1rem)", color: "#ff2200", textShadow: "0 0 24px rgba(255,34,0,0.7), 0 0 8px rgba(255,34,0,0.4)" }}>{p.value}</span>
+                          : <span className="money text-lg">{p.value}</span>
+                        }
                       </div>
                     ))}
 
