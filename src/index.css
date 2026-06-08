@@ -47,71 +47,6 @@
   --sidebar-ring: 10 80% 42%;
 }
 
-/* ── СВЕТЛАЯ ТЕМА ── */
-:root.light {
-  --bg: #f4f4f5;
-  --bg2: #ebebed;
-  --bg3: #e2e2e5;
-  --white: #18181b;
-  --dim: rgba(24, 24, 27, 0.6);
-  --dimmer: rgba(24, 24, 27, 0.4);
-  --border: rgba(0, 0, 0, 0.1);
-  --border2: rgba(0, 0, 0, 0.16);
-}
-:root.light body {
-  background-color: var(--bg);
-  color: var(--white);
-}
-/* В светлой теме инвертируем «белые» декоративные цвета */
-:root.light .vol-card {
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.04) 0%,
-    rgba(0, 0, 0, 0.015) 100%
-  );
-  border-color: rgba(0, 0, 0, 0.1);
-}
-:root.light .vol-card:hover {
-  border-color: rgba(0, 0, 0, 0.25);
-  box-shadow:
-    0 0 40px rgba(0, 0, 0, 0.06),
-    0 24px 60px rgba(0, 0, 0, 0.12);
-}
-:root.light .grid-cyber {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-}
-:root.light .text-white,
-:root.light .font-orb {
-  color: #18181b;
-}
-:root.light .btn-ghost {
-  background: rgba(0, 0, 0, 0.04);
-  color: rgba(0, 0, 0, 0.7);
-  border-color: rgba(0, 0, 0, 0.15);
-}
-:root.light .btn-ghost:hover {
-  background: rgba(0, 0, 0, 0.08);
-  border-color: rgba(0, 0, 0, 0.4);
-  color: #000;
-}
-:root.light .form-input {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.15);
-  color: #18181b;
-}
-:root.light .form-input::placeholder {
-  color: rgba(0, 0, 0, 0.35);
-}
-:root.light .label-mono,
-:root.light .nav-link {
-  color: rgba(0, 0, 0, 0.55);
-}
-:root.light .money {
-  color: #18181b;
-}
-
 /* ── РЕЖИМ ДЛЯ СЛАБОВИДЯЩИХ ── */
 :root.a11y {
   --bg: #000000;
@@ -264,22 +199,6 @@
   background-size:
     26px 26px,
     100% 100%;
-}
-:root.light .sect-texture::before {
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(0, 0, 0, 0.04) 0%, transparent 45%),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(220, 38, 38, 0.06) 0%,
-      transparent 50%
-    ),
-    repeating-linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.015) 0px,
-      rgba(0, 0, 0, 0.015) 1px,
-      transparent 1px,
-      transparent 14px
-    );
 }
 :root.a11y .sect-texture::before {
   display: none;
