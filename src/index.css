@@ -202,105 +202,122 @@
     background-position: 0% 50%;
   }
 }
-/* ── РАДАР: круговая развёртка (вращающийся луч-сектор) ── */
+/* ── СПУТНИКОВЫЙ МОНИТОРИНГ: карта + сетка координат ── */
 body::before {
   content: "";
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 200vmax;
-  height: 200vmax;
-  margin-top: -100vmax;
-  margin-left: -100vmax;
-  z-index: -1;
-  pointer-events: none;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    rgba(60, 130, 255, 0.28) 0deg,
-    rgba(60, 130, 255, 0.12) 12deg,
-    rgba(60, 130, 255, 0.04) 30deg,
-    transparent 55deg,
-    transparent 360deg
-  );
-  -webkit-mask-image: radial-gradient(
-    circle at 50% 50%,
-    #000 0%,
-    rgba(0, 0, 0, 0.85) 30%,
-    rgba(0, 0, 0, 0.4) 55%,
-    transparent 72%
-  );
-  mask-image: radial-gradient(
-    circle at 50% 50%,
-    #000 0%,
-    rgba(0, 0, 0, 0.85) 30%,
-    rgba(0, 0, 0, 0.4) 55%,
-    transparent 72%
-  );
-  animation: radarSweep 6s linear infinite;
-  will-change: transform;
-}
-/* ── РАДАР: концентрические круги + перекрестие ── */
-body::after {
-  content: "";
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 130vmax;
-  height: 130vmax;
-  margin-top: -65vmax;
-  margin-left: -65vmax;
+  inset: -8%;
   z-index: -1;
   pointer-events: none;
   background:
-    /* концентрические кольца */
-    repeating-radial-gradient(
-      circle at 50% 50%,
-      transparent 0,
-      transparent 7vmax,
-      rgba(70, 130, 255, 0.07) 7vmax,
-      rgba(70, 130, 255, 0.07) calc(7vmax + 1px),
-      transparent calc(7vmax + 2px)
-    ),
-    /* радиальные линии-перекрестие */
-      repeating-conic-gradient(
-        from 0deg at 50% 50%,
-        rgba(70, 130, 255, 0.06) 0deg,
-        rgba(70, 130, 255, 0.06) 0.3deg,
-        transparent 0.3deg,
-        transparent 45deg
-      ),
-    /* центральное свечение */
-      radial-gradient(
-        circle at 50% 50%,
-        rgba(40, 95, 240, 0.16) 0%,
-        transparent 50%
-      );
+    /* сетка координат (меридианы/параллели) */
+    linear-gradient(to right, rgba(70, 130, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(70, 130, 255, 0.06) 1px, transparent 1px),
+    /* мелкая подсетка */
+      linear-gradient(to right, rgba(70, 130, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(70, 130, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
   -webkit-mask-image: radial-gradient(
-    circle at 50% 50%,
+    ellipse 80% 70% at 50% 45%,
     #000 0%,
-    #000 42%,
-    transparent 62%
+    rgba(0, 0, 0, 0.6) 55%,
+    transparent 90%
   );
   mask-image: radial-gradient(
-    circle at 50% 50%,
+    ellipse 80% 70% at 50% 45%,
     #000 0%,
-    #000 42%,
-    transparent 62%
+    rgba(0, 0, 0, 0.6) 55%,
+    transparent 90%
   );
-  animation: radarPulse 4s ease-in-out infinite;
+  animation: mapDrift 40s linear infinite;
+  will-change: background-position;
 }
-@keyframes radarSweep {
+/* ── СПУТНИК: контуры карты + точки-метки целей ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image:
+    /* пульсирующие точки-цели (метки на карте) */
+    radial-gradient(
+      circle at 22% 30%,
+      rgba(80, 160, 255, 0.9) 0,
+      rgba(80, 160, 255, 0.9) 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 68% 22%,
+      rgba(90, 170, 255, 0.85) 0,
+      rgba(90, 170, 255, 0.85) 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 80% 62%,
+      rgba(70, 150, 255, 0.85) 0,
+      rgba(70, 150, 255, 0.85) 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 38% 72%,
+      rgba(90, 170, 255, 0.8) 0,
+      rgba(90, 170, 255, 0.8) 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 55% 48%,
+      rgba(100, 180, 255, 0.9) 0,
+      rgba(100, 180, 255, 0.9) 2px,
+      transparent 3px
+    ),
+    /* ореолы вокруг меток */
+      radial-gradient(
+        circle at 22% 30%,
+        rgba(80, 160, 255, 0.18) 0,
+        transparent 60px
+      ),
+    radial-gradient(
+      circle at 68% 22%,
+      rgba(90, 170, 255, 0.16) 0,
+      transparent 55px
+    ),
+    radial-gradient(
+      circle at 55% 48%,
+      rgba(100, 180, 255, 0.2) 0,
+      transparent 70px
+    ),
+    /* контуры «материков» на спутниковой карте */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Cg fill='none' stroke='%234a82ff' stroke-width='1.5' stroke-opacity='0.18'%3E%3Cpath d='M120 200 L260 160 L340 220 L300 320 L380 360 L340 460 L220 480 L160 400 L200 300 Z'/%3E%3Cpath d='M520 120 L680 100 L760 180 L720 280 L800 320 L780 420 L640 440 L560 360 L600 240 Z'/%3E%3Cpath d='M860 240 L1000 220 L1080 300 L1040 420 L920 460 L880 360 Z'/%3E%3Cpath d='M340 560 L500 540 L580 620 L520 700 L400 720 L320 640 Z'/%3E%3Cpath d='M760 540 L920 520 L1000 600 L940 680 L820 700 L740 620 Z'/%3E%3C/g%3E%3C/svg%3E");
+  animation: mapPulse 3.5s ease-in-out infinite;
+}
+@keyframes mapDrift {
   from {
-    transform: rotate(0deg);
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 0;
   }
   to {
-    transform: rotate(360deg);
+    background-position:
+      120px 60px,
+      120px 60px,
+      24px 12px,
+      24px 12px;
   }
 }
-@keyframes radarPulse {
+@keyframes mapPulse {
   0%,
   100% {
-    opacity: 0.7;
+    opacity: 0.65;
   }
   50% {
     opacity: 1;
