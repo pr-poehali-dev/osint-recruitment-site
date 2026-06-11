@@ -20,7 +20,7 @@ export default function AccessibilityBar() {
   };
 
   return (
-    <div className="fixed right-6 z-[89] flex flex-col-reverse items-end gap-2" style={{ bottom: 168 }}>
+    <div className="fixed right-6 z-[95] flex flex-col-reverse items-end gap-2" style={{ bottom: 240 }}>
       <button onClick={() => setOpen(o => !o)} aria-label="Настройки отображения"
         className="flex items-center justify-center transition-all hover:scale-105"
         style={{ width: 48, height: 48, borderRadius: 14, background: "var(--bg2)", border: "1px solid var(--border2)", boxShadow: "0 4px 16px rgba(0,0,0,0.4)" }}>
