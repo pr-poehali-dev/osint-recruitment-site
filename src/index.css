@@ -103,8 +103,59 @@
 }
 :root.a11y .grid-cyber,
 :root.a11y .scanlines::after,
-:root.a11y .scan-beam {
+:root.a11y .scan-beam,
+:root.a11y .hero-anim-bg,
+:root.a11y .hero-orb,
+:root.a11y .hero-grid,
+:root.a11y .hero-rays,
+:root.a11y .hero-vignette,
+:root.a11y .cyber-bg,
+:root.a11y .ticker-track {
   display: none !important;
+}
+/* фоновое фото и декоративные картинки скрываем */
+:root.a11y .hero-photo-alive {
+  display: none !important;
+}
+/* секции и блоки — чёрный фон, жёлтая рамка */
+:root.a11y section,
+:root.a11y header,
+:root.a11y nav,
+:root.a11y footer {
+  background: #000 !important;
+  background-image: none !important;
+}
+/* любые цветные подложки делаем чёрными */
+:root.a11y [style*="background"] {
+  background: #000 !important;
+  background-image: none !important;
+}
+/* иконки — жёлтые */
+:root.a11y svg {
+  color: #ffff00 !important;
+  stroke: #ffff00 !important;
+}
+/* кнопки-иконки и боксы */
+:root.a11y .ibox,
+:root.a11y button {
+  background: #000 !important;
+  border: 2px solid #ffff00 !important;
+}
+/* ссылки подчёркнуты для различимости */
+:root.a11y a {
+  text-decoration: underline !important;
+}
+/* поля ввода */
+:root.a11y input,
+:root.a11y textarea,
+:root.a11y select {
+  background: #000 !important;
+  color: #ffff00 !important;
+  border: 2px solid #ffff00 !important;
+}
+:root.a11y input::placeholder,
+:root.a11y textarea::placeholder {
+  color: #ffcc00 !important;
 }
 
 @layer base {
