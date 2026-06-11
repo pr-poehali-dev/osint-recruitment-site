@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Icon from "@/components/ui/icon";
-import ReviewsCarousel from "@/components/ReviewsCarousel";
 import FloatingContact from "@/components/FloatingContact";
 import UrgencyBar from "@/components/UrgencyBar";
 import IncomeCalculator from "@/components/IncomeCalculator";
@@ -141,7 +140,6 @@ const NAV = [
   { label: "Вакансии",       href: "#vacancies" },
   { label: "Доход",          href: "#calculator" },
   { label: "Льготы",         href: "#benefits" },
-  { label: "Отзывы",         href: "#reviews" },
   { label: "FAQ",            href: "#faq" },
   { label: "Контакты",       href: "#contacts" },
 ];
@@ -678,9 +676,6 @@ export default function Index() {
 
       {/* ══ СРОЧНОСТЬ ═══════════════════════════════════ */}
       <UrgencyBar />
-
-      {/* ══ ОТЗЫВЫ ══════════════════════════════════════ */}
-      <div id="reviews"><ReviewsCarousel /></div>
 
       {/* ══ БЛОГ ════════════════════════════════════════ */}
       <Blog />
