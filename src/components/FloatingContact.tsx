@@ -31,7 +31,7 @@ export default function FloatingContact() {
             Заказать звонок
           </span>
           <span className="flex items-center justify-center transition-all group-hover:scale-110"
-            style={{ width: 48, height: 48, borderRadius: 14, background: "linear-gradient(135deg, rgba(220,38,38,0.3), rgba(220,38,38,0.1))", border: "1px solid rgba(220,38,38,0.4)", boxShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
+            style={{ width: 48, height: 48, borderRadius: 14, background: "linear-gradient(135deg, rgba(47,107,255,0.3), rgba(47,107,255,0.1))", border: "1px solid rgba(47,107,255,0.4)", boxShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
             <Icon name="PhoneCall" size={20} style={{ color: "#fff" }} />
           </span>
         </button>
@@ -54,8 +54,8 @@ export default function FloatingContact() {
       {/* главная кнопка */}
       <button onClick={() => setOpen(o => !o)} aria-label="Связаться"
         className="relative flex items-center justify-center transition-all hover:scale-105"
-        style={{ width: 60, height: 60, borderRadius: 18, background: "linear-gradient(140deg, #b91c1c, #7f1010)", border: "1px solid rgba(255,80,60,0.4)", boxShadow: "0 6px 30px rgba(185,28,28,0.5)" }}>
-        {!open && <span className="absolute inset-0 rounded-[18px] animate-ping" style={{ background: "rgba(185,28,28,0.4)" }} />}
+        style={{ width: 60, height: 60, borderRadius: 18, background: "linear-gradient(140deg, #1e50e0, #0e2a80)", border: "1px solid rgba(90,150,255,0.4)", boxShadow: "0 6px 30px rgba(47,107,255,0.5)" }}>
+        {!open && <span className="absolute inset-0 rounded-[18px] animate-ping" style={{ background: "rgba(47,107,255,0.4)" }} />}
         <Icon name={open ? "X" : "MessageCircle"} size={26} style={{ color: "#fff", position: "relative" }} className="transition-transform" />
         {/* онлайн-точка */}
         {!open && <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full animate-blink" style={{ background: "#22c55e", border: "2px solid #0a0a0b" }} />}

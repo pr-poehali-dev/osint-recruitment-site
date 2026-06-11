@@ -640,33 +640,33 @@ export default function Index() {
                 style={{
                   animationDelay: `${i * 0.08}s`, opacity: 0,
                   borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none",
-                  ...(i === 0 ? { background: "rgba(204,34,0,0.06)", borderLeft: "3px solid rgba(204,34,0,0.6)" } : {}),
+                  ...(i === 0 ? { background: "rgba(47,107,255,0.06)", borderLeft: "3px solid rgba(47,107,255,0.6)" } : {}),
                 }}>
                 <div className="shrink-0" style={{
                   width: i === 0 ? 64 : 58, height: i === 0 ? 64 : 58,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   background: i === 0
-                    ? "linear-gradient(145deg, rgba(204,34,0,0.22) 0%, rgba(204,34,0,0.06) 60%, rgba(0,0,0,0.15) 100%)"
+                    ? "linear-gradient(145deg, rgba(47,107,255,0.22) 0%, rgba(47,107,255,0.06) 60%, rgba(0,0,0,0.15) 100%)"
                     : "linear-gradient(145deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 60%, rgba(0,0,0,0.15) 100%)",
-                  border: i === 0 ? "1px solid rgba(204,34,0,0.35)" : "1px solid rgba(255,255,255,0.22)",
-                  borderTop: i === 0 ? "1px solid rgba(204,34,0,0.5)" : "1px solid rgba(255,255,255,0.35)",
+                  border: i === 0 ? "1px solid rgba(47,107,255,0.35)" : "1px solid rgba(255,255,255,0.22)",
+                  borderTop: i === 0 ? "1px solid rgba(47,107,255,0.5)" : "1px solid rgba(255,255,255,0.35)",
                   borderRadius: 14,
                   boxShadow: i === 0
-                    ? "0 0 28px rgba(204,34,0,0.3), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)"
+                    ? "0 0 28px rgba(47,107,255,0.3), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)"
                     : "0 0 28px rgba(255,255,255,0.2), 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
                   position: "relative",
                 }}>
-                  <Icon name={s.icon as AnyIcon} size={i === 0 ? 30 : 26} style={{ color: i === 0 ? "rgba(255,100,80,0.95)" : "rgba(220,240,255,0.9)" }} />
+                  <Icon name={s.icon as AnyIcon} size={i === 0 ? 30 : 26} style={{ color: i === 0 ? "rgba(110,163,255,0.95)" : "rgba(220,240,255,0.9)" }} />
                 </div>
                 <div className="min-w-0">
                   <div className="font-orb font-black leading-tight"
                     style={{
                       fontSize: i === 0 ? "clamp(1.2rem, 4.5vw, 1.9rem)" : "clamp(1rem, 1.8vw, 1.35rem)",
-                      color: i === 0 ? "#ff2200" : "#fff",
-                      textShadow: i === 0 ? "0 0 20px rgba(255,34,0,0.6)" : "none",
+                      color: i === 0 ? "#2f6bff" : "#fff",
+                      textShadow: i === 0 ? "0 0 20px rgba(47,107,255,0.6)" : "none",
                       wordBreak: "break-all",
                     }}>{s.val}</div>
-                  <div className="font-exo text-sm mt-0.5" style={{ color: i === 0 ? "rgba(255,150,130,0.7)" : "rgba(255,255,255,0.4)" }}>{s.sub}</div>
+                  <div className="font-exo text-sm mt-0.5" style={{ color: i === 0 ? "rgba(110,163,255,0.7)" : "rgba(255,255,255,0.4)" }}>{s.sub}</div>
                 </div>
               </div>
             ))}
@@ -1276,12 +1276,12 @@ export default function Index() {
                     onMouseEnter={snd.hover}>
                     <span className="font-exo text-white font-semibold text-sm leading-relaxed">{item.q}</span>
                     <div className="ibox shrink-0" style={{ width: 32, height: 32,
-                      background: openFaq===i ? "rgba(204,34,0,0.15)" : "rgba(255,255,255,0.04)",
-                      border: openFaq===i ? "1px solid rgba(204,34,0,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                      background: openFaq===i ? "rgba(47,107,255,0.15)" : "rgba(255,255,255,0.04)",
+                      border: openFaq===i ? "1px solid rgba(47,107,255,0.4)" : "1px solid rgba(255,255,255,0.08)",
                       borderRadius: "6px",
-                      boxShadow: openFaq===i ? "0 0 12px rgba(204,34,0,0.25)" : "none"
+                      boxShadow: openFaq===i ? "0 0 12px rgba(47,107,255,0.25)" : "none"
                     }}>
-                      <Icon name={openFaq===i ? "Minus" : "Plus"} size={14} style={{ color: openFaq===i ? "#cc2200" : "rgba(255,255,255,0.38)" }} />
+                      <Icon name={openFaq===i ? "Minus" : "Plus"} size={14} style={{ color: openFaq===i ? "#2f6bff" : "rgba(255,255,255,0.38)" }} />
                     </div>
                   </button>
                   {openFaq===i && (
@@ -1334,14 +1334,14 @@ export default function Index() {
       <section id="contacts" className="py-28 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
         <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.5), transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.4), transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(47,107,255,0.4), transparent)" }} />
 
         <div className="max-w-[1440px] mx-auto px-6">
           <div ref={contactsRef} className="section-entry">
             <div className="label-mono mb-3">// Инициировать контакт</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-              Готов стать<br /><span style={{ color: "#cc2200" }}>частью команды?</span>
+              Готов стать<br /><span style={{ color: "#2f6bff" }}>частью команды?</span>
             </h2>
             <p className="font-exo text-white/42 text-base leading-relaxed mb-8 max-w-xl">
               Оставьте заявку — свяжемся в течение 24 часов. Всё конфиденциально.
@@ -1441,10 +1441,10 @@ export default function Index() {
                 </div>
 
                 {/* Info card */}
-                <div className="p-5 vol-card animate-fade-up" style={{ opacity: 0, animationDelay: "0.5s", borderColor: "rgba(204,34,0,0.2)" }}>
+                <div className="p-5 vol-card animate-fade-up" style={{ opacity: 0, animationDelay: "0.5s", borderColor: "rgba(47,107,255,0.2)" }}>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#cc2200" }} />
-                    <span className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(204,34,0,0.7)" }}>РЕЖИМ РАБОТЫ</span>
+                    <div className="w-2 h-2 rounded-full animate-blink" style={{ background: "#2f6bff" }} />
+                    <span className="font-stm text-[10px] tracking-widest" style={{ color: "rgba(47,107,255,0.7)" }}>РЕЖИМ РАБОТЫ</span>
                   </div>
                   <div className="font-orb text-white text-sm mb-1">Пн — Вс · Без выходных</div>
                   <div className="font-exo text-white/40 text-xs">Заявки принимаются круглосуточно. Ответ в течение 24 часов.</div>
@@ -1616,7 +1616,7 @@ export default function Index() {
 
       {/* ══ FOOTER ══════════════════════════════════════ */}
       <footer style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(204,34,0,0.3), transparent)" }} />
+        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(47,107,255,0.3), transparent)" }} />
         <div className="max-w-[1440px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <LogoS size={28} animated />

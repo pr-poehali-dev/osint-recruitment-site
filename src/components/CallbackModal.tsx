@@ -68,8 +68,8 @@ export default function CallbackModal() {
         ) : (
           <>
             <div className="flex items-center gap-3 mb-6">
-              <div className="flex items-center justify-center" style={{ width: 48, height: 48, borderRadius: 13, background: "rgba(220,38,38,0.12)", border: "1px solid rgba(220,38,38,0.3)" }}>
-                <Icon name="PhoneCall" size={22} style={{ color: "#ef4444" }} />
+              <div className="flex items-center justify-center" style={{ width: 48, height: 48, borderRadius: 13, background: "rgba(47,107,255,0.12)", border: "1px solid rgba(47,107,255,0.3)" }}>
+                <Icon name="PhoneCall" size={22} style={{ color: "#2f6bff" }} />
               </div>
               <div>
                 <h3 className="font-orb text-white" style={{ fontSize: "1.4rem" }}>Заказать звонок</h3>

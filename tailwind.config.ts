@@ -29,13 +29,13 @@ export default {
 		},
 		extend: {
 			colors: {
-				navy: 'hsl(220, 35%, 8%)',
-				'navy-light': 'hsl(220, 25%, 13%)',
+				navy: 'hsl(226, 70%, 5%)',
+				'navy-light': 'hsl(226, 45%, 11%)',
 				red: {
-					DEFAULT: 'hsl(0, 80%, 48%)',
-					bright: 'hsl(0, 90%, 55%)',
+					DEFAULT: 'hsl(222, 90%, 58%)',
+					bright: 'hsl(222, 95%, 65%)',
 				},
-				'blue-accent': 'hsl(210, 70%, 55%)',
+				'blue-accent': 'hsl(222, 90%, 60%)',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

@@ -63,16 +63,16 @@ export default function UrgencyBar() {
   );
 
   return (
-    <div className="relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(185,28,28,0.04)" }}>
+    <div className="relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(47,107,255,0.04)" }}>
       <div className="max-w-[1440px] mx-auto px-6 py-7">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
           {/* Таймер */}
           <div className="flex items-center gap-5">
-            <div className="flex items-center justify-center shrink-0" style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(220,38,38,0.12)", border: "1px solid rgba(220,38,38,0.3)" }}>
-              <Icon name="Clock" size={22} style={{ color: "#ef4444" }} />
+            <div className="flex items-center justify-center shrink-0" style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(47,107,255,0.12)", border: "1px solid rgba(47,107,255,0.3)" }}>
+              <Icon name="Clock" size={22} style={{ color: "#2f6bff" }} />
             </div>
             <div>
-              <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(239,68,68,0.85)" }}>НАБОР В ГРУППУ ЗАКРЫВАЕТСЯ ЧЕРЕЗ</div>
+              <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(80,140,255,0.85)" }}>НАБОР В ГРУППУ ЗАКРЫВАЕТСЯ ЧЕРЕЗ</div>
               <div className="flex items-center gap-3">
                 {cell(left.d, "ДНЕЙ")}
                 <span className="font-orb text-white/30 text-xl -mt-4">:</span>

@@ -97,8 +97,8 @@ export default function IncomeCalculator() {
               <span className="font-exo text-white/55">Единовременно + фед.</span>
               <span className="money text-xl">{fmt(pay.once + pay.federal)}</span>
             </div>
-            <div className="mt-2 p-5" style={{ background: "rgba(220,38,38,0.08)", border: "1px solid rgba(220,38,38,0.25)", borderRadius: 12 }}>
-              <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(239,68,68,0.85)" }}>ИТОГО ДОХОД</div>
+            <div className="mt-2 p-5" style={{ background: "rgba(47,107,255,0.08)", border: "1px solid rgba(47,107,255,0.25)", borderRadius: 12 }}>
+              <div className="font-stm text-[10px] tracking-widest mb-2" style={{ color: "rgba(80,140,255,0.85)" }}>ИТОГО ДОХОД</div>
               <div className="money-red leading-none transition-all" style={{ fontSize: "clamp(2rem, 5vw, 2.8rem)" }}>{fmt(total)}</div>
             </div>
             <a href="#contacts" className="btn-red-animated w-full py-4" style={{ borderRadius: 10 }}>

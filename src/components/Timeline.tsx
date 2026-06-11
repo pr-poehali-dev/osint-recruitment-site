@@ -23,7 +23,7 @@ export default function Timeline() {
 
         <div className="relative">
           {/* вертикальная линия */}
-          <div className="absolute top-0 bottom-0" style={{ left: 27, width: 2, background: "linear-gradient(180deg, rgba(220,38,38,0.5), rgba(255,255,255,0.1))" }} />
+          <div className="absolute top-0 bottom-0" style={{ left: 27, width: 2, background: "linear-gradient(180deg, rgba(47,107,255,0.5), rgba(255,255,255,0.1))" }} />
 
           <div className="space-y-5">
             {STEPS.map((s, i) => (
@@ -33,7 +33,7 @@ export default function Timeline() {
                 </div>
                 <div className="vol-card hover-lift flex-1 p-5" style={{ borderRadius: 12 }}>
                   <div className="flex items-center gap-3 mb-1.5">
-                    <span className="font-orb text-white" style={{ fontSize: "1.1rem", color: "#ef4444" }}>{s.time}</span>
+                    <span className="font-orb text-white" style={{ fontSize: "1.1rem", color: "#2f6bff" }}>{s.time}</span>
                     <span className="font-orb text-white" style={{ fontSize: "1.05rem" }}>{s.title}</span>
                   </div>
                   <p className="font-exo text-white/55 text-sm leading-relaxed">{s.desc}</p>
