@@ -488,7 +488,7 @@ export default function Index() {
               <h1 className="animate-fade-up d1 font-orb text-white leading-[0.88] mb-6"
                 style={{ fontSize: "clamp(2.8rem, 7vw, 5.8rem)", textTransform: "uppercase", letterSpacing: "-0.02em" }}>
                 OSINT<br />
-                <span className="hero-title-accent" style={{ color: "#f59332", textShadow: "0 0 36px rgba(245,147,50,0.55)" }}>подразделение</span><br />
+                <span className="hero-title-accent" style={{ color: "#4f8bff", textShadow: "0 0 36px rgba(60,110,255,0.6)" }}>подразделение</span><br />
                 <span style={{ fontSize: "40%", color: "rgba(200,205,212,0.55)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.06em" }}>Радиоэлектронная разведка · РЭР</span>
               </h1>
 
@@ -517,7 +517,7 @@ export default function Index() {
 
               <div className="animate-fade-up d5 mt-14 flex flex-wrap gap-8">
                 {[
-                  { val:rub(pay.year), sub:"Доход за 1-й год", color:"#f59332" },
+                  { val:rub(pay.year), sub:"Доход за 1-й год", color:"#4f8bff" },
                   { val:rub(pay.monthly), sub:"В месяц",        color:"#ffffff" },
                   { val:"1000+",       sub:"Задач выполнено",   color:"#ffffff" },
                 ].map((s, i) => (
