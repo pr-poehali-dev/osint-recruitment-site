@@ -71,7 +71,7 @@ const VAC_IMG =
 const BEN_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/18442483-2c7f-4b7c-9a66-e594809f4de4.jpg";
 const STEPS_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/f0e34af6-750b-4435-a611-6beb231b73f9.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/1957acc9-14b7-45a3-a064-1c852a4d9430.jpg";
 const FAQ_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/02080dfa-f5d0-43f6-9b10-801e6e33fd2c.jpg";
 const CONTACTS_IMG =
@@ -1213,7 +1213,7 @@ export default function Index() {
             <h2 className="font-orb text-white uppercase leading-tight mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
 
             <div className="relative w-full h-48 mb-12 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.98) saturate(1.05)" }} />
+              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.98) saturate(1.05)", animation: "stepsKenBurns 18s ease-in-out infinite" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.72) 0%, transparent 60%, rgba(28,32,38,0.65) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-6 sm:px-10">
                 <div>

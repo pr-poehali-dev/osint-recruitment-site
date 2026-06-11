@@ -202,6 +202,16 @@
     background-position: 0% 50%;
   }
 }
+/* ── лёгкий зум картинки «Этапы поступления» ── */
+@keyframes stepsKenBurns {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.06) translate(-1%, -1%);
+  }
+}
 /* ── СПУТНИКОВЫЙ МОНИТОРИНГ: карта + сетка координат ── */
 body::before {
   content: "";
