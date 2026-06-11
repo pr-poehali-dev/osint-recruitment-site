@@ -458,10 +458,10 @@ export default function Index() {
         {/* анимированный фон */}
         <HeroBackground />
         {/* фото-вставка с мягким наложением */}
-        <div className="absolute inset-0 pointer-events-none">
-          <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.55) saturate(0.9) contrast(1.05)", opacity: 0.4, mixBlendMode: "luminosity" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(18,20,23,0.85) 15%, rgba(18,20,23,0.35) 55%, rgba(18,20,23,0.8) 100%)" }} />
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img src={HERO_IMG} alt="OSINT-РЭР" className="hero-photo-alive w-full h-full object-cover"
+            style={{ filter: "brightness(0.62) saturate(0.95) contrast(1.06)", opacity: 0.55 }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(18,20,23,0.82) 12%, rgba(18,20,23,0.3) 55%, rgba(18,20,23,0.78) 100%)" }} />
           {/* Corner accents */}
           <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(200,205,212,0.6), transparent)" }} />
           <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(245,147,50,0.6), transparent)" }} />

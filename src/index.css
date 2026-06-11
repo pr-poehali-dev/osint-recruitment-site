@@ -1680,6 +1680,33 @@ img {
   }
 }
 
+/* «живой» эффект фото баннера — дышащий кадр */
+.hero-photo-alive {
+  animation: heroPhotoAlive 18s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: 60% 40%;
+}
+@keyframes heroPhotoAlive {
+  0% {
+    transform: scale(1.05) translate(0, 0);
+  }
+  25% {
+    transform: scale(1.09) translate(-1.2%, -0.6%);
+  }
+  50% {
+    transform: scale(1.07) translate(0.8%, 0.4%);
+  }
+  75% {
+    transform: scale(1.1) translate(1.2%, -0.4%);
+  }
+  100% {
+    transform: scale(1.05) translate(0, 0);
+  }
+}
+:root.a11y .hero-photo-alive {
+  animation: none;
+}
+
 /* пульсация акцента в заголовке */
 .hero-title-accent {
   animation: titleGlow 4s ease-in-out infinite;
