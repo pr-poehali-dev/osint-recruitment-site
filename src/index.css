@@ -202,66 +202,94 @@
     background-position: 0% 50%;
   }
 }
-/* лучевой анимированный фон — расходящиеся вращающиеся лучи */
+/* ── РАДАР: круговая развёртка (вращающийся луч-сектор) ── */
 body::before {
   content: "";
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 220vmax;
-  height: 220vmax;
-  margin-top: -110vmax;
-  margin-left: -110vmax;
+  width: 200vmax;
+  height: 200vmax;
+  margin-top: -100vmax;
+  margin-left: -100vmax;
   z-index: -1;
   pointer-events: none;
   background: conic-gradient(
     from 0deg at 50% 50%,
-    transparent 0deg,
-    rgba(60, 110, 255, 0.14) 6deg,
-    transparent 12deg,
-    transparent 18deg,
-    rgba(40, 90, 220, 0.1) 24deg,
-    transparent 30deg,
-    transparent 42deg,
-    rgba(80, 140, 255, 0.16) 48deg,
-    transparent 54deg,
-    transparent 66deg,
-    rgba(50, 100, 240, 0.12) 72deg,
-    transparent 78deg,
-    transparent 96deg,
-    rgba(60, 110, 255, 0.14) 102deg,
-    transparent 108deg
+    rgba(60, 130, 255, 0.28) 0deg,
+    rgba(60, 130, 255, 0.12) 12deg,
+    rgba(60, 130, 255, 0.04) 30deg,
+    transparent 55deg,
+    transparent 360deg
   );
   -webkit-mask-image: radial-gradient(
     circle at 50% 50%,
     #000 0%,
-    rgba(0, 0, 0, 0.5) 45%,
-    transparent 75%
+    rgba(0, 0, 0, 0.85) 30%,
+    rgba(0, 0, 0, 0.4) 55%,
+    transparent 72%
   );
   mask-image: radial-gradient(
     circle at 50% 50%,
     #000 0%,
-    rgba(0, 0, 0, 0.5) 45%,
-    transparent 75%
+    rgba(0, 0, 0, 0.85) 30%,
+    rgba(0, 0, 0, 0.4) 55%,
+    transparent 72%
   );
-  animation: raysSpin 50s linear infinite;
+  animation: radarSweep 6s linear infinite;
   will-change: transform;
 }
-/* мягкое центральное свечение лучей (пульсация) */
+/* ── РАДАР: концентрические круги + перекрестие ── */
 body::after {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  width: 130vmax;
+  height: 130vmax;
+  margin-top: -65vmax;
+  margin-left: -65vmax;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 70% 55% at 50% 35%,
-    rgba(40, 95, 240, 0.22) 0%,
-    transparent 65%
+  background:
+    /* концентрические кольца */
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      transparent 0,
+      transparent 7vmax,
+      rgba(70, 130, 255, 0.07) 7vmax,
+      rgba(70, 130, 255, 0.07) calc(7vmax + 1px),
+      transparent calc(7vmax + 2px)
+    ),
+    /* радиальные линии-перекрестие */
+      repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        rgba(70, 130, 255, 0.06) 0deg,
+        rgba(70, 130, 255, 0.06) 0.3deg,
+        transparent 0.3deg,
+        transparent 45deg
+      ),
+    /* центральное свечение */
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(40, 95, 240, 0.16) 0%,
+        transparent 50%
+      );
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 50%,
+    #000 0%,
+    #000 42%,
+    transparent 62%
   );
-  animation: raysGlow 9s ease-in-out infinite;
+  mask-image: radial-gradient(
+    circle at 50% 50%,
+    #000 0%,
+    #000 42%,
+    transparent 62%
+  );
+  animation: radarPulse 4s ease-in-out infinite;
 }
-@keyframes raysSpin {
+@keyframes radarSweep {
   from {
     transform: rotate(0deg);
   }
@@ -269,10 +297,10 @@ body::after {
     transform: rotate(360deg);
   }
 }
-@keyframes raysGlow {
+@keyframes radarPulse {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.7;
   }
   50% {
     opacity: 1;
