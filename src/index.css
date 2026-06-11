@@ -1731,6 +1731,33 @@ img {
   }
 }
 
+/* ── СЕРЕБРЯНЫЙ ЛОГОТИП S — анимация ── */
+.logo-s-silver {
+  animation: logoSilverShine 3.5s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+@keyframes logoSilverShine {
+  0%,
+  100% {
+    box-shadow:
+      0 0 18px rgba(210, 216, 224, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+    transform: rotate(0deg);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(245, 147, 50, 0.45),
+      0 0 40px rgba(210, 216, 224, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65),
+      inset 0 -2px 3px rgba(0, 0, 0, 0.25);
+    transform: rotate(-4deg) scale(1.04);
+  }
+}
+:root.a11y .logo-s-silver {
+  animation: none;
+}
+
 /* «живой» эффект фото баннера — дышащий кадр */
 .hero-photo-alive {
   animation: heroPhotoAlive 18s ease-in-out infinite;

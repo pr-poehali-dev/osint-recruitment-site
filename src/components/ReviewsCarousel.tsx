@@ -18,6 +18,12 @@ const FALLBACK: Review[] = [
     text: "Долго сомневался, но решился. Полностью обеспечили экипировкой, проезд оплатили. Доход за первый год превысил 5 миллионов — закрыл ипотеку." },
   { id: -3, name: "Сергей В.", role: "IT-специалист · 6 мес. службы", rating: 5,
     text: "Занимаюсь защищённой инфраструктурой, по своей специальности. Коллектив профессиональный, командование адекватное. Семья получила все льготы." },
+  { id: -4, name: "Ольга, жена бойца", role: "Муж — OSINT-аналитик · 7 мес.", rating: 5,
+    text: "Пишу за мужа — он на службе, времени мало. Очень переживала, когда он уходил, но всё оказалось спокойнее, чем думала. Он в тылу, на связи каждый вечер. Выплаты приходят вовремя, нам с детьми дали все льготы. Спасибо, что заботитесь о семьях." },
+  { id: -5, name: "Марина К.", role: "Жена оператора БпЛА · 1 год", rating: 5,
+    text: "Решила оставить отзыв за супруга. Боялась отпускать, но теперь горжусь им. Работа достойная, доход реальный — закрыли долги, съездили в отпуск всей семьёй. Командование с уважением относится и к нему, и к нам." },
+  { id: -6, name: "Екатерина, супруга", role: "Муж — IT-специалист · 5 мес.", rating: 5,
+    text: "Муж занимается своим делом — IT, по специальности. Дома спокойно, он не на передовой. Помогли с военной ипотекой, оформили всё быстро. Пишу, чтобы другие жёны не боялись — это надёжно и честно." },
 ];
 
 function initials(name: string) {
@@ -156,23 +162,23 @@ export default function ReviewsCarousel() {
             {reviews.map((r) => (
               <div key={r.id} className="shrink-0 px-3.5" style={{ width: `${100 / perView}%` }}>
                 <div className="vol-card hover-lift shimmer-hover p-9 flex flex-col gap-6 h-full"
-                  style={{ borderColor: "rgba(255,255,255,0.1)" }}>
-                  <Icon name="Quote" size={34} style={{ color: "rgba(255,255,255,0.25)" }} />
-                  <p className="font-exo text-white/75 leading-[1.8] flex-1" style={{ fontSize: "1.02rem" }}>{r.text}</p>
+                  style={{ borderColor: "rgba(245,147,50,0.28)", background: "linear-gradient(160deg, rgba(245,147,50,0.07), rgba(255,255,255,0.03))", boxShadow: "0 0 30px rgba(245,147,50,0.08)" }}>
+                  <Icon name="Quote" size={34} style={{ color: "rgba(245,147,50,0.7)" }} />
+                  <p className="font-exo text-white/90 leading-[1.8] flex-1" style={{ fontSize: "1.02rem" }}>{r.text}</p>
                   <div className="flex items-center gap-1.5">
                     {[...Array(5)].map((_, s) => (
-                      <Icon key={s} name="Star" size={15}
-                        style={{ color: s < r.rating ? "#ffffff" : "rgba(255,255,255,0.15)", fill: s < r.rating ? "#ffffff" : "transparent" }} />
+                      <Icon key={s} name="Star" size={16}
+                        style={{ color: s < r.rating ? "#ffb347" : "rgba(255,255,255,0.15)", fill: s < r.rating ? "#ffb347" : "transparent", filter: s < r.rating ? "drop-shadow(0 0 6px rgba(255,179,71,0.5))" : "none" }} />
                     ))}
                   </div>
-                  <div className="flex items-center gap-4 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  <div className="flex items-center gap-4 pt-5" style={{ borderTop: "1px solid rgba(245,147,50,0.2)" }}>
                     <div className="shrink-0 flex items-center justify-center font-orb text-white"
-                      style={{ width: 50, height: 50, borderRadius: 14, fontSize: "1rem", background: "linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04))", border: "1px solid rgba(255,255,255,0.18)", boxShadow: "0 0 20px rgba(255,255,255,0.06)" }}>
+                      style={{ width: 50, height: 50, borderRadius: 14, fontSize: "1rem", background: "linear-gradient(135deg, rgba(245,147,50,0.35), rgba(255,177,85,0.12))", border: "1px solid rgba(245,147,50,0.45)", boxShadow: "0 0 22px rgba(245,147,50,0.25)" }}>
                       {initials(r.name)}
                     </div>
                     <div>
                       <div className="font-orb text-white" style={{ fontSize: "1.05rem" }}>{r.name}</div>
-                      <div className="font-stm text-[11px] tracking-wide mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{r.role}</div>
+                      <div className="font-stm text-[11px] tracking-wide mt-1" style={{ color: "rgba(255,179,71,0.85)" }}>{r.role}</div>
                     </div>
                   </div>
                 </div>

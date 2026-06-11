@@ -78,18 +78,26 @@ const FAQ_IMG =
 const CONTACTS_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/61ad5beb-bfc8-4fca-8b38-3d50a3196b4e.jpg";
 
-/* ── LOGO (премиальная иконка-эмблема) ──────────────────── */
+/* ── LOGO (серебряная буква S) ──────────────────────────── */
 const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: boolean }) => (
-  <div className={animated ? "animate-logo-s" : ""} style={{
+  <div className={animated ? "logo-s-silver" : ""} style={{
     width: size, height: size,
     display: "flex", alignItems: "center", justifyContent: "center",
-    background: "linear-gradient(140deg, #f59332 0%, #a84d14 100%)",
+    background: "linear-gradient(140deg, #f4f6fa 0%, #c2c8d2 40%, #8b919c 100%)",
     borderRadius: size * 0.28,
-    boxShadow: "0 0 20px rgba(245,147,50,0.4), 0 2px 0 rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.3)",
+    boxShadow: "0 0 20px rgba(210,216,224,0.4), 0 2px 0 rgba(255,255,255,0.25), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -2px 3px rgba(0,0,0,0.3)",
     cursor: "default",
     perspective: "200px",
   }}>
-    <Icon name="Radar" size={size * 0.56} style={{ color: "#fff" }} />
+    <span className="font-orb" style={{
+      fontSize: size * 0.6,
+      fontWeight: 900,
+      lineHeight: 1,
+      background: "linear-gradient(160deg, #3a3f47 0%, #6b7280 50%, #2c3036 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      textShadow: "0 1px 0 rgba(255,255,255,0.3)",
+    }}>S</span>
   </div>
 );
 
