@@ -172,13 +172,15 @@
     background-color: #060a1d;
     background-image: linear-gradient(
       135deg,
-      #050817 0%,
-      #0a1430 50%,
-      #061024 100%
+      #04081a 0%,
+      #0b1840 30%,
+      #0a2050 50%,
+      #0b1840 70%,
+      #05102a 100%
     );
-    background-size: 300% 300%;
+    background-size: 400% 400%;
     background-attachment: fixed;
-    animation: bgColorShift 18s ease-in-out infinite;
+    animation: bgColorShift 14s ease-in-out infinite;
     color: var(--white);
     position: relative;
     -webkit-font-smoothing: antialiased;
@@ -200,12 +202,57 @@
     background-position: 0% 50%;
   }
 }
+/* движущиеся световые пятна поверх сплошного фона */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 25% 30%,
+      rgba(40, 95, 240, 0.28) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 78% 65%,
+      rgba(30, 75, 210, 0.24) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 55% 90%,
+      rgba(60, 110, 255, 0.18) 0%,
+      transparent 40%
+    );
+  animation: bgGlowDrift 20s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@keyframes bgGlowDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translate(4%, -3%) scale(1.12);
+    opacity: 1;
+  }
+  66% {
+    transform: translate(-3%, 4%) scale(1.05);
+    opacity: 0.85;
+  }
+}
 :root.a11y body {
   animation: none !important;
   background: #000 !important;
 }
+:root.a11y body::before {
+  display: none !important;
+}
 @media (prefers-reduced-motion: reduce) {
-  body {
+  body,
+  body::before {
     animation: none !important;
   }
 }
