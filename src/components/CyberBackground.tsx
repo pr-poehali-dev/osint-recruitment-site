@@ -26,6 +26,13 @@ export default function CyberBackground() {
             "radial-gradient(ellipse 100% 80% at 50% 0%, #000 30%, transparent 80%)",
         }}
       />
+      {/* движущиеся синие лучи на весь сайт */}
+      <div className="bg-rays-global" />
+      {/* плывущие орбы по всему сайту */}
+      <div className="bg-orb bg-orb-a" />
+      <div className="bg-orb bg-orb-b" />
+      <div className="bg-orb bg-orb-c" />
+      <div className="bg-orb bg-orb-d" />
     </div>
   );
 }
