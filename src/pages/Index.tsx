@@ -69,7 +69,7 @@ const RER_IMG =
 const VAC_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/5e1392cc-774a-4b35-b131-8b80343f912a.jpg";
 const BEN_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/1957acc9-14b7-45a3-a064-1c852a4d9430.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/3c17a335-7382-4d03-ab6c-293366722905.jpg";
 const STEPS_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/1fc587e2-06bd-4981-ba19-65b505017aea.jpg";
 const FAQ_IMG =
