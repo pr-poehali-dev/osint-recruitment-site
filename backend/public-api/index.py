@@ -42,8 +42,16 @@ def handler(event: dict, context) -> dict:
             cur.close(); conn.close()
             return {"statusCode": 200, "headers": cors, "body": json.dumps({"documents": data})}
         if resource == "status":
-            phone = esc(params.get("phone", "")[:50])
-            cur.execute(f"SELECT status, created_at FROM applications WHERE phone = '{phone}' ORDER BY created_at DESC LIMIT 1")
+            raw = params.get("phone", "")[:50]
+            digits = "".join(c for c in raw if c.isdigit())
+            # берём последние 10 цифр (без кода страны 7/8) для надёжного сравнения
+            tail = digits[-10:] if len(digits) >= 10 else digits
+            tail = esc(tail)
+            cur.execute(
+                "SELECT status, created_at FROM applications "
+                "WHERE right(regexp_replace(phone, '\\D', '', 'g'), 10) = '" + tail + "' "
+                "ORDER BY created_at DESC LIMIT 1"
+            )
             row = cur.fetchone()
             cur.close(); conn.close()
             if not row:
