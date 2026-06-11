@@ -410,7 +410,7 @@ export default function Index() {
   const contactsRef = useReveal();
 
   return (
-    <div className="min-h-screen font-exo relative" style={{ background: "var(--bg)" }}>
+    <div className="min-h-screen font-exo relative" style={{ background: "transparent" }}>
       <CyberBackground />
       <div className="relative" style={{ zIndex: 1 }}>
       <ScrollProgress />
@@ -422,9 +422,9 @@ export default function Index() {
 
       {/* ══ NAV ═════════════════════════════════════════ */}
       <nav className="fixed top-0 inset-x-0 z-50 h-14 flex items-center"
-        style={{ background: "rgba(28,32,38,0.72)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+        style={{ background: "rgba(10,16,40,0.72)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(90,130,230,0.18)" }}>
         {/* top green line */}
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), rgba(204,34,0,0.4), transparent)" }} />
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), rgba(47,107,255,0.5), transparent)" }} />
 
         <div className="max-w-[1440px] w-full mx-auto px-6 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 shrink-0">
@@ -452,7 +452,7 @@ export default function Index() {
 
         {menu && (
           <div className="absolute top-14 inset-x-0 px-6 py-5 flex flex-col gap-4 z-50"
-            style={{ background: "rgba(18,20,23,0.99)", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+            style={{ background: "rgba(7,11,30,0.99)", borderTop: "1px solid rgba(90,130,230,0.18)" }}>
             {NAV.map(n => <a key={n.href} href={n.href} className="nav-link py-1" onClick={() => setMenu(false)}>{n.label}</a>)}
             <a href="#contacts" className="btn-red py-3 text-xs" style={{ borderRadius: "2px" }}>Оставить заявку</a>
           </div>
@@ -467,10 +467,10 @@ export default function Index() {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <img src={HERO_IMG} alt="OSINT-РЭР" className="hero-photo-alive w-full h-full object-cover"
             style={{ filter: "brightness(0.85) saturate(1) contrast(1.05)", opacity: 0.7 }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(28,32,38,0.6) 12%, rgba(28,32,38,0.25) 55%, rgba(28,32,38,0.58) 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(6,11,30,0.7) 12%, rgba(6,11,30,0.3) 55%, rgba(6,11,30,0.68) 100%)" }} />
           {/* Corner accents */}
           <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(200,205,212,0.6), transparent)" }} />
-          <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(245,147,50,0.6), transparent)" }} />
+          <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(60,110,255,0.6), transparent)" }} />
         </div>
 
         <div className="relative max-w-[1440px] w-full mx-auto px-6 py-24">
