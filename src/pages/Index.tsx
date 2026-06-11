@@ -597,7 +597,7 @@ export default function Index() {
 
                     <div className="p-5 mt-5 mb-5" style={{ background: "rgba(204,34,0,0.08)", border: "1px solid rgba(204,34,0,0.2)", borderRadius: "2px" }}>
                       <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>ОБЩИЙ ДОХОД · ГОД 1</div>
-                      <div className="money-red leading-none" style={{ fontSize: "2.2rem" }}>от <AnimatedCounter to={pay.year} suffix=" ₽" /></div>
+                      <div className="money-red leading-none" style={{ fontSize: "clamp(1.5rem, 6vw, 2.2rem)" }}>от <AnimatedCounter to={pay.year} suffix=" ₽" /></div>
                     </div>
 
                     <div className="flex items-center gap-3 p-3 mb-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "2px" }}>
@@ -766,12 +766,12 @@ export default function Index() {
                 style={{ height: 280, objectPosition: "center 30%", filter: "brightness(0.98) saturate(1.05) contrast(1.05)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.65) 0%, transparent 40%, rgba(28,32,38,0.52) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-30" />
-              <div className="absolute left-8 top-1/2 -translate-y-1/2">
+              <div className="absolute left-5 sm:left-8 top-1/2 -translate-y-1/2 pr-5 max-w-[60%] sm:max-w-none">
                 <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>// LIVE MONITORING</div>
                 <div className="font-orb text-white text-xl uppercase mb-2">Аналитики за работой</div>
                 <div className="font-exo text-white/50 text-sm max-w-xs">Круглосуточный мониторинг открытых источников в защищённом контуре</div>
               </div>
-              <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+              <div className="hidden sm:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-2">
                 {["СМИ активны", "Telegram · 847 каналов", "Соцсети · мониторинг"].map((t, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5"
                     style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 2 }}>
@@ -836,12 +836,12 @@ export default function Index() {
                 style={{ height: 300, objectPosition: "center 30%", filter: "brightness(0.98) saturate(1.05) contrast(1.05)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.7) 0%, transparent 40%, rgba(28,32,38,0.6) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-30" />
-              <div className="absolute left-8 top-1/2 -translate-y-1/2 max-w-xs">
+              <div className="absolute left-5 sm:left-8 top-1/2 -translate-y-1/2 pr-5 max-w-[65%] sm:max-w-xs">
                 <div className="font-stm text-[10px] tracking-[0.3em] mb-2 text-scan-green">// РЭР · ОПЕРАТОР · LIVE</div>
                 <div className="font-orb text-white text-xl uppercase mb-2 leading-tight">Радиоэлектронная<br />разведка</div>
                 <div className="font-exo text-white/50 text-sm">Перехват и анализ сигналов противника в реальном времени</div>
               </div>
-              <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+              <div className="hidden sm:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-2">
                 {["Диапазон · активен", "Перехват · идёт", "Анализ · выполняется"].map((t, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5"
                     style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.22)", borderRadius: 2 }}>
@@ -1046,7 +1046,7 @@ export default function Index() {
             <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
               <img src={VAC_IMG} alt="Специалисты" className="w-full h-full object-cover" style={{ filter: "brightness(0.98) saturate(1.05)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.7) 0%, transparent 50%, rgba(28,32,38,0.7) 100%)" }} />
-              <div className="absolute inset-0 flex items-center px-10 gap-8">
+              <div className="absolute inset-0 flex items-center px-6 sm:px-10 gap-8">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; НАБОР ОТКРЫТ · 2026</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)" }}>Профессиональный<br />коллектив ждёт тебя</div>
@@ -1142,7 +1142,7 @@ export default function Index() {
             <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
               <img src={BEN_IMG} alt="Льготы и гарантии" className="w-full h-full object-cover" style={{ filter: "brightness(0.98) saturate(1.05)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.72) 0%, transparent 55%, rgba(28,32,38,0.65) 100%)" }} />
-              <div className="absolute inset-0 flex items-center px-10 gap-6">
+              <div className="absolute inset-0 flex items-center px-6 sm:px-10 gap-6">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; ГАРАНТИИ ГОСУДАРСТВА РФ</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.1rem, 2.3vw, 1.7rem)" }}>8 видов льгот<br />с первого дня службы</div>
@@ -1170,7 +1170,7 @@ export default function Index() {
                     <div className="min-w-0 flex-1">
                       {/* Title + sum in one row */}
                       <div className="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
-                        <div className="font-orb text-white text-sm uppercase tracking-wide leading-tight whitespace-nowrap">{b.title}</div>
+                        <div className="font-orb text-white text-sm uppercase tracking-wide leading-tight">{b.title}</div>
                         <div className="font-orb text-sm whitespace-nowrap shrink-0" style={{ color: "#ffffff", textShadow: "0 0 12px rgba(255,255,255,0.5)" }}>{b.sum}</div>
                       </div>
                       <div className="font-exo text-white/50 text-sm leading-[1.75]">{b.desc}</div>
@@ -1215,7 +1215,7 @@ export default function Index() {
             <div className="relative w-full h-48 mb-12 overflow-hidden" style={{ borderRadius: "3px" }}>
               <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.98) saturate(1.05)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.72) 0%, transparent 60%, rgba(28,32,38,0.65) 100%)" }} />
-              <div className="absolute inset-0 flex items-center px-10">
+              <div className="absolute inset-0 flex items-center px-6 sm:px-10">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; ОТ ЗАЯВКИ ДО ЗАЧИСЛЕНИЯ</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.1rem, 2.3vw, 1.7rem)" }}>5 простых шагов —<br />и вы в команде</div>
@@ -1350,7 +1350,7 @@ export default function Index() {
             <div className="relative w-full h-44 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
               <img src={CONTACTS_IMG} alt="Связаться с нами" className="w-full h-full object-cover" style={{ filter: "brightness(0.98) saturate(1.05)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(28,32,38,0.72) 0%, transparent 55%, rgba(28,32,38,0.7) 100%)" }} />
-              <div className="absolute inset-0 flex items-center px-10 gap-8">
+              <div className="absolute inset-0 flex items-center px-6 sm:px-10 gap-8">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; СВЯЗЬ 24/7</div>
                   <div className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)" }}>Ответим в течение<br />24 часов</div>

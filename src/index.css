@@ -1554,7 +1554,57 @@ h3 {
   display: none !important;
 }
 
-/* ── АДАПТИВ: ПЛАНШЕТЫ ── */
+/* ── ГЛОБАЛЬНАЯ ПЛАВНОСТЬ ── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+a,
+button,
+.vol-card,
+.btn-red,
+.btn-red-animated,
+.btn-ghost,
+.ibox,
+input,
+textarea,
+select,
+.nav-link,
+[role="button"] {
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease;
+}
+
+/* безопасные зоны под «чёлки» и закруглённые углы телефонов */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ── АДАПТИВ: БОЛЬШИЕ ЭКРАНЫ / 4K (от 1920px) ── */
+@media (min-width: 1920px) {
+  body {
+    font-size: 19px;
+  }
+  .max-w-\[1440px\] {
+    max-width: 1680px;
+  }
+}
+
+/* ── АДАПТИВ: НОУТБУКИ / МАЛЫЙ ДЕСКТОП ── */
+@media (max-width: 1280px) {
+  body {
+    font-size: 17.5px;
+  }
+}
+
+/* ── АДАПТИВ: ПЛАНШЕТЫ (≤1024px) ── */
 @media (max-width: 1024px) {
   body {
     font-size: 17px;
@@ -1563,9 +1613,24 @@ h3 {
     padding-top: 5rem !important;
     padding-bottom: 5rem !important;
   }
+  /* широкие сетки сжимаем мягче */
+  .vol-card {
+    border-radius: 12px;
+  }
 }
 
-/* ── АДАПТИВ: МОБИЛЬНЫЕ ── */
+/* ── АДАПТИВ: МАЛЫЕ ПЛАНШЕТЫ / БОЛЬШИЕ ТЕЛЕФОНЫ (≤860px) ── */
+@media (max-width: 860px) {
+  body {
+    font-size: 16.5px;
+  }
+  section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+}
+
+/* ── АДАПТИВ: МОБИЛЬНЫЕ (≤768px) ── */
 @media (max-width: 768px) {
   body {
     font-size: 16px;
@@ -1574,33 +1639,79 @@ h3 {
     padding-top: 3.5rem !important;
     padding-bottom: 3.5rem !important;
   }
-  /* убираем тяжёлые ховер-сдвиги на тач-устройствах */
-  .hover-lift:hover {
-    transform: none;
+  /* контейнеры — меньше боковых отступов */
+  .px-6 {
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
   }
+  /* убираем тяжёлые ховер-сдвиги на тач-устройствах */
+  .hover-lift:hover,
   .vol-card:hover {
     transform: none;
   }
-  /* плавающие кнопки компактнее */
-  .form-input {
-    font-size: 16px; /* предотвращает зум при фокусе на iOS */
+  /* поля ввода — без зума на iOS */
+  .form-input,
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
   }
   /* отключаем дорогую анимацию shimmer на мобиле */
   .shimmer-hover::after {
     display: none;
   }
+  /* крупные заголовки чуть компактнее */
+  h1 {
+    line-height: 0.95 !important;
+  }
 }
 
-/* ── АДАПТИВ: МАЛЫЕ ТЕЛЕФОНЫ ── */
-@media (max-width: 420px) {
+/* ── АДАПТИВ: ТЕЛЕФОНЫ (≤520px) ── */
+@media (max-width: 520px) {
+  body {
+    font-size: 15.5px;
+  }
   section {
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
+  }
+  /* сетки в 2-3 колонки на мелких — в одну */
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  /* кнопки на всю ширину для удобного тапа */
+  .btn-red,
+  .btn-red-animated,
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── АДАПТИВ: МАЛЫЕ ТЕЛЕФОНЫ (≤380px, iPhone SE и т.п.) ── */
+@media (max-width: 380px) {
+  body {
+    font-size: 15px;
+  }
+  .px-6 {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
   }
   .cyber-frame::before,
   .cyber-frame::after {
     width: 12px;
     height: 12px;
+  }
+}
+
+/* ── ЛАНДШАФТ НА ТЕЛЕФОНАХ (горизонтальная ориентация) ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  .min-h-screen {
+    min-height: auto !important;
   }
 }
 
@@ -1612,11 +1723,17 @@ h3 {
   }
 }
 
-/* предотвращаем горизонтальный скролл на мобильных */
+/* предотвращаем горизонтальный скролл на всех устройствах */
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
+}
+/* всё внутри не вылезает за ширину экрана */
+img,
+video,
+iframe {
+  max-width: 100%;
 }
 
 /* ── ПРОИЗВОДИТЕЛЬНОСТЬ И АДАПТИВ ── */
