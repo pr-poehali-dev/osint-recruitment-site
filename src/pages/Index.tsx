@@ -58,7 +58,7 @@ function useSound() {
 type AnyIcon = any;
 
 const HERO_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/2a60c635-22eb-4120-b4d1-3b964aac3554.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/e0ef8a96-7033-4373-a04a-4bfced936bd2.jpg";
 const OSINT_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/093562c1-622b-46fe-83dc-220fd7099893.jpg";
 const OSINT_VIZ_IMG =
