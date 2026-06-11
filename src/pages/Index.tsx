@@ -10,6 +10,7 @@ import ExitPopup from "@/components/ExitPopup";
 import Comparison from "@/components/Comparison";
 import AccessibilityBar from "@/components/AccessibilityBar";
 import CyberBackground from "@/components/CyberBackground";
+import HeroBackground from "@/components/HeroBackground";
 import Ticker from "@/components/Ticker";
 import LiveViewers from "@/components/LiveViewers";
 import Timeline from "@/components/Timeline";
@@ -453,20 +454,17 @@ export default function Index() {
       </nav>
 
       {/* ══ HERO ════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-14 scanlines">
-        {/* BG layers */}
-        <div className="absolute inset-0">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-14">
+        {/* анимированный фон */}
+        <HeroBackground />
+        {/* фото-вставка с мягким наложением */}
+        <div className="absolute inset-0 pointer-events-none">
           <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.7) saturate(0.95) contrast(1.05)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(18,20,23,0.9) 20%, rgba(18,20,23,0.3) 60%, rgba(18,20,23,0.75) 100%)" }} />
-          <div className="absolute inset-0 grid-cyber opacity-80" />
-          <div className="absolute inset-0 circuit-lines" />
+            style={{ filter: "brightness(0.55) saturate(0.9) contrast(1.05)", opacity: 0.4, mixBlendMode: "luminosity" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(18,20,23,0.85) 15%, rgba(18,20,23,0.35) 55%, rgba(18,20,23,0.8) 100%)" }} />
           {/* Corner accents */}
-          <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.7), transparent)" }} />
-          <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(204,34,0,0.6), transparent)" }} />
-          {/* Extra glow spots */}
-          <div className="absolute bottom-0 left-1/3 w-96 h-32" style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.07) 0%, transparent 70%)", filter: "blur(20px)" }} />
-          <div className="scan-beam" />
+          <div className="absolute top-20 left-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(200,205,212,0.6), transparent)" }} />
+          <div className="absolute top-20 right-0 w-px h-48" style={{ background: "linear-gradient(180deg, transparent, rgba(245,147,50,0.6), transparent)" }} />
         </div>
 
         <div className="relative max-w-[1440px] w-full mx-auto px-6 py-24">
@@ -481,11 +479,11 @@ export default function Index() {
                 <div className="w-2.5 h-2.5 rounded-full animate-blink" style={{ background: "#ffffff", boxShadow: "0 0 10px #ffffff", animationDelay: "0.5s" }} />
               </div>
 
-              <h1 className="animate-fade-up d1 font-orb text-white leading-[0.88] mb-6 animate-glitch"
+              <h1 className="animate-fade-up d1 font-orb text-white leading-[0.88] mb-6"
                 style={{ fontSize: "clamp(2.8rem, 7vw, 5.8rem)", textTransform: "uppercase", letterSpacing: "-0.02em" }}>
                 OSINT<br />
-                <span style={{ color: "#cc2200", textShadow: "0 0 30px rgba(204,34,0,0.6)" }}>подразделение</span><br />
-                <span style={{ fontSize: "40%", color: "rgba(255,255,255,0.45)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.06em" }}>Радиоэлектронная разведка · РЭР</span>
+                <span className="hero-title-accent" style={{ color: "#f59332", textShadow: "0 0 36px rgba(245,147,50,0.55)" }}>подразделение</span><br />
+                <span style={{ fontSize: "40%", color: "rgba(200,205,212,0.55)", fontFamily: "'Exo 2', sans-serif", fontWeight: 300, letterSpacing: "0.06em" }}>Радиоэлектронная разведка · РЭР</span>
               </h1>
 
               <p className="animate-fade-up d2 text-white/48 text-base leading-relaxed max-w-[480px] mb-2">
@@ -513,7 +511,7 @@ export default function Index() {
 
               <div className="animate-fade-up d5 mt-14 flex flex-wrap gap-8">
                 {[
-                  { val:rub(pay.year), sub:"Доход за 1-й год", color:"#ff4422" },
+                  { val:rub(pay.year), sub:"Доход за 1-й год", color:"#f59332" },
                   { val:rub(pay.monthly), sub:"В месяц",        color:"#ffffff" },
                   { val:"1000+",       sub:"Задач выполнено",   color:"#ffffff" },
                 ].map((s, i) => (

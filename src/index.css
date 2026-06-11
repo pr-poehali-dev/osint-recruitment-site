@@ -1549,3 +1549,179 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ══ АНИМИРОВАННЫЙ ФОН ГЛАВНОГО БАННЕРА ══════════════════ */
+.hero-anim-bg {
+  background:
+    radial-gradient(
+      ellipse 90% 60% at 50% -10%,
+      rgba(245, 147, 50, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #14171b 0%, #181b20 55%, #121417 100%);
+}
+
+/* световые пятна */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  will-change: transform;
+}
+.hero-orb-1 {
+  width: 540px;
+  height: 540px;
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(245, 147, 50, 0.4), transparent 70%);
+  animation: orbFloat1 22s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 460px;
+  height: 460px;
+  bottom: -140px;
+  right: -60px;
+  background: radial-gradient(
+    circle,
+    rgba(200, 205, 212, 0.22),
+    transparent 70%
+  );
+  animation: orbFloat2 28s ease-in-out infinite;
+}
+.hero-orb-3 {
+  width: 380px;
+  height: 380px;
+  top: 40%;
+  left: 55%;
+  background: radial-gradient(circle, rgba(255, 177, 85, 0.2), transparent 70%);
+  animation: orbFloat3 25s ease-in-out infinite;
+}
+@keyframes orbFloat1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(120px, 80px) scale(1.15);
+  }
+}
+@keyframes orbFloat2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-100px, -70px) scale(1.2);
+  }
+}
+@keyframes orbFloat3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-80px, 60px) scale(0.85);
+    opacity: 0.7;
+  }
+}
+
+/* плывущая сетка */
+.hero-grid {
+  position: absolute;
+  inset: -50%;
+  background-image:
+    linear-gradient(rgba(200, 205, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 205, 212, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 40%,
+    #000 20%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 40%,
+    #000 20%,
+    transparent 75%
+  );
+  animation: heroGridDrift 30s linear infinite;
+  will-change: transform;
+}
+@keyframes heroGridDrift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(56px, 56px);
+  }
+}
+
+/* диагональные движущиеся лучи */
+.hero-rays {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    115deg,
+    transparent 0px,
+    transparent 140px,
+    rgba(245, 147, 50, 0.04) 140px,
+    rgba(245, 147, 50, 0.04) 142px
+  );
+  background-size: 400px 400px;
+  animation: raysMove 18s linear infinite;
+}
+@keyframes raysMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/* пульсация акцента в заголовке */
+.hero-title-accent {
+  animation: titleGlow 4s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 36px rgba(245, 147, 50, 0.45);
+  }
+  50% {
+    text-shadow:
+      0 0 48px rgba(245, 147, 50, 0.75),
+      0 0 12px rgba(255, 177, 85, 0.4);
+  }
+}
+
+/* виньетка */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 80% at 50% 50%,
+    transparent 40%,
+    rgba(15, 17, 20, 0.5) 100%
+  );
+  pointer-events: none;
+}
+
+/* отключаем тяжёлый фон для слабовидящих и слабых устройств */
+:root.a11y .hero-anim-bg {
+  background: #000 !important;
+}
+:root.a11y .hero-orb,
+:root.a11y .hero-grid,
+:root.a11y .hero-rays {
+  display: none !important;
+}
+@media (max-width: 768px) {
+  .hero-orb {
+    filter: blur(50px);
+  }
+  .hero-rays {
+    display: none;
+  }
+}
