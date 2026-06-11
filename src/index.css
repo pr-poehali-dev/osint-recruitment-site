@@ -169,22 +169,16 @@
     font-family: "Inter", sans-serif;
     font-size: 18px;
     letter-spacing: -0.011em;
-    background-color: #050817;
-    background-image:
-      repeating-linear-gradient(
-        125deg,
-        rgba(40, 80, 220, 0) 0px,
-        rgba(40, 80, 220, 0) 60px,
-        rgba(40, 80, 220, 0.05) 90px,
-        rgba(60, 110, 255, 0.1) 120px,
-        rgba(40, 80, 220, 0.05) 150px,
-        rgba(40, 80, 220, 0) 180px
-      ),
-      linear-gradient(180deg, #060a1d 0%, #04060f 100%);
-    background-size:
-      100% 100%,
-      100% 100%;
+    background-color: #060a1d;
+    background-image: linear-gradient(
+      135deg,
+      #050817 0%,
+      #0a1430 50%,
+      #061024 100%
+    );
+    background-size: 300% 300%;
     background-attachment: fixed;
+    animation: bgColorShift 18s ease-in-out infinite;
     color: var(--white);
     position: relative;
     -webkit-font-smoothing: antialiased;
@@ -194,157 +188,24 @@
   }
 }
 
-/* ── ПУЛЬСИРУЮЩЕЕ СИНЕЕ СВЕЧЕНИЕ ФОНА ── */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse 75% 55% at 50% 22%,
-      rgba(40, 95, 240, 0.4) 0%,
-      rgba(25, 60, 170, 0.16) 38%,
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 80% 85%,
-      rgba(30, 70, 200, 0.22) 0%,
-      transparent 60%
-    );
-  animation: bgPulse 7s ease-in-out infinite;
-}
-@keyframes bgPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1) translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.07) translateY(-1.5%);
-  }
-}
-:root.a11y body::before {
-  display: none !important;
-}
-
-/* ── ГЛОБАЛЬНЫЕ ПЛЫВУЩИЕ ОРБЫ (на весь сайт) ── */
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-.bg-orb-a {
-  width: 46vw;
-  height: 46vw;
-  top: -8vw;
-  left: -10vw;
-  background: radial-gradient(
-    circle,
-    rgba(47, 107, 255, 0.34),
-    transparent 70%
-  );
-  animation: orbDrift1 26s ease-in-out infinite;
-}
-.bg-orb-b {
-  width: 38vw;
-  height: 38vw;
-  top: 35%;
-  right: -12vw;
-  background: radial-gradient(
-    circle,
-    rgba(70, 130, 255, 0.26),
-    transparent 70%
-  );
-  animation: orbDrift2 32s ease-in-out infinite;
-}
-.bg-orb-c {
-  width: 42vw;
-  height: 42vw;
-  bottom: -10vw;
-  left: 20%;
-  background: radial-gradient(circle, rgba(30, 80, 210, 0.28), transparent 70%);
-  animation: orbDrift3 30s ease-in-out infinite;
-}
-.bg-orb-d {
-  width: 30vw;
-  height: 30vw;
-  top: 60%;
-  left: 5%;
-  background: radial-gradient(circle, rgba(90, 150, 255, 0.2), transparent 70%);
-  animation: orbDrift1 36s ease-in-out infinite reverse;
-}
-@keyframes orbDrift1 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(8vw, 6vw) scale(1.18);
-    opacity: 1;
-  }
-}
-@keyframes orbDrift2 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(-7vw, -5vw) scale(1.22);
-    opacity: 0.9;
-  }
-}
-@keyframes orbDrift3 {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1.05);
-    opacity: 0.55;
-  }
-  50% {
-    transform: translate(-6vw, 4vw) scale(0.9);
-    opacity: 0.85;
-  }
-}
-
-/* ── ГЛОБАЛЬНЫЕ ДВИЖУЩИЕСЯ ЛУЧИ ── */
-.bg-rays-global {
-  position: absolute;
-  inset: -20%;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    118deg,
-    transparent 0px,
-    transparent 90px,
-    rgba(60, 110, 255, 0.04) 120px,
-    rgba(90, 150, 255, 0.08) 140px,
-    rgba(60, 110, 255, 0.04) 160px,
-    transparent 200px
-  );
-  background-size: 600px 600px;
-  animation: raysMoveGlobal 24s linear infinite;
-}
-@keyframes raysMoveGlobal {
+/* ── СПЛОШНОЙ ТЁМНО-СИНИЙ АНИМИРОВАННЫЙ ФОН ── */
+@keyframes bgColorShift {
   0% {
-    background-position: 0 0;
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
   100% {
-    background-position: 600px 0;
+    background-position: 0% 50%;
   }
 }
-:root.a11y .bg-orb,
-:root.a11y .bg-rays-global {
-  display: none !important;
+:root.a11y body {
+  animation: none !important;
+  background: #000 !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  .bg-orb,
-  .bg-rays-global,
-  body::before {
+  body {
     animation: none !important;
   }
 }
@@ -370,29 +231,7 @@ body::before {
   position: relative;
 }
 .sect-texture::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(255, 255, 255, 0.035) 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(60, 110, 255, 0.07) 0%,
-      transparent 50%
-    ),
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.012) 0px,
-      rgba(255, 255, 255, 0.012) 1px,
-      transparent 1px,
-      transparent 14px
-    );
+  content: none;
 }
 .sect-texture > * {
   position: relative;
@@ -430,14 +269,9 @@ body::before {
   display: none;
 }
 
-/* ── CYBER BG PATTERNS ── */
+/* ── CYBER BG PATTERNS (отключены — сплошной фон) ── */
 .grid-cyber {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size:
-    80px 80px,
-    80px 80px;
+  background-image: none;
 }
 
 .circuit-lines {
