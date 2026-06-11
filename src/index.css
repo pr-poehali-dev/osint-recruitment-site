@@ -2178,3 +2178,63 @@ img {
   -webkit-text-fill-color: #ffff00 !important;
   color: #ffff00 !important;
 }
+
+/* ── СЕРЕБРЯНЫЙ ИНФО-БЛОК (компактная карточка-секция) ── */
+.silver-block {
+  position: relative;
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(
+    160deg,
+    rgba(221, 227, 239, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 45%,
+    rgba(10, 16, 40, 0.25) 100%
+  );
+  border: 1px solid rgba(210, 216, 224, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(221, 227, 239, 0.22),
+    inset 0 0 30px rgba(120, 160, 255, 0.04);
+  transition:
+    border-color 0.35s,
+    box-shadow 0.4s,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* верхняя серебряная блик-полоса */
+.silver-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(245, 247, 250, 0.7),
+    transparent
+  );
+}
+.silver-block:hover {
+  border-color: rgba(221, 227, 239, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 16px 50px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(221, 227, 239, 0.3),
+    0 0 36px rgba(120, 160, 255, 0.1);
+  transform: translateY(-3px);
+}
+/* компактнее вертикальные отступы секций с серебряным блоком */
+section:has(> .max-w-\[1440px\] .silver-block) {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+:root.a11y .silver-block {
+  background: #000 !important;
+  border: 2px solid #ffff00 !important;
+  box-shadow: none !important;
+}
+:root.a11y .silver-block::before {
+  display: none !important;
+}

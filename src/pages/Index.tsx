@@ -681,11 +681,11 @@ export default function Index() {
       <Blog />
 
       {/* ══ ЧТО ТАКОЕ OSINT ════════════════════════════ */}
-      <section id="osint" className="py-28 relative overflow-hidden sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+      <section id="osint" className="py-16 relative overflow-hidden sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
 
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-6"><div className="silver-block">
           <div ref={osintRef} className="section-entry">
             <div className="label-mono mb-3">// Что такое OSINT</div>
             <div className="accent-line" />
@@ -782,16 +782,16 @@ export default function Index() {
               </div>
             </div>
           </div>
-        </div>
+        </div></div>
       </section>
 
       {/* ══ ЧТО ТАКОЕ РЭР ══════════════════════════════ */}
-      <section id="rer" className="py-28 relative overflow-hidden sect-texture t-dots">
+      <section id="rer" className="py-16 relative overflow-hidden sect-texture t-dots">
         {/* cyber bg accent */}
         <div className="absolute inset-0 grid-cyber opacity-50 pointer-events-none" />
         <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.3), transparent)" }} />
 
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-6"><div className="silver-block">
           <div ref={rerRef} className="section-entry">
             <div className="label-mono mb-3">// Что такое РЭР</div>
             <div className="accent-line" />
@@ -865,7 +865,7 @@ export default function Index() {
               ))}
             </div>
           </div>
-        </div>
+        </div></div>
       </section>
 
       {/* ══ ABOUT ═══════════════════════════════════════ */}
@@ -1025,16 +1025,16 @@ export default function Index() {
       </section>
 
       {/* ══ VACANCIES ═══════════════════════════════════ */}
-      <section id="vacancies" className="py-28 relative sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <section id="vacancies" className="py-16 relative sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute inset-0 grid-cyber opacity-30 pointer-events-none" />
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-6"><div className="silver-block">
           <div ref={vacRef} className="section-entry">
             <div className="label-mono mb-3">// Открытые позиции</div>
             <div className="accent-line" />
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
               <div className="flex flex-col gap-4">
                 <h2 className="font-orb text-white uppercase leading-tight" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-                  Требуемые<br /><span style={{ color: "#cc2200" }}>специалисты</span>
+                  Требуемые<br /><span style={{ color: "#4f8bff" }}>специалисты</span>
                 </h2>
               </div>
               <div className="flex flex-col gap-2.5">
@@ -1121,19 +1121,19 @@ export default function Index() {
                 </div>
             }
           </div>
-        </div>
+        </div></div>
       </section>
 
       {/* ══ BENEFITS ════════════════════════════════════ */}
-      <section id="benefits" className="py-28 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+      <section id="benefits" className="py-16 relative sect-texture t-dots" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
         <div className="absolute inset-0 grid-cyber opacity-40 pointer-events-none" />
         <div className="absolute left-0 top-0 bottom-0 w-px" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent)" }} />
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-6"><div className="silver-block">
           <div ref={benRef} className="section-entry">
             <div className="label-mono mb-3">// Социальный пакет</div>
             <div className="accent-line" />
             <h2 className="font-orb text-white uppercase leading-tight mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}>
-              Льготы и <span style={{ color: "#cc2200" }}>гарантии</span>
+              Льготы и <span style={{ color: "#4f8bff" }}>гарантии</span>
             </h2>
             <p className="font-exo text-white/45 text-base mb-8 max-w-xl leading-relaxed">
               Государство гарантирует полный социальный пакет с первого дня службы — для вас и вашей семьи.
@@ -1200,13 +1200,13 @@ export default function Index() {
               </div>
             </div>
           </div>
-        </div>
+        </div></div>
       </section>
 
       {/* ══ STEPS ═══════════════════════════════════════ */}
-      <section id="steps" className="py-28 relative sect-texture t-red" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <section id="steps" className="py-16 relative sect-texture t-red" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="absolute inset-0 grid-cyber opacity-25 pointer-events-none" />
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[1280px] mx-auto px-6"><div className="silver-block">
           <div ref={stepsRef} className="section-entry">
             <div className="label-mono mb-3">// Алгоритм вступления</div>
             <div className="accent-line" />
@@ -1245,12 +1245,12 @@ export default function Index() {
               ))}
             </div>
           </div>
-        </div>
+        </div></div>
       </section>
 
       {/* ══ FAQ ═════════════════════════════════════════ */}
-      <section id="faq" className="py-28 relative sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="max-w-[1440px] mx-auto px-6">
+      <section id="faq" className="py-16 relative sect-texture" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="max-w-[1280px] mx-auto px-6"><div className="silver-block">
           <div ref={faqRef} className="section-entry">
             <div className="label-mono mb-3">// База знаний</div>
             <div className="accent-line" />
@@ -1312,7 +1312,7 @@ export default function Index() {
               </div>
             </div>
           </div>
-        </div>
+        </div></div>
       </section>
 
       {/* ══ КАЛЬКУЛЯТОР ДОХОДА ══════════════════════════ */}
