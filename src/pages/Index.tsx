@@ -7,10 +7,8 @@ import IncomeCalculator from "@/components/IncomeCalculator";
 import LocationsBlock from "@/components/LocationsBlock";
 import ScrollProgress from "@/components/ScrollProgress";
 import ExitPopup from "@/components/ExitPopup";
-import Quiz from "@/components/Quiz";
 import Comparison from "@/components/Comparison";
 import AccessibilityBar from "@/components/AccessibilityBar";
-import CyberMap from "@/components/CyberMap";
 import CyberBackground from "@/components/CyberBackground";
 import Ticker from "@/components/Ticker";
 import LiveViewers from "@/components/LiveViewers";
@@ -59,21 +57,21 @@ function useSound() {
 type AnyIcon = any;
 
 const HERO_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/05889d9a-b9a8-4eff-8c2a-42f98dd7acee.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/7d314ee6-7d9c-4fc6-b152-a0c5e0b24fc2.jpg";
 const OSINT_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8eb5e63c-ad19-4f06-a754-0ea7ae356fb8.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/093562c1-622b-46fe-83dc-220fd7099893.jpg";
 const OSINT_VIZ_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a958d524-268e-4fbf-a68e-81b630c18e7d.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/c56f25cc-b52f-43f4-a2cc-ea35eb332099.jpg";
 const BPLA_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/8e748e04-f308-4462-a51e-341ca5da8cec.jpg";
 const RER_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/31f5937d-f408-41ec-961e-c5b319d3ac3a.jpg";
 const VAC_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/810d6141-dda0-462b-af3b-c433a6c3ff1b.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/5e1392cc-774a-4b35-b131-8b80343f912a.jpg";
 const BEN_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/a667be9c-4a5b-448a-975d-3aedc2ee39b3.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/18442483-2c7f-4b7c-9a66-e594809f4de4.jpg";
 const STEPS_IMG =
-  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/93937d75-6e4f-4d1c-a47b-24b5e2216231.jpg";
+  "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/f0e34af6-750b-4435-a611-6beb231b73f9.jpg";
 const FAQ_IMG =
   "https://cdn.poehali.dev/projects/31cf2f8d-8f85-4cf9-801d-b8ed9fa0968a/files/02080dfa-f5d0-43f6-9b10-801e6e33fd2c.jpg";
 const CONTACTS_IMG =
@@ -84,9 +82,9 @@ const LogoS = ({ size = 36, animated = false }: { size?: number; animated?: bool
   <div className={animated ? "animate-logo-s" : ""} style={{
     width: size, height: size,
     display: "flex", alignItems: "center", justifyContent: "center",
-    background: "linear-gradient(140deg, #dc2626 0%, #5a0f00 100%)",
+    background: "linear-gradient(140deg, #f59332 0%, #a84d14 100%)",
     borderRadius: size * 0.28,
-    boxShadow: "0 0 20px rgba(220,38,38,0.4), 0 2px 0 rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.3)",
+    boxShadow: "0 0 20px rgba(245,147,50,0.4), 0 2px 0 rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.3)",
     cursor: "default",
     perspective: "200px",
   }}>
@@ -133,7 +131,6 @@ function useReveal() {
 const NAV = [
   { label: "Вакансии",       href: "#vacancies" },
   { label: "Доход",          href: "#calculator" },
-  { label: "Тест",           href: "#quiz" },
   { label: "Льготы",         href: "#benefits" },
   { label: "Отзывы",         href: "#reviews" },
   { label: "FAQ",            href: "#faq" },
@@ -418,7 +415,7 @@ export default function Index() {
 
       {/* ══ NAV ═════════════════════════════════════════ */}
       <nav className="fixed top-0 inset-x-0 z-50 h-14 flex items-center"
-        style={{ background: "rgba(5,7,13,0.97)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+        style={{ background: "rgba(18,20,23,0.97)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
         {/* top green line */}
         <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), rgba(204,34,0,0.4), transparent)" }} />
 
@@ -448,7 +445,7 @@ export default function Index() {
 
         {menu && (
           <div className="absolute top-14 inset-x-0 px-6 py-5 flex flex-col gap-4 z-50"
-            style={{ background: "rgba(5,7,13,0.99)", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+            style={{ background: "rgba(18,20,23,0.99)", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
             {NAV.map(n => <a key={n.href} href={n.href} className="nav-link py-1" onClick={() => setMenu(false)}>{n.label}</a>)}
             <a href="#contacts" className="btn-red py-3 text-xs" style={{ borderRadius: "2px" }}>Оставить заявку</a>
           </div>
@@ -460,8 +457,8 @@ export default function Index() {
         {/* BG layers */}
         <div className="absolute inset-0">
           <img src={HERO_IMG} alt="OSINT-РЭР" className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.6) saturate(0.85) contrast(1.1)" }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(5,7,13,0.9) 20%, rgba(5,7,13,0.3) 60%, rgba(5,7,13,0.75) 100%)" }} />
+            style={{ filter: "brightness(0.7) saturate(0.95) contrast(1.05)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(110deg, rgba(18,20,23,0.9) 20%, rgba(18,20,23,0.3) 60%, rgba(18,20,23,0.75) 100%)" }} />
           <div className="absolute inset-0 grid-cyber opacity-80" />
           <div className="absolute inset-0 circuit-lines" />
           {/* Corner accents */}
@@ -746,8 +743,8 @@ export default function Index() {
                 <div className="cyber-frame overflow-hidden rounded" style={{ borderRadius: 4 }}>
                   <img src={OSINT_VIZ_IMG} alt="OSINT визуализация"
                     className="w-full object-cover"
-                    style={{ height: 340, filter: "brightness(0.75) saturate(0.8) contrast(1.1)" }} />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(5,7,13,0.9) 100%)" }} />
+                    style={{ height: 340, filter: "brightness(0.9) saturate(1) contrast(1.05)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(18,20,23,0.9) 100%)" }} />
                   <div className="absolute bottom-5 left-5">
                     <div className="font-stm text-[10px] tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>// OSINT VISUALIZATION</div>
                     <div className="font-orb text-white text-base">Разведка открытых источников</div>
@@ -755,7 +752,7 @@ export default function Index() {
                 </div>
                 {/* floating badge */}
                 <div className="absolute -top-4 -right-4 px-4 py-2 animate-float"
-                  style={{ background: "rgba(5,7,13,0.95)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: 3, boxShadow: "0 0 20px rgba(255,255,255,0.15)" }}>
+                  style={{ background: "rgba(18,20,23,0.95)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: 3, boxShadow: "0 0 20px rgba(255,255,255,0.15)" }}>
                   <div className="font-orb text-xs" style={{ color: "#ffffff" }}>OSINT · 24/7</div>
                 </div>
               </div>
@@ -765,8 +762,8 @@ export default function Index() {
             <div className="relative overflow-hidden cyber-frame animate-fade-up" style={{ opacity: 0, animationDelay: "0.3s", borderRadius: 4 }}>
               <img src={OSINT_IMG} alt="OSINT команда"
                 className="w-full object-cover"
-                style={{ height: 280, objectPosition: "center 30%", filter: "brightness(0.55) saturate(0.6) contrast(1.1)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.85) 0%, transparent 40%, rgba(5,7,13,0.7) 100%)" }} />
+                style={{ height: 280, objectPosition: "center 30%", filter: "brightness(0.85) saturate(0.95) contrast(1.05)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.85) 0%, transparent 40%, rgba(18,20,23,0.7) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-30" />
               <div className="absolute left-8 top-1/2 -translate-y-1/2">
                 <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>// LIVE MONITORING</div>
@@ -835,8 +832,8 @@ export default function Index() {
             <div className="relative overflow-hidden cyber-frame mb-8 animate-fade-up" style={{ opacity: 0, animationDelay: "0.25s", borderRadius: 4 }}>
               <img src={RER_IMG} alt="Радиоэлектронная разведка"
                 className="w-full object-cover"
-                style={{ height: 300, objectPosition: "center 30%", filter: "brightness(0.45) saturate(0.6) contrast(1.2)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.95) 0%, transparent 40%, rgba(5,7,13,0.8) 100%)" }} />
+                style={{ height: 300, objectPosition: "center 30%", filter: "brightness(0.85) saturate(0.95) contrast(1.05)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.95) 0%, transparent 40%, rgba(18,20,23,0.8) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-30" />
               <div className="absolute left-8 top-1/2 -translate-y-1/2 max-w-xs">
                 <div className="font-stm text-[10px] tracking-[0.3em] mb-2 text-scan-green">// РЭР · ОПЕРАТОР · LIVE</div>
@@ -945,8 +942,8 @@ export default function Index() {
             <div className="relative overflow-hidden cyber-frame mb-8 animate-fade-up" style={{ opacity: 0, animationDelay: "0.2s", borderRadius: 4 }}>
               <img src={BPLA_IMG} alt="Операторы БпЛА"
                 className="w-full object-cover"
-                style={{ height: 260, objectPosition: "center 40%", filter: "brightness(0.5) saturate(0.6) contrast(1.15)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(5,7,13,0.92) 0%, transparent 45%, rgba(5,7,13,0.75) 100%)" }} />
+                style={{ height: 260, objectPosition: "center 40%", filter: "brightness(0.85) saturate(0.95) contrast(1.05)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.92) 0%, transparent 45%, rgba(18,20,23,0.75) 100%)" }} />
               <div className="absolute inset-0 grid-cyber opacity-25" />
               <div className="absolute left-8 top-1/2 -translate-y-1/2">
                 <div className="font-stm text-[10px] tracking-[0.3em] mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>// ОПЕРАТОРЫ БпЛА</div>
@@ -1046,8 +1043,8 @@ export default function Index() {
             </div>
 
             <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={VAC_IMG} alt="Специалисты" className="w-full h-full object-cover" style={{ filter: "brightness(0.75) saturate(0.9)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.95) 0%, transparent 50%, rgba(2,8,24,0.9) 100%)" }} />
+              <img src={VAC_IMG} alt="Специалисты" className="w-full h-full object-cover" style={{ filter: "brightness(0.85) saturate(0.95)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.95) 0%, transparent 50%, rgba(18,20,23,0.9) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-8">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; НАБОР ОТКРЫТ · 2026</div>
@@ -1142,8 +1139,8 @@ export default function Index() {
             </p>
 
             <div className="relative w-full h-52 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={BEN_IMG} alt="Льготы и гарантии" className="w-full h-full object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.85) 100%)" }} />
+              <img src={BEN_IMG} alt="Льготы и гарантии" className="w-full h-full object-cover" style={{ filter: "brightness(0.85) saturate(0.95)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.97) 0%, transparent 55%, rgba(18,20,23,0.85) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-6">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; ГАРАНТИИ ГОСУДАРСТВА РФ</div>
@@ -1215,8 +1212,8 @@ export default function Index() {
             <h2 className="font-orb text-white uppercase leading-tight mb-8" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>Этапы поступления</h2>
 
             <div className="relative w-full h-48 mb-12 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 60%, rgba(2,8,24,0.85) 100%)" }} />
+              <img src={STEPS_IMG} alt="Этапы поступления" className="w-full h-full object-cover" style={{ filter: "brightness(0.85) saturate(0.95)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.97) 0%, transparent 60%, rgba(18,20,23,0.85) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; ОТ ЗАЯВКИ ДО ЗАЧИСЛЕНИЯ</div>
@@ -1300,8 +1297,8 @@ export default function Index() {
               {/* FAQ sidebar image */}
               <div className="hidden lg:block sticky top-20">
                 <div className="relative overflow-hidden" style={{ borderRadius: "3px", border: "1px solid rgba(255,255,255,0.15)" }}>
-                  <img src={FAQ_IMG} alt="FAQ" className="w-full h-72 object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(2,8,24,0.97) 100%)" }} />
+                  <img src={FAQ_IMG} alt="FAQ" className="w-full h-72 object-cover" style={{ filter: "brightness(0.85) saturate(0.95)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(18,20,23,0.97) 100%)" }} />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="font-stm text-[9px] tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>&gt; ОСТАЛИСЬ ВОПРОСЫ?</div>
                     <div className="font-orb text-white text-sm uppercase mb-3">Свяжитесь с нами напрямую</div>
@@ -1323,14 +1320,8 @@ export default function Index() {
       {/* ══ СРАВНЕНИЕ ═══════════════════════════════════ */}
       <Comparison />
 
-      {/* ══ КВИЗ ════════════════════════════════════════ */}
-      <div id="quiz"><Quiz /></div>
-
       {/* ══ ГЕОГРАФИЯ ═══════════════════════════════════ */}
       <LocationsBlock />
-
-      {/* ══ КИБЕР-КАРТА ═════════════════════════════════ */}
-      <CyberMap />
 
       {/* ══ ОДИН ДЕНЬ ═══════════════════════════════════ */}
       <Timeline />
@@ -1356,8 +1347,8 @@ export default function Index() {
             </p>
 
             <div className="relative w-full h-44 mb-10 overflow-hidden" style={{ borderRadius: "3px" }}>
-              <img src={CONTACTS_IMG} alt="Связаться с нами" className="w-full h-full object-cover" style={{ filter: "brightness(0.72) saturate(0.9)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(2,8,24,0.97) 0%, transparent 55%, rgba(2,8,24,0.9) 100%)" }} />
+              <img src={CONTACTS_IMG} alt="Связаться с нами" className="w-full h-full object-cover" style={{ filter: "brightness(0.85) saturate(0.95)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(18,20,23,0.97) 0%, transparent 55%, rgba(18,20,23,0.9) 100%)" }} />
               <div className="absolute inset-0 flex items-center px-10 gap-8">
                 <div>
                   <div className="font-stm text-xs tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>&gt; СВЯЗЬ 24/7</div>
