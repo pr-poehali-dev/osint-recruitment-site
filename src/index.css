@@ -2,24 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── PALETTE · тёмно-серебристая + оранжевый ── */
+/* ── PALETTE · тёмно-серебристая + оранжевый (осветлённая) ── */
 :root {
-  --bg: #121417;
-  --bg2: #181b1f;
-  --bg3: #1f2329;
-  --red: #e8772a;
-  --red2: #f59332;
-  --orange: #f59332;
-  --orange2: #ffb155;
-  --silver: #c8cdd4;
-  --silver2: #8b9099;
-  --green: #d4d8de;
-  --green2: #9aa0a8;
-  --white: #f2f4f7;
-  --dim: rgba(242, 244, 247, 0.55);
-  --dimmer: rgba(242, 244, 247, 0.3);
-  --border: rgba(200, 205, 212, 0.1);
-  --border2: rgba(200, 205, 212, 0.2);
+  --bg: #1c2026;
+  --bg2: #242931;
+  --bg3: #2e343d;
+  --red: #f4862f;
+  --red2: #ff9d3d;
+  --orange: #ff9d3d;
+  --orange2: #ffbe6b;
+  --silver: #dde1e7;
+  --silver2: #a6acb5;
+  --green: #e4e8ee;
+  --green2: #b0b6bf;
+  --white: #f7f9fc;
+  --dim: rgba(247, 249, 252, 0.7);
+  --dimmer: rgba(247, 249, 252, 0.45);
+  --border: rgba(210, 216, 224, 0.16);
+  --border2: rgba(210, 216, 224, 0.3);
 
   --background: 222 85% 4%;
   --foreground: 220 15% 94%;
@@ -298,10 +298,10 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.045) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(12px);
   overflow: hidden;
   transition:
@@ -1609,7 +1609,7 @@ img {
       rgba(245, 147, 50, 0.1),
       transparent 60%
     ),
-    linear-gradient(180deg, #14171b 0%, #181b20 55%, #121417 100%);
+    linear-gradient(180deg, #1e232a 0%, #242931 55%, #1a1e23 100%);
 }
 
 /* световые пятна */
