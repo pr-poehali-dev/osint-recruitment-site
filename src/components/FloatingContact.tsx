@@ -22,7 +22,7 @@ export default function FloatingContact() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-3">
+    <div className="fixed right-6 z-[90] flex flex-col items-end gap-3" style={{ bottom: 96 }}>
       {/* список контактов */}
       <div className={`flex flex-col items-end gap-3 transition-all duration-400 ${open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}`}>
         <button onClick={() => { window.dispatchEvent(new CustomEvent("open-callback")); setOpen(false); }}
