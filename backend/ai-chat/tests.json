@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "name": "CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Empty messages rejected",
+      "method": "POST",
+      "path": "/",
+      "body": { "messages": [] },
+      "expectedStatus": 400
+    },
+    {
+      "name": "Chat reply",
+      "method": "POST",
+      "path": "/",
+      "body": { "messages": [{ "role": "user", "content": "Привет! Какие есть льготы?" }] },
+      "expectedStatus": 200,
+      "expectedBody": { "reply": "string" },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
