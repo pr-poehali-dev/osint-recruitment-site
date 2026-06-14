@@ -34,7 +34,9 @@ def handler(event: dict, context) -> dict:
             'body': json.dumps({'error': 'Method not allowed'}),
         }
 
-    api_key = os.environ.get('OPENAI_API_KEY')
+    api_key = os.environ.get('AI_API_KEY') or os.environ.get('OPENAI_API_KEY')
+    base_url = (os.environ.get('AI_BASE_URL') or 'https://api.openai.com/v1').rstrip('/')
+    model = os.environ.get('AI_MODEL') or 'gpt-4o-mini'
     if not api_key:
         return {
             'statusCode': 500,
@@ -65,14 +67,14 @@ def handler(event: dict, context) -> dict:
     messages = [{'role': 'system', 'content': SYSTEM_PROMPT}] + clean_history
 
     payload = json.dumps({
-        'model': 'gpt-4o-mini',
+        'model': model,
         'messages': messages,
         'temperature': 0.6,
         'max_tokens': 500,
     }).encode('utf-8')
 
     req = urllib.request.Request(
-        'https://api.openai.com/v1/chat/completions',
+        f'{base_url}/chat/completions',
         data=payload,
         headers={
             'Authorization': f'Bearer {api_key}',
