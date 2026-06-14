@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Icon from "@/components/ui/icon";
 import FloatingContact from "@/components/FloatingContact";
-import AiChat from "@/components/AiChat";
 import UrgencyBar from "@/components/UrgencyBar";
 import IncomeCalculator from "@/components/IncomeCalculator";
 import LocationsBlock from "@/components/LocationsBlock";
@@ -420,7 +419,6 @@ export default function Index() {
       <LiveViewers />
       <CallbackModal />
       <FloatingContact />
-      <AiChat />
 
       {/* ══ NAV ═════════════════════════════════════════ */}
       <nav className="fixed top-0 inset-x-0 z-50 h-14 flex items-center"
