@@ -5,6 +5,18 @@ const AGENT_SRC =
 
 export default function AiAgent() {
   useEffect(() => {
+    if (!document.getElementById("tw-agent-style")) {
+      const style = document.createElement("style");
+      style.id = "tw-agent-style";
+      style.textContent = `
+        agent-chat-widget {
+          position: fixed !important;
+          z-index: 2147483000 !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     if (document.querySelector('script[data-tw-agent="1"]')) return;
     const script = document.createElement("script");
     script.src = AGENT_SRC;
